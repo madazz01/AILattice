@@ -348,9 +348,11 @@
     </div>
 
     <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;">
-      <a href="/submit" class="btn-primary">Get my free registry listing →</a>
+      <button class="btn-primary" onclick="downloadZip()" id="zipBtn">⬇ Download all files (.zip)</button>
+      <a href="/submit" class="btn-secondary">Get my free registry listing →</a>
       <a href="/validate" class="btn-secondary">Validate my site →</a>
     </div>
+    <p style="font-size:13px;color:var(--text-dim);margin-bottom:20px;">Upload the ZIP to your cPanel File Manager, extract into <code>public_html/</code> — done.</p>
     <p style="font-size:13px;color:var(--text-dim);">
       <a href="#" onclick="goBack();return false;" style="color:var(--text-dim);">← Start over with a different site</a>
     </p>
@@ -549,10 +551,34 @@ ${JSON.stringify(schema, null, 2)}
     });
   }
 
+  async function downloadZip() {
+    const btn = document.getElementById('zipBtn');
+    btn.textContent = 'Building ZIP…';
+    btn.disabled = true;
+    try {
+      const zip = new JSZip();
+      zip.file('llms.txt',       document.getElementById('f1').textContent);
+      zip.file('ai/index.md',    document.getElementById('f2').textContent);
+      zip.file('ai/sitemap.md',  document.getElementById('f3').textContent);
+      const blob = await zip.generateAsync({ type: 'blob' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'ailattice-files.zip';
+      a.click();
+      URL.revokeObjectURL(a.href);
+      btn.textContent = '⬇ Download all files (.zip)';
+    } catch(e) {
+      btn.textContent = 'Error — try copying files individually';
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
   function show(id, d) { const e = document.getElementById(id); if (e) e.style.display = d || 'block'; }
   function hide(id)    { const e = document.getElementById(id); if (e) e.style.display = 'none'; }
   function showErr(id, msg) { const e = document.getElementById(id); if (e) { e.textContent = msg; e.style.display = 'block'; } }
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
 </body>
 </html>
