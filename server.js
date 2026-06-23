@@ -19,6 +19,8 @@ try {
 const PORT = 3450;
 const ROOT = __dirname;
 
+const INDEXNOW_KEY = 'e7f3a2b9c1d4056f8a3e2b1d9c4f7062';
+
 const MIME = {
   '.html': 'text/html; charset=utf-8',
   '.md':   'text/plain; charset=utf-8',
@@ -394,11 +396,39 @@ function issueCert(site_url, score, email) {
   return cert;
 }
 
+// ── IndexNow ──────────────────────────────────────────────────────────────────
+
+function pingIndexNow(urlList) {
+  const body = JSON.stringify({
+    host:        'ailattice.io',
+    key:         INDEXNOW_KEY,
+    keyLocation: `https://ailattice.io/${INDEXNOW_KEY}.txt`,
+    urlList,
+  });
+  const req = https.request({
+    hostname: 'api.indexnow.org',
+    path:     '/indexnow',
+    method:   'POST',
+    headers:  { 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': Buffer.byteLength(body) },
+  }, (res) => {
+    console.log(`[ailattice-indexnow] ${res.statusCode} for ${urlList.join(', ')}`);
+    res.resume();
+  });
+  req.on('error', (e) => console.warn('[ailattice-indexnow] Error:', e.message));
+  req.end(body);
+}
+
 // ── HTTP server ───────────────────────────────────────────────────────────────
 
 http.createServer(async (req, res) => {
   const parsedUrl = new URL(req.url, 'http://localhost');
   const urlPath   = parsedUrl.pathname;
+
+  // IndexNow key verification file
+  if (urlPath === `/${INDEXNOW_KEY}.txt`) {
+    res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+    return res.end(INDEXNOW_KEY);
+  }
 
   // API: Paddle webhook — transaction.completed → issue cert
   if (urlPath === '/api/paddle/webhook' && req.method === 'POST') {
@@ -469,6 +499,7 @@ http.createServer(async (req, res) => {
       saveCerts(certs);
 
       enrollInRegistry(cert, { ...siteMeta, location: '' });
+      pingIndexNow([`https://ailattice.io/cert/${cert.cert_id}`, siteUrl]);
       console.log(`[ailattice-paddle] Cert issued: ${cert.cert_id} for ${siteUrl} (score: ${score})`);
     });
     return;
@@ -552,6 +583,7 @@ http.createServer(async (req, res) => {
         const entry = enrollInRegistry(cert, { name: siteName, description: siteDesc, location: '' });
         const snippet = buildSchemaSnippet(normalUrl, siteName, siteDesc);
 
+        pingIndexNow([`https://ailattice.io/cert/${cert.cert_id}`, normalUrl]);
         console.log(`[ailattice-submit] Free listing: ${cert.cert_id} for ${normalUrl} (score: ${result.score})`);
 
         res.writeHead(200, { 'Content-Type': 'application/json' });
