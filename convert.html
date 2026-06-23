@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generate Your AILattice Files — Free</title>
+  <meta name="description" content="Free tool: enter your site URL, we generate all four AILattice files filled with your details, ready to copy-paste. No payment needed.">
+  <link rel="alternate" type="text/markdown" href="/ai/">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #ffffff; --bg2: #f8fafc; --bg3: #f1f5f9;
+      --border: #e2e8f0; --border-hi: #cbd5e1;
+      --text: #475569; --text-dim: #94a3b8; --heading: #0f172a;
+      --green: #16a34a; --green-glow: rgba(22,163,74,0.08); --green-border: rgba(22,163,74,0.28);
+      --red: #dc2626; --red-glow: rgba(220,38,38,0.06); --red-border: rgba(220,38,38,0.22);
+      --yellow: #ca8a04; --yellow-glow: rgba(202,138,4,0.06); --yellow-border: rgba(202,138,4,0.25);
+      --mono: 'JetBrains Mono','Fira Code','Cascadia Code','SF Mono',Consolas,monospace;
+      --sans: -apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--green); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 18px 40px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); box-shadow: 0 1px 0 var(--border); z-index: 100; }
+    .logo { display: flex; align-items: center; gap: 9px; font-family: var(--mono); font-size: 15px; font-weight: 700; color: var(--heading); letter-spacing: -0.3px; text-decoration: none; }
+    .logo:hover { text-decoration: none; opacity: 0.88; }
+    .logo em { color: var(--green); font-style: normal; }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { color: var(--text-dim); font-size: 14px; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+    .nav-links a.active { color: var(--green); }
+    .nav-pill { font-family: var(--mono); font-size: 11px; background: var(--green-glow); border: 1px solid var(--green-border); color: var(--green); padding: 3px 10px; border-radius: 20px; letter-spacing: 0.5px; }
+
+    .prog-bar { display: flex; align-items: center; justify-content: center; gap: 0; padding: 18px 40px; border-bottom: 1px solid var(--border); background: var(--bg2); }
+    .prog-step { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-dim); }
+    .prog-step.active { color: var(--heading); font-weight: 600; }
+    .prog-step.done   { color: var(--green); }
+    .prog-num { width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--border-hi); display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; font-weight: 700; background: var(--bg3); color: var(--text-dim); flex-shrink: 0; }
+    .prog-step.active .prog-num { border-color: var(--green-border); background: var(--green-glow); color: var(--green); }
+    .prog-step.done   .prog-num { background: var(--green); border-color: var(--green); color: #fff; }
+    .prog-line { width: 48px; height: 1px; background: var(--border-hi); margin: 0 8px; flex-shrink: 0; }
+    .prog-line.done { background: var(--green); }
+
+    main { max-width: 700px; margin: 0 auto; padding: 52px 40px 80px; }
+
+    .phase { display: none; }
+    .phase.active { display: block; }
+
+    .phase-label { font-family: var(--mono); font-size: 11px; color: var(--green); letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 14px; }
+    h1 { font-size: clamp(26px, 4vw, 36px); font-weight: 800; color: var(--heading); letter-spacing: -0.8px; margin-bottom: 10px; line-height: 1.15; }
+    .phase-sub { font-size: 15px; color: var(--text); margin-bottom: 32px; line-height: 1.65; }
+
+    /* Free badge */
+    .free-badge { display: inline-flex; align-items: center; gap: 10px; background: var(--green-glow); border: 1px solid var(--green-border); border-radius: 8px; padding: 10px 18px; margin-bottom: 28px; }
+    .free-label { font-family: var(--mono); font-size: 20px; font-weight: 700; color: var(--green); }
+    .free-meta { font-size: 13px; color: var(--text); line-height: 1.4; }
+    .free-meta strong { color: var(--heading); display: block; font-size: 14px; }
+
+    /* Input zone */
+    .input-zone { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin-bottom: 24px; }
+    .input-zone-label { font-size: 13px; font-weight: 600; color: var(--heading); margin-bottom: 6px; }
+    .input-zone-sub { font-size: 12.5px; color: var(--text-dim); margin-bottom: 14px; }
+    .input-wrap { display: flex; gap: 0; margin-bottom: 8px; }
+    #urlInput { flex: 1; background: #fff; border: 1px solid var(--border-hi); border-right: none; border-radius: 8px 0 0 8px; color: var(--heading); font-family: var(--mono); font-size: 14px; padding: 13px 18px; outline: none; transition: border-color 0.15s; }
+    #urlInput:focus { border-color: var(--green); }
+    #urlInput::placeholder { color: var(--text-dim); }
+    #checkBtn { background: var(--heading); color: #fff; font-weight: 700; font-size: 14px; padding: 13px 22px; border: none; border-radius: 0 8px 8px 0; cursor: pointer; transition: opacity 0.15s; white-space: nowrap; }
+    #checkBtn:hover { opacity: 0.85; }
+    #checkBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .input-hint { font-size: 12.5px; color: var(--text-dim); }
+
+    .spinner-row { display: none; align-items: center; gap: 12px; padding: 14px 0 4px; color: var(--text-dim); font-size: 14px; }
+    .spinner { width: 16px; height: 16px; border: 2px solid var(--border-hi); border-top-color: var(--green); border-radius: 50%; animation: spin 0.8s linear infinite; flex-shrink: 0; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .or-divider { display: flex; align-items: center; gap: 12px; margin: 18px 0; }
+    .or-divider::before, .or-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .or-divider span { font-size: 12px; color: var(--text-dim); white-space: nowrap; }
+
+    /* Manual fields */
+    .form-group { margin-bottom: 18px; }
+    .form-group:last-child { margin-bottom: 0; }
+    label { display: block; font-size: 13px; font-weight: 600; color: var(--heading); margin-bottom: 6px; }
+    label .opt { font-weight: 400; color: var(--text-dim); }
+    input[type=text], input[type=url], textarea { width: 100%; background: #fff; border: 1px solid var(--border-hi); border-radius: 8px; color: var(--heading); font-family: var(--sans); font-size: 14px; padding: 11px 15px; outline: none; transition: border-color 0.15s; }
+    input[type=text]:focus, input[type=url]:focus, textarea:focus { border-color: var(--green); }
+    textarea { resize: vertical; min-height: 72px; line-height: 1.55; }
+
+    .err-box { display: none; background: var(--red-glow); border: 1px solid var(--red-border); color: var(--red); border-radius: 8px; padding: 12px 16px; font-size: 13.5px; margin-top: 12px; }
+
+    /* Includes list */
+    .includes-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+    .includes-list li { display: flex; gap: 12px; font-size: 14px; color: var(--text); align-items: flex-start; }
+    .includes-list li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+
+    .btn-primary { display: inline-block; background: var(--green); color: #fff; font-weight: 700; font-size: 15px; padding: 14px 32px; border-radius: 8px; border: none; cursor: pointer; transition: opacity 0.15s; font-family: var(--sans); white-space: nowrap; }
+    .btn-primary:hover { opacity: 0.88; text-decoration: none; }
+    .btn-secondary { display: inline-block; background: var(--bg2); color: var(--text); font-size: 14px; padding: 12px 22px; border-radius: 8px; border: 1px solid var(--border-hi); transition: border-color 0.15s, color 0.15s; white-space: nowrap; }
+    .btn-secondary:hover { border-color: var(--green); color: var(--green); text-decoration: none; }
+
+    /* ── Phase 2: generated files ── */
+    .site-summary { display: flex; align-items: center; gap: 16px; padding: 18px 20px; background: var(--green-glow); border: 1px solid var(--green-border); border-radius: 10px; margin-bottom: 28px; }
+    .site-summary-icon { width: 40px; height: 40px; background: var(--green); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .site-summary-name { font-size: 16px; font-weight: 700; color: var(--heading); }
+    .site-summary-url  { font-family: var(--mono); font-size: 12px; color: var(--text-dim); }
+
+    .file-block { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 14px; overflow: hidden; }
+    .file-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; border-bottom: 1px solid var(--border); background: var(--bg3); }
+    .file-path { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--green); }
+    .file-desc { font-size: 12px; color: var(--text-dim); }
+    .file-copy { background: none; border: 1px solid var(--border-hi); color: var(--text-dim); font-size: 11px; font-family: var(--mono); padding: 4px 12px; border-radius: 4px; cursor: pointer; transition: color 0.15s, border-color 0.15s; white-space: nowrap; }
+    .file-copy:hover { color: var(--green); border-color: var(--green-border); }
+    .file-content { padding: 18px; font-family: var(--mono); font-size: 12.5px; line-height: 1.8; color: var(--heading); white-space: pre; overflow-x: auto; background: #fafafa; border-radius: 0 0 12px 12px; max-height: 220px; overflow-y: auto; }
+
+    .html-tag-block { background: #0a0a0a; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 14px; overflow: hidden; }
+    .html-tag-block .file-header { background: #111; border-bottom-color: #242424; }
+    .html-tag-block .file-path { color: #86efac; }
+    .html-tag-block .file-desc { color: #5a5a5a; }
+    .html-tag-block .file-copy { border-color: #2e2e2e; color: #5a5a5a; }
+    .html-tag-block .file-copy:hover { color: #86efac; border-color: rgba(134,239,172,0.3); }
+    .html-tag-block .file-content { background: #0a0a0a; color: #86efac; }
+
+    .schema-block { background: #0a0a0a; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 24px; overflow: hidden; }
+    .schema-block .file-header { background: #111; border-bottom-color: #242424; }
+    .schema-block .file-path { color: #86efac; }
+    .schema-block .file-desc { color: #5a5a5a; }
+    .schema-block .file-copy { border-color: #2e2e2e; color: #5a5a5a; }
+    .schema-block .file-copy:hover { color: #86efac; border-color: rgba(134,239,172,0.3); }
+    .schema-block .file-content { background: #0a0a0a; color: #86efac; }
+
+    .next-steps { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 24px; }
+    .next-steps h3 { font-size: 16px; font-weight: 700; color: var(--heading); margin-bottom: 16px; }
+    .next-steps ol { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .next-steps li { display: flex; gap: 12px; font-size: 14px; color: var(--text); }
+    .step-dot { width: 22px; height: 22px; border-radius: 50%; background: var(--green-glow); border: 1px solid var(--green-border); color: var(--green); font-family: var(--mono); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    code { font-family: var(--mono); font-size: 12.5px; background: var(--bg3); color: var(--green); padding: 2px 6px; border-radius: 4px; }
+
+    /* Coffee / donate section */
+    .coffee-section { border-top: 1px solid var(--border); margin-top: 40px; padding-top: 40px; text-align: center; }
+    .coffee-icon { font-size: 36px; margin-bottom: 14px; }
+    .coffee-section h2 { font-size: clamp(20px, 3vw, 26px); font-weight: 800; color: var(--heading); letter-spacing: -0.5px; margin-bottom: 14px; }
+    .coffee-section p { font-size: 15px; color: var(--text); max-width: 520px; margin: 0 auto 10px; line-height: 1.65; }
+    .coffee-amounts { display: flex; justify-content: center; gap: 10px; margin: 24px 0 14px; flex-wrap: wrap; }
+    .coffee-btn { display: inline-flex; flex-direction: column; align-items: center; gap: 3px; padding: 14px 22px; border-radius: 10px; border: 1px solid var(--border-hi); background: var(--bg2); color: var(--heading); font-size: 20px; font-weight: 800; font-family: var(--mono); transition: all 0.15s; text-decoration: none; min-width: 72px; }
+    .coffee-btn span { font-size: 10px; font-weight: 400; color: var(--text-dim); font-family: var(--sans); }
+    .coffee-btn:hover { border-color: var(--green-border); background: var(--green-glow); color: var(--green); text-decoration: none; }
+    .coffee-btn.featured { background: var(--green-glow); border-color: var(--green-border); color: var(--green); }
+    .coffee-btn.featured:hover { background: var(--green); color: #fff; }
+    .coffee-btn.featured span { color: var(--green); }
+    .coffee-note { font-size: 13px; color: var(--text-dim); margin-top: 0 !important; }
+
+    footer { border-top: 1px solid var(--border); padding: 32px 40px; text-align: center; }
+    .footer-links { display: flex; gap: 24px; justify-content: center; margin-bottom: 12px; flex-wrap: wrap; }
+    .footer-links a { color: var(--text-dim); font-size: 14px; transition: color 0.15s; }
+    .footer-links a:hover { color: var(--text); text-decoration: none; }
+    .footer-copy { font-size: 12px; color: var(--text-dim); }
+
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .nav-links a:not(.nav-pill):not(.active) { display: none; }
+      main { padding: 36px 20px 60px; }
+      .prog-bar { padding: 14px 20px; }
+      .prog-line { width: 24px; }
+      footer { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">
+    <img src="/icon.svg" width="28" height="22" alt="AILattice" style="display:block">
+    AI<em>Lattice</em>™
+  </a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/submit">Submit free</a>
+    <a href="/validate">Validator</a>
+    <a href="https://www.paypal.com/donate?hosted_button_id=4FU5LYQTJZTVU" target="_blank" rel="noopener" style="display:flex;align-items:center;"><img src="https://www.paypalobjects.com/en_AU/i/btn/btn_donate_SM.gif" alt="Donate with PayPal" style="height:22px;display:block;"></a>
+    <span class="nav-pill">Free tool</span>
+  </div>
+</nav>
+
+<div class="prog-bar">
+  <div class="prog-step active" id="prog1">
+    <div class="prog-num" id="progn1">1</div>
+    <span>Your details</span>
+  </div>
+  <div class="prog-line" id="line1"></div>
+  <div class="prog-step" id="prog2">
+    <div class="prog-num" id="progn2">2</div>
+    <span>Your files</span>
+  </div>
+</div>
+
+<main>
+
+  <!-- ═══ PHASE 1 ═══ -->
+  <div class="phase active" id="phase1">
+    <div class="phase-label">Step 1 of 2 · Free</div>
+    <h1>Generate your AILattice files</h1>
+    <p class="phase-sub">Enter your URL and we'll pre-fill all four files with your site's real name and description. Copy, paste onto your server, done. No payment ever.</p>
+
+    <div class="free-badge">
+      <div class="free-label">FREE</div>
+      <div class="free-meta">
+        <strong>No payment · No account · No catch</strong>
+        The standard is open. The files are yours.
+      </div>
+    </div>
+
+    <div class="input-zone">
+      <div class="input-zone-label">Enter your website URL</div>
+      <div class="input-zone-sub">We'll scan it and pull your name and description automatically.</div>
+      <div class="input-wrap">
+        <input type="text" id="urlInput" placeholder="https://yoursite.com" autocomplete="off" spellcheck="false">
+        <button id="checkBtn">Scan →</button>
+      </div>
+      <p class="input-hint">We fetch public paths only — nothing stored.</p>
+      <div class="spinner-row" id="scanLoading">
+        <div class="spinner"></div>
+        <span>Scanning your site…</span>
+      </div>
+      <div class="err-box" id="scanError"></div>
+
+      <div class="or-divider"><span>or fill in manually</span></div>
+
+      <div class="form-group">
+        <label for="manualName">Site / business name</label>
+        <input type="text" id="manualName" placeholder="My Company">
+      </div>
+      <div class="form-group">
+        <label for="manualDesc">One-line description</label>
+        <textarea id="manualDesc" rows="2" placeholder="What your site does and who it's for"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="manualUrl">Site URL <span class="opt">(if not scanned above)</span></label>
+        <input type="url" id="manualUrl" placeholder="https://yoursite.com">
+      </div>
+    </div>
+
+    <div style="margin-bottom:28px;">
+      <h3 style="font-size:14px;font-weight:600;color:var(--heading);margin-bottom:14px;">What you'll get</h3>
+      <ul class="includes-list">
+        <li><code>/llms.txt</code> — AI discovery file, filled with your name and description</li>
+        <li><code>/ai/index.md</code> — Site overview entry point, ready to serve</li>
+        <li><code>/ai/sitemap.md</code> — AI-navigable sitemap skeleton</li>
+        <li>HTML <code>&lt;link&gt;</code> tag — add to your <code>&lt;head&gt;</code> to signal AI crawlers</li>
+        <li>Schema.org JSON-LD — for Google AI Overviews</li>
+        <li>Free listing in the AILattice Registry when you're done</li>
+      </ul>
+    </div>
+
+    <button class="btn-primary" id="generateBtn">Generate my files →</button>
+    <div class="err-box" id="generateError" style="margin-top:14px;"></div>
+  </div>
+
+  <!-- ═══ PHASE 2 ═══ -->
+  <div class="phase" id="phase2">
+    <div class="phase-label">Step 2 of 2 · Your files</div>
+    <h1>Your AILattice files are ready</h1>
+    <p class="phase-sub">Copy each file and create it on your server at the path shown. Then <a href="/submit">submit your site for a free registry listing →</a></p>
+
+    <div class="site-summary" id="siteSummary">
+      <div class="site-summary-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="site-summary-name" id="summaryName"></div>
+        <div class="site-summary-url" id="summaryUrl"></div>
+      </div>
+    </div>
+
+    <!-- File 1: /llms.txt -->
+    <div class="file-block">
+      <div class="file-header">
+        <div>
+          <div class="file-path">/llms.txt</div>
+          <div class="file-desc">Upload to your website root</div>
+        </div>
+        <button class="file-copy" onclick="copyFile('f1','btn1')" id="btn1">copy</button>
+      </div>
+      <div class="file-content" id="f1"></div>
+    </div>
+
+    <!-- File 2: /ai/index.md -->
+    <div class="file-block">
+      <div class="file-header">
+        <div>
+          <div class="file-path">/ai/index.md</div>
+          <div class="file-desc">Create the /ai/ folder and upload this</div>
+        </div>
+        <button class="file-copy" onclick="copyFile('f2','btn2')" id="btn2">copy</button>
+      </div>
+      <div class="file-content" id="f2"></div>
+    </div>
+
+    <!-- File 3: /ai/sitemap.md -->
+    <div class="file-block">
+      <div class="file-header">
+        <div>
+          <div class="file-path">/ai/sitemap.md</div>
+          <div class="file-desc">AI-navigable page index</div>
+        </div>
+        <button class="file-copy" onclick="copyFile('f3','btn3')" id="btn3">copy</button>
+      </div>
+      <div class="file-content" id="f3"></div>
+    </div>
+
+    <!-- File 4: HTML tag -->
+    <div class="html-tag-block">
+      <div class="file-header">
+        <div>
+          <div class="file-path">Add to your HTML &lt;head&gt;</div>
+          <div class="file-desc">Tells AI crawlers your AILattice layer exists</div>
+        </div>
+        <button class="file-copy" onclick="copyFile('f4','btn4')" id="btn4">copy</button>
+      </div>
+      <div class="file-content" id="f4"></div>
+    </div>
+
+    <!-- Schema.org JSON-LD -->
+    <div class="schema-block">
+      <div class="file-header">
+        <div>
+          <div class="file-path">Schema.org JSON-LD — also add to &lt;head&gt;</div>
+          <div class="file-desc">Helps Google AI Overviews cite your site correctly</div>
+        </div>
+        <button class="file-copy" onclick="copyFile('f5','btn5')" id="btn5">copy</button>
+      </div>
+      <div class="file-content" id="f5"></div>
+    </div>
+
+    <!-- Next steps -->
+    <div class="next-steps">
+      <h3>What to do next</h3>
+      <ol>
+        <li><div class="step-dot">1</div><span>Create a folder called <code>/ai/</code> on your server (public, web-accessible)</span></li>
+        <li><div class="step-dot">2</div><span>Upload <code>/llms.txt</code>, <code>/ai/index.md</code>, and <code>/ai/sitemap.md</code> — serve as plain text</span></li>
+        <li><div class="step-dot">3</div><span>Paste the <code>&lt;link&gt;</code> tag and Schema.org JSON-LD into your HTML <code>&lt;head&gt;</code></span></li>
+        <li><div class="step-dot">4</div><span>Visit <a href="/validate">our validator</a> to confirm everything is live — then <a href="/submit">submit for your free registry listing →</a></span></li>
+      </ol>
+    </div>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;">
+      <a href="/submit" class="btn-primary">Get my free registry listing →</a>
+      <a href="/validate" class="btn-secondary">Validate my site →</a>
+    </div>
+    <p style="font-size:13px;color:var(--text-dim);">
+      <a href="#" onclick="goBack();return false;" style="color:var(--text-dim);">← Start over with a different site</a>
+    </p>
+
+    <!-- ☕ Donate section -->
+    <div class="coffee-section">
+      <div class="coffee-icon">☕</div>
+      <h2>Built privately for the good of everyone</h2>
+      <p>This tool, the standard, and the registry are all free. We built AILattice because we believe the AI-readable web should be open — not owned by whoever pays the most.</p>
+      <p>If it saved you time, a coffee helps cover hosting and keeps it free for everyone else.</p>
+      <div id="donate-button-container" style="margin: 24px 0 10px;">
+        <div id="donate-button"></div>
+      </div>
+      <p class="coffee-note">Secure PayPal. Choose your own amount. No pressure — genuinely optional.</p>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/#spec">Spec</a>
+    <a href="/validate">Validator</a>
+    <a href="/submit">Submit free</a>
+    <a href="/registry">Registry</a>
+    <a href="https://github.com/madazz01/ailattice" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://www.paypal.com/donate?hosted_button_id=4FU5LYQTJZTVU" target="_blank" rel="noopener">☕ Support</a>
+  </div>
+  <div class="footer-copy">AILattice™ v1.0 · MIT Licence · Open standard · Intelli-Stasis</div>
+</footer>
+
+<script>
+  let siteData = { url: '', name: '', description: '' };
+
+  const qs = new URLSearchParams(location.search);
+  if (qs.get('url')) document.getElementById('urlInput').value = qs.get('url');
+
+  document.getElementById('urlInput').addEventListener('keydown', e => { if (e.key === 'Enter') scanUrl(); });
+  document.getElementById('checkBtn').addEventListener('click', scanUrl);
+  document.getElementById('generateBtn').addEventListener('click', generate);
+
+  async function scanUrl() {
+    const raw = document.getElementById('urlInput').value.trim();
+    if (!raw) return;
+    hide('scanError');
+    show('scanLoading', 'flex');
+    document.getElementById('checkBtn').disabled = true;
+
+    try {
+      const res  = await fetch('/api/validate?url=' + encodeURIComponent(raw));
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      const name = (data.meta?.name || '').trim();
+      const desc = (data.meta?.description || '').trim();
+      if (name) document.getElementById('manualName').value = name;
+      if (desc) document.getElementById('manualDesc').value = desc;
+      document.getElementById('manualUrl').value = data.url || raw;
+    } catch(e) {
+      showErr('scanError', 'Could not scan that URL — fill in your details below instead.');
+    } finally {
+      hide('scanLoading');
+      document.getElementById('checkBtn').disabled = false;
+    }
+  }
+
+  function generate() {
+    const urlInput  = document.getElementById('urlInput').value.trim();
+    const manualUrl = document.getElementById('manualUrl').value.trim();
+    const name      = document.getElementById('manualName').value.trim();
+    const desc      = document.getElementById('manualDesc').value.trim();
+    const rawUrl    = urlInput || manualUrl;
+
+    if (!name) { document.getElementById('manualName').focus(); showErr('generateError', 'Please enter your site name.'); return; }
+    if (!desc) { document.getElementById('manualDesc').focus(); showErr('generateError', 'Please enter a short description.'); return; }
+
+    let siteUrl = rawUrl || 'https://yoursite.com';
+    if (!siteUrl.match(/^https?:\/\//i)) siteUrl = 'https://' + siteUrl;
+    siteUrl = siteUrl.replace(/\/+$/, '');
+
+    siteData = { url: siteUrl, name, description: desc };
+    buildFiles(siteData);
+    showPhase(2);
+  }
+
+  function buildFiles({ url, name, description }) {
+    const today = new Date().toISOString().slice(0, 10);
+
+    document.getElementById('summaryName').textContent = name;
+    document.getElementById('summaryUrl').textContent  = url;
+
+    document.getElementById('f1').textContent =
+`# ${name} — llms.txt
+
+name: ${name}
+description: ${description}
+url: ${url}
+ai-entry: ${url}/ai/index.md
+
+## AI Navigation
+Start at /ai/index.md for a full overview.
+See /ai/sitemap.md for all navigable pages.
+
+## What we do
+${description}`;
+
+    document.getElementById('f2').textContent =
+`---
+title: ${name} — AI Overview
+description: ${description}
+last-updated: ${today}
+---
+
+# ${name}
+
+${description}
+
+## Pages
+- [Overview](/ai/index.md)
+- [Sitemap](/ai/sitemap.md)
+
+## Quick facts
+Visit ${url} for more information.`;
+
+    document.getElementById('f3').textContent =
+`---
+title: ${name} — AI Sitemap
+description: All AI-navigable pages for ${name}
+last-updated: ${today}
+---
+
+# ${name} — AI Sitemap
+
+## All pages
+- [Overview](/ai/index.md) — Main AI entry point and site summary
+- [Sitemap](/ai/sitemap.md) — This file
+
+## Add more pages
+Create additional .md files in /ai/ and list them here.`;
+
+    document.getElementById('f4').textContent =
+`<!-- Add this inside your HTML <head> tag -->
+<link rel="alternate" type="text/markdown" href="/ai/">`;
+
+    const schema = {
+      '@context': 'https://schema.org',
+      '@graph': [
+        { '@type': 'WebSite', '@id': url + '/#website', 'url': url, 'name': name },
+        { '@type': 'Organization', '@id': url + '/#organization', 'name': name, 'url': url, 'description': description }
+      ]
+    };
+    document.getElementById('f5').textContent =
+`<!-- Add this inside your HTML <head> tag -->
+<script type="application/ld+json">
+${JSON.stringify(schema, null, 2)}
+<\/script>`;
+  }
+
+  let donateRendered = false;
+
+  function showPhase(n) {
+    document.querySelectorAll('.phase').forEach((el, i) => el.classList.toggle('active', i + 1 === n));
+    for (let i = 1; i <= 2; i++) {
+      const s = document.getElementById('prog' + i);
+      const num = document.getElementById('progn' + i);
+      s.className = 'prog-step' + (i === n ? ' active' : i < n ? ' done' : '');
+      num.textContent = i < n ? '✓' : i;
+    }
+    document.getElementById('line1').classList.toggle('done', n > 1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (n === 2 && !donateRendered && typeof PayPal !== 'undefined') {
+      donateRendered = true;
+      PayPal.Donation.Button({
+        env: 'production',
+        hosted_button_id: '4FU5LYQTJZTVU',
+        image: {
+          src:   'https://www.paypalobjects.com/en_AU/i/btn/btn_donate_LG.gif',
+          alt:   'Donate with PayPal button',
+          title: 'PayPal - The safer, easier way to pay online!',
+        }
+      }).render('#donate-button');
+    }
+  }
+
+  function goBack() { showPhase(1); }
+
+  function copyFile(contentId, btnId) {
+    const text = document.getElementById(contentId).textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById(btnId);
+      btn.textContent = 'copied!';
+      setTimeout(() => { btn.textContent = 'copy'; }, 2000);
+    });
+  }
+
+  function show(id, d) { const e = document.getElementById(id); if (e) e.style.display = d || 'block'; }
+  function hide(id)    { const e = document.getElementById(id); if (e) e.style.display = 'none'; }
+  function showErr(id, msg) { const e = document.getElementById(id); if (e) { e.textContent = msg; e.style.display = 'block'; } }
+</script>
+<script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
+</body>
+</html>

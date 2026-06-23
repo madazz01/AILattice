@@ -1,0 +1,34 @@
+name: My Company
+description: One sentence about what you do and who you serve.
+url: https://mycompany.com
+ai-entry: https://mycompany.com/ai/index.md
+license: MIT
+ailattice-version: 1
+
+# My Company — llms.txt
+
+## What we do
+
+Brief description of your product or service. What problems you solve, who your customers are,
+and what makes you different. Write this for an AI that has never heard of you.
+Keep it factual. 2-4 sentences is ideal.
+
+## AI Navigation
+
+Start at /ai/index.md for a full overview of this site.
+See /ai/sitemap.md for a complete list of all AI-navigable pages.
+
+## Topics
+
+Replace with your actual topics — what category of business/service are you?
+Examples: technology, legal services, market intelligence, health, ecommerce
+
+## Location
+
+Replace with your actual location, or "Global" if you serve worldwide.
+
+## Links
+
+Human site:  https://mycompany.com
+AI entry:    https://mycompany.com/ai/index.md
+AI sitemap:  https://mycompany.com/ai/sitemap.md

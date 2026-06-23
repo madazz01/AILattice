@@ -1,0 +1,1720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AILattice™ — Make Your Website AI Ready</title>
+  <meta name="description" content="AI tools like ChatGPT now search the web. Most websites are invisible to them. AILattice adds a hidden layer that AI can read directly — get the AI Ready badge and show the world your site speaks their language.">
+  <link rel="alternate" type="text/markdown" href="/ai/">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #ffffff;
+      --bg2:          #f8fafc;
+      --bg3:          #f1f5f9;
+      --border:       #e2e8f0;
+      --border-hi:    #cbd5e1;
+      --text:         #475569;
+      --text-dim:     #94a3b8;
+      --heading:      #0f172a;
+      --green:        #16a34a;
+      --green-glow:   rgba(22, 163, 74, 0.08);
+      --green-border: rgba(22, 163, 74, 0.28);
+      --red:          #dc2626;
+      --red-glow:     rgba(220, 38, 38, 0.06);
+      --red-border:   rgba(220, 38, 38, 0.22);
+      --yellow:       #ca8a04;
+      --yellow-glow:  rgba(202, 138, 4, 0.06);
+      --yellow-border:rgba(202, 138, 4, 0.25);
+      --mono:         'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', Consolas, monospace;
+      --sans:         -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--green); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 40px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 1px 0 var(--border);
+      z-index: 100;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-family: var(--mono);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--heading);
+      letter-spacing: -0.3px;
+      text-decoration: none;
+    }
+    .logo:hover { text-decoration: none; opacity: 0.88; }
+    .logo em { color: var(--green); font-style: normal; }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { color: var(--text-dim); font-size: 14px; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+    .nav-links a.active { color: var(--green); }
+    .nav-pill {
+      font-family: var(--mono);
+      font-size: 11px;
+      background: var(--green-glow);
+      border: 1px solid var(--green-border);
+      color: var(--green);
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      padding: 96px 40px 80px;
+      text-align: center;
+      overflow: hidden;
+      background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%);
+    }
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(22,163,74,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(22,163,74,0.07) 1px, transparent 1px);
+      background-size: 56px 56px;
+      pointer-events: none;
+    }
+    .hero-grid::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 0%, transparent 40%, var(--bg) 100%);
+    }
+    .hero-label {
+      position: relative;
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      position: relative;
+      font-size: clamp(44px, 7vw, 72px);
+      font-weight: 800;
+      color: var(--heading);
+      letter-spacing: -2.5px;
+      line-height: 1.04;
+      margin-bottom: 22px;
+    }
+    .hero h1 em { color: var(--green); font-style: normal; }
+    .hero-sub {
+      position: relative;
+      font-size: 20px;
+      color: var(--text);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.6;
+      letter-spacing: -0.2px;
+    }
+
+    /* ── Check Zone ── */
+    .check-zone {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 56px 40px 60px;
+    }
+    .check-zone-inner {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .check-heading {
+      font-size: clamp(24px, 3.5vw, 34px);
+      font-weight: 800;
+      color: var(--heading);
+      letter-spacing: -0.6px;
+      margin-bottom: 8px;
+    }
+    .check-sub {
+      font-size: 15px;
+      color: var(--text-dim);
+      margin-bottom: 28px;
+    }
+
+    /* ── Input ── */
+    .input-wrap {
+      display: flex;
+      gap: 0;
+      margin-bottom: 10px;
+    }
+    #urlInput {
+      flex: 1;
+      background: var(--bg3);
+      border: 1px solid var(--border-hi);
+      border-right: none;
+      border-radius: 8px 0 0 8px;
+      color: var(--heading);
+      font-family: var(--mono);
+      font-size: 14px;
+      padding: 14px 18px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    #urlInput:focus { border-color: var(--green); }
+    #urlInput::placeholder { color: var(--text-dim); }
+    #checkBtn {
+      background: var(--green);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 14px 26px;
+      border: none;
+      border-radius: 0 8px 8px 0;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      white-space: nowrap;
+    }
+    #checkBtn:hover { opacity: 0.88; }
+    #checkBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .input-hint { font-size: 13px; color: var(--text-dim); }
+
+    /* ── Check list (same as validator page) ── */
+    .checks-label { font-family: var(--mono); font-size: 11px; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+    .check-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px; }
+    .check-item { display: flex; align-items: flex-start; gap: 14px; padding: 13px 16px; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; }
+    .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; margin-top: 1px; }
+    .check-icon.pass { background: var(--green-glow); color: var(--green); border: 1px solid var(--green-border); }
+    .check-icon.fail { background: var(--red-glow); color: var(--red); border: 1px solid var(--red-border); }
+    .check-body { flex: 1; }
+    .check-label { font-size: 13.5px; color: var(--heading); font-family: var(--mono); }
+    .check-detail { font-size: 12.5px; color: var(--text-dim); margin-top: 2px; }
+    .check-points { font-family: var(--mono); font-size: 12px; padding: 2px 8px; border-radius: 4px; flex-shrink: 0; align-self: flex-start; margin-top: 2px; }
+    .check-points.pass { background: var(--green-glow); color: var(--green); }
+    .check-points.fail { color: var(--text-dim); }
+
+    /* ── Loading ── */
+    #loading {
+      display: none;
+      align-items: center;
+      gap: 12px;
+      padding: 24px 0 8px;
+      color: var(--text-dim);
+      font-size: 14px;
+    }
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid var(--border-hi);
+      border-top-color: var(--green);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Error ── */
+    #errorMsg {
+      display: none;
+      background: var(--red-glow);
+      border: 1px solid var(--red-border);
+      color: var(--red);
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-size: 14px;
+      margin-top: 16px;
+    }
+
+    /* ── Results ── */
+    #results { display: none; margin-top: 32px; }
+
+    .score-header {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      padding: 24px 26px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+    .score-ring {
+      position: relative;
+      width: 76px; height: 76px;
+      flex-shrink: 0;
+    }
+    .score-ring svg { transform: rotate(-90deg); }
+    .score-ring .score-val {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--heading);
+    }
+    .score-info h3 { font-size: 18px; font-weight: 700; color: var(--heading); margin-bottom: 4px; }
+    .score-url { font-family: var(--mono); font-size: 12px; color: var(--text-dim); margin-bottom: 8px; word-break: break-all; }
+    .score-meta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .cert-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+      font-family: var(--mono);
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+    .cert-badge.certified   { background: var(--green-glow);  border: 1px solid var(--green-border);  color: var(--green); }
+    .cert-badge.not-cert    { background: var(--red-glow);    border: 1px solid var(--red-border);    color: var(--red); }
+    .cert-badge.partial     { background: var(--yellow-glow); border: 1px solid var(--yellow-border); color: var(--yellow); }
+    .cert-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+    .detail-link { font-size: 13px; color: var(--text-dim); transition: color 0.15s; }
+    .detail-link:hover { color: var(--green); }
+
+    /* ── CTA panels ── */
+    .cta-panel { margin-top: 6px; }
+
+    .cta-panel-certified {
+      padding: 26px 28px;
+      background: var(--green-glow);
+      border: 1px solid var(--green-border);
+      border-radius: 12px;
+    }
+    .cta-certified-body { margin-bottom: 20px; }
+    .cta-certified-body p { font-size: 15px; color: var(--text); line-height: 1.6; margin-bottom: 6px; }
+    .cta-certified-body strong { color: var(--green); }
+
+    .badge-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #0a0a0a;
+      border: 1px solid var(--green-border);
+      border-radius: 6px;
+      padding: 8px 14px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--heading);
+      margin-bottom: 14px;
+    }
+    .badge-live em { color: var(--green); font-style: normal; font-weight: 700; }
+    .badge-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: blink 2s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    .cert-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .embed-toggle {
+      font-size: 13px;
+      color: var(--text-dim);
+      cursor: pointer;
+      transition: color 0.15s;
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: var(--sans);
+    }
+    .embed-toggle:hover { color: var(--green); }
+
+    #embedBlock {
+      display: none;
+      margin-top: 16px;
+    }
+    .code-block {
+      background: #0a0a0a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 18px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: #86efac;
+      overflow-x: auto;
+      white-space: pre;
+      position: relative;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 10px; right: 10px;
+      background: var(--bg3);
+      border: 1px solid var(--border-hi);
+      color: var(--text-dim);
+      font-size: 11px;
+      font-family: var(--mono);
+      padding: 3px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .copy-btn:hover { color: var(--green); border-color: var(--green-border); }
+
+    /* Not certified two-path */
+    .cta-label {
+      font-size: 15px;
+      color: var(--heading);
+      font-weight: 600;
+      margin-bottom: 18px;
+      letter-spacing: -0.2px;
+    }
+    .cta-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 580px) { .cta-split { grid-template-columns: 1fr; } }
+    .cta-card {
+      background: var(--bg3);
+      border: 1px solid var(--border-hi);
+      border-radius: 10px;
+      padding: 24px;
+    }
+    .cta-card-primary {
+      background: var(--green-glow);
+      border-color: var(--green-border);
+    }
+    .cta-card-icon {
+      font-size: 20px;
+      margin-bottom: 12px;
+      line-height: 1;
+    }
+    .cta-card h3 { font-size: 16px; font-weight: 700; color: var(--heading); margin-bottom: 8px; letter-spacing: -0.3px; }
+    .cta-card p  { font-size: 13.5px; color: var(--text); line-height: 1.55; margin-bottom: 16px; }
+
+    /* ── Buttons ── */
+    .btn-p {
+      display: inline-block;
+      background: var(--green);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 11px 22px;
+      border-radius: 6px;
+      transition: opacity 0.15s;
+      white-space: nowrap;
+    }
+    .btn-p:hover { opacity: 0.88; text-decoration: none; }
+    .btn-s {
+      display: inline-block;
+      background: var(--bg2);
+      color: var(--text);
+      font-size: 14px;
+      padding: 11px 22px;
+      border-radius: 6px;
+      border: 1px solid var(--border-hi);
+      transition: border-color 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+    .btn-s:hover { border-color: var(--green); color: var(--green); text-decoration: none; }
+
+    /* Recheck */
+    #recheckBtn {
+      display: none;
+      margin-top: 20px;
+      background: transparent;
+      border: 1px solid var(--border-hi);
+      color: var(--text-dim);
+      font-size: 13px;
+      padding: 8px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    #recheckBtn:hover { border-color: var(--green); color: var(--green); }
+
+    /* ── Demo zone ── */
+    .demo-zone {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 64px 40px;
+    }
+    .demo-zone-inner {
+      max-width: 780px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .demo-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 14px;
+    }
+    .demo-heading {
+      font-size: clamp(24px, 3.5vw, 36px);
+      font-weight: 800;
+      color: var(--heading);
+      letter-spacing: -0.8px;
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+    .demo-sub {
+      font-size: 15px;
+      color: var(--text-dim);
+      margin-bottom: 36px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    @media (max-width: 640px) { .demo-grid { grid-template-columns: repeat(2, 1fr); } }
+    .demo-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 16px;
+      text-align: left;
+    }
+    .demo-card.pass {
+      background: var(--green-glow);
+      border-color: var(--green-border);
+    }
+    .demo-domain {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text);
+      font-weight: 600;
+      margin-bottom: 14px;
+      word-break: break-all;
+    }
+    .demo-card.pass .demo-domain { color: var(--green); }
+    .demo-score-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .demo-ring {
+      position: relative;
+      width: 48px; height: 48px;
+      flex-shrink: 0;
+    }
+    .demo-ring svg { transform: rotate(-90deg); }
+    .demo-ring-val {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-dim);
+    }
+    .demo-ring-val.green { color: var(--green); }
+    .demo-chip {
+      font-family: var(--mono);
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .demo-chip.fail { background: var(--red-glow); border: 1px solid var(--red-border); color: var(--red); }
+    .demo-chip.pass { background: var(--green-glow); border: 1px solid var(--green-border); color: var(--green); }
+    .demo-footer-note { font-size: 13px; color: var(--text-dim); }
+
+    /* ── Platform section ── */
+    .platform-zone {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      padding: 64px 40px;
+    }
+    .platform-zone-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .platform-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 14px;
+      text-align: center;
+    }
+    .platform-heading {
+      font-size: clamp(24px, 3.5vw, 34px);
+      font-weight: 800;
+      color: var(--heading);
+      letter-spacing: -0.6px;
+      margin-bottom: 10px;
+      text-align: center;
+      line-height: 1.2;
+    }
+    .platform-sub {
+      font-size: 15px;
+      color: var(--text-dim);
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    .platform-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    @media (max-width: 720px) { .platform-grid { grid-template-columns: 1fr; } }
+    .platform-card {
+      background: var(--bg3);
+      border: 1px solid var(--border-hi);
+      border-radius: 12px;
+      padding: 28px 26px;
+      position: relative;
+    }
+    .platform-card.featured {
+      background: var(--bg2);
+      border-color: var(--green-border);
+      box-shadow: 0 0 32px rgba(34,197,94,0.06);
+    }
+    .platform-card.featured::before {
+      content: 'Most popular';
+      position: absolute;
+      top: -1px; right: 20px;
+      background: var(--green);
+      color: #fff;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 3px 10px;
+      border-radius: 0 0 6px 6px;
+    }
+    .platform-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 16px;
+      font-weight: 900;
+      font-family: var(--mono);
+    }
+    .platform-icon.wp  { background: rgba(33,117,178,0.15); color: #2175b2; border: 1px solid rgba(33,117,178,0.25); }
+    .platform-icon.php { background: rgba(119,123,180,0.15); color: #9d9fe6; border: 1px solid rgba(119,123,180,0.25); }
+    .platform-icon.dev { background: var(--green-glow); color: var(--green); border: 1px solid var(--green-border); }
+    .platform-card h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--heading);
+      margin-bottom: 4px;
+      letter-spacing: -0.3px;
+    }
+    .platform-card .platform-who {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 20px;
+    }
+    .platform-steps {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+    .platform-steps li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: 13.5px;
+      color: var(--text);
+      line-height: 1.45;
+    }
+    .step-num {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: var(--bg3);
+      border: 1px solid var(--border-hi);
+      color: var(--text-dim);
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .featured .step-num {
+      background: var(--green-glow);
+      border-color: var(--green-border);
+      color: var(--green);
+    }
+    .platform-steps li.done .step-num {
+      background: var(--green);
+      border-color: var(--green);
+      color: #000;
+      content: '✓';
+    }
+    .platform-steps li.done .step-num::after { content: '✓'; font-size: 9px; }
+    .platform-steps li.done .step-num span { display: none; }
+    .platform-cta {
+      display: block;
+      text-align: center;
+      font-size: 13.5px;
+      font-weight: 600;
+      padding: 10px 16px;
+      border-radius: 7px;
+      transition: all 0.15s;
+    }
+    .platform-cta.primary {
+      background: var(--green);
+      color: #fff;
+    }
+    .platform-cta.primary:hover { opacity: 0.88; text-decoration: none; }
+    .platform-cta.secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border-hi);
+    }
+    .platform-cta.secondary:hover { border-color: var(--green); color: var(--green); text-decoration: none; }
+
+    /* ── Layout ── */
+    main {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 40px 100px;
+    }
+    section {
+      padding: 72px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    section:last-child { border-bottom: none; }
+
+    .sec-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--green);
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      color: var(--heading);
+      letter-spacing: -1px;
+      margin-bottom: 18px;
+      line-height: 1.15;
+    }
+    h3 {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--heading);
+      margin-bottom: 8px;
+    }
+    p { margin-bottom: 14px; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── Problem grid ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 28px;
+    }
+    @media (max-width: 560px) { .two-col { grid-template-columns: 1fr; } }
+    .card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px;
+    }
+    .card h3 {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .card.bad h3  { color: var(--red); }
+    .card.good h3 { color: var(--green); }
+    .card ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .card li { font-size: 13.5px; display: flex; gap: 10px; align-items: baseline; }
+    .card.bad  li::before { content: '✕'; color: var(--red);   flex-shrink: 0; font-size: 11px; }
+    .card.good li::before { content: '✓'; color: var(--green); flex-shrink: 0; font-size: 11px; }
+
+    /* ── Spec file block ── */
+    .spec-block {
+      background: #0a0a0a;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 26px 30px;
+      margin: 28px 0;
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 2.2;
+    }
+    .spec-block .path { color: #86efac; }
+    .spec-block .cmt  { color: var(--text-dim); }
+
+    .rules { display: flex; flex-direction: column; gap: 11px; margin-top: 24px; }
+    .rule  { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; }
+    .rule-dot {
+      width: 5px; height: 5px;
+      background: var(--green);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 9px;
+    }
+
+    pre {
+      background: #0a0a0a;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px 26px;
+      margin: 20px 0;
+      font-family: var(--mono);
+      font-size: 12.5px;
+      line-height: 1.9;
+      color: #86efac;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    .code-cmt { color: var(--text-dim); }
+
+    code {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      background: var(--bg3);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* ── Steps ── */
+    .steps { display: flex; flex-direction: column; gap: 20px; margin-top: 28px; }
+    .step  { display: flex; gap: 18px; align-items: flex-start; }
+    .step-n {
+      width: 30px; height: 30px;
+      background: var(--green-glow);
+      border: 1px solid var(--green-border);
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 7px;
+      flex-shrink: 0;
+    }
+    .step-body h3 { font-size: 15px; margin-bottom: 4px; }
+    .step-body p  { font-size: 14px; color: var(--text); margin-bottom: 0; }
+
+    /* ── Node 1 card ── */
+    .node-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green);
+      border-radius: 10px;
+      padding: 26px 28px;
+      margin-top: 28px;
+    }
+    .node-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--green);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .node-card h3 { font-size: 17px; margin-bottom: 6px; }
+    .node-desc { font-size: 13.5px; color: var(--text-dim); margin-bottom: 16px !important; }
+    .node-files { display: flex; flex-wrap: wrap; gap: 8px; }
+    .node-tag {
+      font-family: var(--mono);
+      font-size: 12px;
+      background: var(--bg3);
+      border: 1px solid var(--border-hi);
+      color: var(--text-dim);
+      padding: 4px 11px;
+      border-radius: 5px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .node-tag:hover { color: var(--green); border-color: var(--green-border); text-decoration: none; }
+
+    /* ── Vision callout ── */
+    .callout {
+      background: var(--green-glow);
+      border: 1px solid var(--green-border);
+      border-radius: 10px;
+      padding: 22px 26px;
+      margin-top: 24px;
+    }
+    .callout p { font-size: 15px; color: var(--heading); line-height: 1.65; margin-bottom: 0; }
+    .callout p em { color: var(--green); font-style: normal; font-weight: 600; }
+
+    /* ── Story hook ── */
+    .story-hook {
+      background: #f0fdf4;
+      border-top: 1px solid #bbf7d0;
+      border-bottom: 1px solid #bbf7d0;
+      padding: 56px 40px;
+    }
+    .story-hook-inner {
+      max-width: 740px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .story-lead {
+      font-size: clamp(19px, 2.5vw, 23px);
+      font-weight: 700;
+      color: #14532d;
+      line-height: 1.45;
+      margin-bottom: 14px;
+      letter-spacing: -0.3px;
+    }
+    .story-body {
+      font-size: 16px;
+      color: #166534;
+      line-height: 1.7;
+      margin-bottom: 0;
+    }
+
+    /* ── Explainer graphic ── */
+    .explainer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 52px 40px;
+    }
+    .explainer-label {
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 32px;
+    }
+    .explainer-inner {
+      max-width: 920px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+    .ex-step {
+      flex: 1;
+      max-width: 200px;
+      text-align: center;
+      padding: 26px 16px 22px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+    .ex-step.ex-highlight {
+      background: var(--green-glow);
+      border-color: var(--green-border);
+    }
+    .ex-icon-wrap {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+      color: var(--text-dim);
+    }
+    .ex-highlight .ex-icon-wrap {
+      background: rgba(22, 163, 74, 0.10);
+      border-color: var(--green-border);
+      color: var(--green);
+    }
+    .ex-badge-step .ex-icon-wrap {
+      background: var(--green-glow);
+      border-color: var(--green-border);
+      color: var(--green);
+    }
+    .ex-step-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--heading);
+      margin-bottom: 5px;
+      letter-spacing: -0.2px;
+    }
+    .ex-step-sub {
+      font-size: 12px;
+      color: var(--text-dim);
+      line-height: 1.45;
+    }
+    .ex-arrow {
+      color: var(--border-hi);
+      padding: 0 2px;
+      flex-shrink: 0;
+    }
+    @media (max-width: 700px) {
+      .explainer-inner { flex-direction: column; gap: 8px; }
+      .ex-step { max-width: 100%; width: 100%; display: flex; align-items: center; gap: 14px; text-align: left; padding: 18px 20px; }
+      .ex-icon-wrap { flex-shrink: 0; margin: 0; }
+      .ex-step-title, .ex-step-sub { margin: 0; }
+      .ex-arrow { transform: rotate(90deg); }
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 36px 40px;
+      text-align: center;
+    }
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      justify-content: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-links a { color: var(--text-dim); font-size: 14px; transition: color 0.15s; }
+    .footer-links a:hover { color: var(--text); text-decoration: none; }
+    .footer-copy { font-size: 13px; color: var(--text-dim); }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .nav-links a:not(.nav-pill):not(.active) { display: none; }
+      .hero { padding: 72px 20px 56px; }
+      .hero h1 { letter-spacing: -1.5px; }
+      .hero-sub { font-size: 17px; }
+      .check-zone { padding: 40px 20px 48px; }
+      .explainer { padding: 36px 20px; }
+      main { padding: 0 20px 72px; }
+      footer { padding: 28px 20px; }
+      .spec-block { padding: 18px 20px; font-size: 12px; }
+      .score-header { flex-direction: column; gap: 16px; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">
+    <img src="/icon.svg" width="28" height="22" alt="AILattice icon" style="display:block;">
+    AI<em>Lattice</em>™
+  </a>
+  <div class="nav-links">
+    <a href="/" class="active">Home</a>
+    <a href="/search">Search</a>
+    <a href="/registry">Registry</a>
+    <a href="/submit">Submit</a>
+    <a href="/validate">Validator</a>
+    <a href="#spec">Spec</a>
+    <a href="https://github.com/madazz01/ailattice" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://www.paypal.com/donate?hosted_button_id=4FU5LYQTJZTVU" target="_blank" rel="noopener" style="display:flex;align-items:center;"><img src="https://www.paypalobjects.com/en_AU/i/btn/btn_donate_SM.gif" alt="Donate with PayPal" style="height:22px;display:block;"></a>
+    <span class="nav-pill">v1 · MIT</span>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════ HERO -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-label">AI Search is Here · AILattice™ v1</div>
+  <h1>Is your website<br><em>visible to AI?</em></h1>
+  <p class="hero-sub">Four files, a few clicks, and your website speaks AI. ChatGPT, Perplexity and AI search now browse the web — most sites are invisible to them. AILattice fixes that.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════ STORY HOOK -->
+<div class="story-hook">
+  <div class="story-hook-inner">
+    <p class="story-lead">The future of web search is AI browsers, AI assistants and AI agents — and they don't read websites the way humans or current browsers do.</p>
+    <p class="story-body">We're building the new open standard that makes every website instantly readable and understood by AI. Four invisible text files — a table of contents and sitemap for your site, written in exactly the structure AI is looking for. No design changes. No new infrastructure. Just the signal AI needs to understand and reference you.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ EXPLAINER -->
+<div class="explainer">
+  <div class="explainer-label">How It Works</div>
+  <div class="explainer-inner">
+
+    <div class="ex-step">
+      <div class="ex-icon-wrap">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="3" width="20" height="16" rx="2"/><line x1="2" y1="7" x2="22" y2="7"/>
+          <circle cx="5.5" cy="5" r="0.8" fill="currentColor" stroke="none"/>
+          <circle cx="8" cy="5" r="0.8" fill="currentColor" stroke="none"/>
+        </svg>
+      </div>
+      <div class="ex-step-title">Your website</div>
+      <div class="ex-step-sub">Any platform. No changes to your existing design.</div>
+    </div>
+
+    <div class="ex-arrow">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/>
+      </svg>
+    </div>
+
+    <div class="ex-step ex-highlight">
+      <div class="ex-icon-wrap">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="12" y2="17"/>
+        </svg>
+      </div>
+      <div class="ex-step-title">Add 4 text files</div>
+      <div class="ex-step-sub">Hidden from visitors. AI tools find them automatically.</div>
+    </div>
+
+    <div class="ex-arrow">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/>
+      </svg>
+    </div>
+
+    <div class="ex-step">
+      <div class="ex-icon-wrap">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <circle cx="5" cy="7.5" r="1.5"/><circle cx="19" cy="7.5" r="1.5"/>
+          <circle cx="5" cy="16.5" r="1.5"/><circle cx="19" cy="16.5" r="1.5"/>
+          <line x1="6.4" y1="8.4" x2="10.5" y2="11"/><line x1="17.6" y1="8.4" x2="13.5" y2="11"/>
+          <line x1="6.4" y1="15.6" x2="10.5" y2="13"/><line x1="17.6" y1="15.6" x2="13.5" y2="13"/>
+        </svg>
+      </div>
+      <div class="ex-step-title">AI reads you directly</div>
+      <div class="ex-step-sub">ChatGPT, Perplexity, AI search — they all understand your site.</div>
+    </div>
+
+    <div class="ex-arrow">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/>
+      </svg>
+    </div>
+
+    <div class="ex-step ex-badge-step">
+      <div class="ex-icon-wrap">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2l2.4 4.9 5.6.8-4 3.9.9 5.5L12 14.8l-4.9 2.3.9-5.5-4-3.9 5.6-.8z"/>
+          <polyline points="9 12 11 14 15 10"/>
+        </svg>
+      </div>
+      <div class="ex-step-title">AI Ready badge</div>
+      <div class="ex-step-sub">One-time verification. Show the world your site speaks AI.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ CHECK ZONE -->
+<div class="check-zone">
+  <div class="check-zone-inner">
+    <div class="check-heading">Find out how AI sees your website</div>
+    <p class="check-sub">See exactly what AI tools can and can't understand about your site right now. Free, instant, no account needed.</p>
+
+    <div class="input-wrap">
+      <input type="text" id="urlInput" placeholder="https://yoursite.com" autocomplete="off" spellcheck="false">
+      <button id="checkBtn">Check →</button>
+    </div>
+    <p class="input-hint">We fetch your site's public paths — no data stored.</p>
+
+    <div id="loading">
+      <div class="spinner"></div>
+      <span>Checking <span id="loadingUrl"></span>…</span>
+    </div>
+
+    <div id="errorMsg"></div>
+
+    <div id="results">
+      <!-- Score summary -->
+      <div class="score-header">
+        <div class="score-ring">
+          <svg width="76" height="76" viewBox="0 0 76 76">
+            <circle cx="38" cy="38" r="30" fill="none" stroke="#e2e8f0" stroke-width="7"/>
+            <circle id="scoreArc" cx="38" cy="38" r="30" fill="none" stroke="#22c55e" stroke-width="7"
+              stroke-linecap="round" stroke-dasharray="188.5" stroke-dashoffset="188.5"/>
+          </svg>
+          <div class="score-val" id="scoreVal">0</div>
+        </div>
+        <div class="score-info">
+          <h3 id="scoreTitle">Checking…</h3>
+          <div class="score-url" id="scoreUrl"></div>
+          <div class="score-meta">
+            <span class="cert-badge" id="certBadge">
+              <span class="cert-dot"></span>
+              <span id="certLabel"></span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Full check list -->
+      <p class="checks-label" style="margin:24px 0 12px;">Checks</p>
+      <div class="check-list" id="checkList"></div>
+
+      <!-- CTA: Certified -->
+      <div id="ctaCertified" class="cta-panel cta-panel-certified" style="display:none">
+        <div class="cta-certified-body">
+          <p><strong>Your site is AI ready.</strong> Submit it to the public AILattice Registry for free — no payment needed. The registry is open to any site that implements the standard correctly.</p>
+          <div class="badge-live">
+            <img src="/icon.svg" width="22" height="18" alt="AILattice" style="display:block;">
+            <em>AI Ready</em> · AILattice™
+          </div>
+        </div>
+        <div class="cert-actions">
+          <a id="submitFreeBtn" href="/submit" class="btn-p">Get your free registry listing →</a>
+          <a href="/convert" style="font-size:13px;color:var(--text-dim);transition:color 0.15s;" onmouseover="this.style.color='var(--green)'" onmouseout="this.style.color='var(--text-dim)'">or use our converter for Schema.org + WordPress plugin →</a>
+          <button class="embed-toggle" onclick="toggleEmbed()">copy badge embed ↓</button>
+        </div>
+        <div id="embedBlock">
+          <div style="position:relative;margin-top:16px;">
+            <div class="code-block" id="badgeCode"></div>
+            <button class="copy-btn" onclick="copyBadge()">copy</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA: Not certified / partial — two paths -->
+      <div id="ctaNotCertified" class="cta-panel" style="display:none">
+        <div class="cta-label" id="ctaLabel">Your site needs the AILattice files. How would you like to proceed?</div>
+        <div class="cta-split">
+          <div class="cta-card cta-card-primary">
+            <div class="cta-card-icon">⚡</div>
+            <h3>Generate my files — free</h3>
+            <p>We scan your site and generate all four AILattice files filled with your real details. Copy, paste, done in minutes. No tech skills needed.</p>
+            <a href="/convert" class="btn-p">Generate my files free →</a>
+          </div>
+          <div class="cta-card">
+            <div class="cta-card-icon">{}</div>
+            <h3>I'll do it myself — free</h3>
+            <p>Read the spec and create the four text files yourself. MIT licensed, full control. When you're done, submit your site to the registry for free.</p>
+            <a href="#implement" class="btn-s">Show me how ↓</a>
+            <div style="margin-top:12px;font-size:13px;color:var(--text-dim);">When done: <a href="/submit" style="color:var(--green);">submit for free →</a></div>
+          </div>
+        </div>
+      </div>
+
+      <button id="recheckBtn" onclick="runCheck()">↻ Check again</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ PLATFORMS -->
+<div class="platform-zone">
+  <div class="platform-zone-inner">
+    <div class="platform-eyebrow">Zero Coding Required</div>
+    <h2 class="platform-heading">Works with every website platform</h2>
+    <p class="platform-sub">Pick the method that matches your setup. All paths are free — the files are MIT licensed and open.</p>
+
+    <div class="platform-grid">
+
+      <!-- WordPress -->
+      <div class="platform-card featured">
+        <div class="platform-icon wp">W</div>
+        <h3>WordPress Plugin</h3>
+        <p class="platform-who">Wix, WordPress, any CMS — if your host uses cPanel</p>
+        <ul class="platform-steps">
+          <li>
+            <div class="step-num"><span>1</span></div>
+            <span>Go to <strong>Plugins → Add New → Upload Plugin</strong> in your WordPress dashboard</span>
+          </li>
+          <li>
+            <div class="step-num"><span>2</span></div>
+            <span>Upload <code>ailattice.zip</code> and click <strong>Install Now</strong></span>
+          </li>
+          <li>
+            <div class="step-num"><span>3</span></div>
+            <span>Go to <strong>Settings → AILattice™</strong> and paste your certificate ID</span>
+          </li>
+          <li class="done">
+            <div class="step-num"><span>✓</span></div>
+            <span style="color:var(--green);font-weight:600;">Your site is AI-ready</span>
+          </li>
+        </ul>
+        <a href="/convert" class="platform-cta primary">Generate my files free →</a>
+      </div>
+
+      <!-- PHP installer -->
+      <div class="platform-card">
+        <div class="platform-icon php">PHP</div>
+        <h3>PHP Installer</h3>
+        <p class="platform-who">Any PHP hosting — Squarespace, GoDaddy, SiteGround</p>
+        <ul class="platform-steps">
+          <li>
+            <div class="step-num"><span>1</span></div>
+            <span>Download <code>ailattice-install.php</code></span>
+          </li>
+          <li>
+            <div class="step-num"><span>2</span></div>
+            <span>Upload it to your <strong>website root</strong> using cPanel File Manager or FTP</span>
+          </li>
+          <li>
+            <div class="step-num"><span>3</span></div>
+            <span>Visit <code>yoursite.com/ailattice-install.php</code> in your browser</span>
+          </li>
+          <li>
+            <div class="step-num"><span>4</span></div>
+            <span>Enter your certificate ID — files are created and the installer deletes itself</span>
+          </li>
+        </ul>
+        <a href="/download/ailattice-install.php" class="platform-cta secondary">Download PHP installer →</a>
+      </div>
+
+      <!-- Manual / Dev -->
+      <div class="platform-card">
+        <div class="platform-icon dev">&lt;/&gt;</div>
+        <h3>Manual / Developer</h3>
+        <p class="platform-who">Static sites, custom stacks, or full control</p>
+        <ul class="platform-steps">
+          <li>
+            <div class="step-num"><span>1</span></div>
+            <span>Create <code>llms.txt</code> in your root with the required fields</span>
+          </li>
+          <li>
+            <div class="step-num"><span>2</span></div>
+            <span>Create <code>/ai/index.md</code> and <code>/ai/sitemap.md</code> with frontmatter</span>
+          </li>
+          <li>
+            <div class="step-num"><span>3</span></div>
+            <span>Add content pages under <code>/ai/</code> in plain markdown</span>
+          </li>
+          <li>
+            <div class="step-num"><span>4</span></div>
+            <span>Add the <code>&lt;link rel="alternate"&gt;</code> tag to your HTML head</span>
+          </li>
+        </ul>
+        <a href="#spec" class="platform-cta secondary">Read the spec ↓</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ DEMO -->
+<div class="demo-zone">
+  <div class="demo-zone-inner">
+    <div class="demo-eyebrow">The Opportunity</div>
+    <h2 class="demo-heading">Not even the world's biggest sites are AI ready</h2>
+    <p class="demo-sub">The standard is new. Every site that moves first gets a head start that compounds.</p>
+
+    <div class="demo-grid">
+      <!-- google.com -->
+      <div class="demo-card">
+        <div class="demo-domain">google.com</div>
+        <div class="demo-score-row">
+          <div class="demo-ring">
+            <svg width="48" height="48" viewBox="0 0 48 48">
+              <circle cx="24" cy="24" r="18" fill="none" stroke="#e2e8f0" stroke-width="5"/>
+            </svg>
+            <div class="demo-ring-val">0</div>
+          </div>
+          <span class="demo-chip fail">Not AI ready</span>
+        </div>
+      </div>
+      <!-- amazon.com -->
+      <div class="demo-card">
+        <div class="demo-domain">amazon.com</div>
+        <div class="demo-score-row">
+          <div class="demo-ring">
+            <svg width="48" height="48" viewBox="0 0 48 48">
+              <circle cx="24" cy="24" r="18" fill="none" stroke="#e2e8f0" stroke-width="5"/>
+            </svg>
+            <div class="demo-ring-val">0</div>
+          </div>
+          <span class="demo-chip fail">Not AI ready</span>
+        </div>
+      </div>
+      <!-- microsoft.com -->
+      <div class="demo-card">
+        <div class="demo-domain">microsoft.com</div>
+        <div class="demo-score-row">
+          <div class="demo-ring">
+            <svg width="48" height="48" viewBox="0 0 48 48">
+              <circle cx="24" cy="24" r="18" fill="none" stroke="#e2e8f0" stroke-width="5"/>
+            </svg>
+            <div class="demo-ring-val">0</div>
+          </div>
+          <span class="demo-chip fail">Not AI ready</span>
+        </div>
+      </div>
+      <!-- intellistasis.com — the certified one -->
+      <div class="demo-card pass">
+        <div class="demo-domain">intellistasis.com</div>
+        <div class="demo-score-row">
+          <div class="demo-ring">
+            <svg width="48" height="48" viewBox="0 0 48 48">
+              <circle cx="24" cy="24" r="18" fill="none" stroke="rgba(22,163,74,0.2)" stroke-width="5"/>
+              <circle cx="24" cy="24" r="18" fill="none" stroke="#16a34a" stroke-width="5"
+                stroke-linecap="round" stroke-dasharray="113.1" stroke-dashoffset="0"/>
+            </svg>
+            <div class="demo-ring-val green">100</div>
+          </div>
+          <span class="demo-chip pass">✓ AI Ready</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="demo-footer-note">
+      Scores are live — check any site above using the validator.
+      <a href="/validate" style="color:var(--green);margin-left:6px;">Run your own →</a>
+    </p>
+  </div>
+</div>
+
+<main>
+
+  <!-- ═══════════════════════════════════════════ PROBLEM -->
+  <section id="problem">
+    <div class="sec-label">Why It Matters</div>
+    <h2>When someone asks AI about<br>your business, what does it say?</h2>
+    <p>
+      AI tools like ChatGPT, Perplexity, and Google's AI search now browse the web to answer questions.
+      When someone asks about your business, your product, or your services — they're looking you up.
+    </p>
+    <p>
+      The problem: most websites were built for human eyes. AI reads them like a robot trying to understand
+      a newspaper through a window — it gets some of it, guesses the rest, and often gets it wrong.
+      AILattice adds a clean, hidden layer that AI reads directly. Think of it like the HTTPS padlock —
+      invisible to most visitors, but it signals something important. The AI Ready badge tells the world
+      your site speaks AI.
+    </p>
+
+    <div class="two-col">
+      <div class="card bad">
+        <h3>Without AILattice</h3>
+        <ul>
+          <li>AI gives vague or incorrect answers about you</li>
+          <li>Outdated information — AI is reading old cached pages</li>
+          <li>Your competitors who are AI ready get recommended instead</li>
+          <li>You have no control over how AI describes your business</li>
+          <li>Every AI tool has to guess at your site's structure</li>
+        </ul>
+      </div>
+      <div class="card good">
+        <h3>With AILattice</h3>
+        <ul>
+          <li>AI reads exactly what you want it to know about you</li>
+          <li>Your latest content, prices, and details — always accurate</li>
+          <li>AI tools can navigate and reference your site confidently</li>
+          <li>You control the story AI tells about your business</li>
+          <li>The AI Ready badge shows visitors your site is future-ready</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ SPEC -->
+  <section id="spec">
+    <div class="sec-label">How It Works</div>
+    <h2>Four files. One afternoon.<br>AI ready for good.</h2>
+    <p>AILattice adds four plain text files to your website. They're invisible to human visitors but AI tools read them directly — no scraping, no guessing. Your site speaks their language.</p>
+
+    <div class="spec-block">
+      <div><span class="path">/llms.txt</span>         <span class="cmt">  ← who you are, what you do, where to start</span></div>
+      <div><span class="path">/ai/index.md</span>      <span class="cmt">  ← site overview and entry point</span></div>
+      <div><span class="path">/ai/sitemap.md</span>    <span class="cmt">  ← all AI-navigable pages, one per line</span></div>
+      <div><span class="path">/ai/*.md</span>          <span class="cmt">  ← your content in plain markdown</span></div>
+    </div>
+
+    <div class="rules">
+      <div class="rule"><div class="rule-dot"></div><span>Plain text or Markdown only — no HTML, no CSS, no images.</span></div>
+      <div class="rule"><div class="rule-dot"></div><span>Standard markdown links between pages. AI follows them natively.</span></div>
+      <div class="rule"><div class="rule-dot"></div><span>Required frontmatter on every page: <code>title</code>, <code>description</code>, <code>last-updated</code>.</span></div>
+      <div class="rule"><div class="rule-dot"></div><span>MIT licence. Use freely. No attribution required.</span></div>
+    </div>
+
+    <h3 style="margin-top:40px;">Example: /llms.txt</h3>
+    <pre><span class="code-cmt"># My Company — llms.txt</span>
+
+name: My Company
+description: One sentence about what you do.
+url: https://mycompany.com
+ai-entry: https://mycompany.com/ai/index.md
+
+<span class="code-cmt">## AI Navigation</span>
+Start at /ai/index.md for a full overview.
+See /ai/sitemap.md for all navigable pages.
+
+<span class="code-cmt">## What we do</span>
+Brief description of your product or service.
+Who you serve. What problems you solve.</pre>
+
+    <h3>Example: /ai/index.md</h3>
+    <pre>---
+title: My Company — AI Overview
+description: What My Company is and how to navigate it.
+last-updated: 2026-06-19
+---
+
+<span class="code-cmt"># My Company</span>
+
+One paragraph about what you do.
+
+<span class="code-cmt">## Pages</span>
+- [Overview](/ai/index.md)
+- [Products](/ai/products.md)
+- [API Reference](/ai/api.md)
+- [Pricing](/ai/pricing.md)
+
+<span class="code-cmt">## Quick facts</span>
+Founded: 2022 · HQ: San Francisco
+Contact: hello@mycompany.com</pre>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ IMPLEMENT -->
+  <section id="implement">
+    <div class="sec-label">Implementation</div>
+    <h2>Add AILattice to your site</h2>
+    <p>Works with any stack. Static files — no new infrastructure needed.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">1</div>
+        <div class="step-body">
+          <h3>Create <code>/llms.txt</code> at your root</h3>
+          <p>Who you are, what you do, a link to <code>/ai/index.md</code>. This is the discovery file — AI agents check here first. Keep it short and factual.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div class="step-body">
+          <h3>Create <code>/ai/index.md</code></h3>
+          <p>Site overview with links to all your AI pages. Use standard markdown links — AI follows them exactly as browsers follow HTML links.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div class="step-body">
+          <h3>Create <code>/ai/sitemap.md</code></h3>
+          <p>A flat list of every page in your <code>/ai/</code> layer with one-line descriptions. Lets agents map your full structure in one read.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">4</div>
+        <div class="step-body">
+          <h3>Add content pages to <code>/ai/</code></h3>
+          <p>Convert your key pages — docs, API reference, pricing, about — to clean markdown. Add required frontmatter. Serve as <code>text/plain</code>.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">5</div>
+        <div class="step-body">
+          <h3>Signal your AI layer in HTML</h3>
+          <p>Add <code>&lt;link rel="alternate" type="text/markdown" href="/ai/"&gt;</code> to your page <code>&lt;head&gt;</code>. Tells crawlers and agents your AILattice layer exists.</p>
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top:32px;font-size:14px;color:var(--text-dim);">
+      Don't want to write the files yourself? <a href="/convert">We'll generate them with your details, ready to copy-paste — free →</a>
+    </p>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ NODE 1 -->
+  <section id="node1">
+    <div class="sec-label">Reference Implementation</div>
+    <h2>Node 1 of the AI Internet</h2>
+    <p>
+      AILattice was developed by <a href="https://intellistasis.com" target="_blank" rel="noopener">Intelli-Stasis</a> —
+      the first site to implement the full standard. Their AI layer is live and serves as the
+      canonical example of what compliant implementation looks like.
+    </p>
+
+    <div class="node-card">
+      <div class="node-label">Node 1 · Live since 2026-06-18 · Score 100/100</div>
+      <h3>intellistasis.com</h3>
+      <p class="node-desc">Global market intelligence infrastructure · Full AILattice compliance</p>
+      <div class="node-files">
+        <a href="https://intellistasis.com/llms.txt"      class="node-tag" target="_blank" rel="noopener">/llms.txt</a>
+        <a href="https://intellistasis.com/ai/"           class="node-tag" target="_blank" rel="noopener">/ai/index.md</a>
+        <a href="https://intellistasis.com/ai/api.md"     class="node-tag" target="_blank" rel="noopener">/ai/api.md</a>
+        <a href="https://intellistasis.com/ai/markets.md" class="node-tag" target="_blank" rel="noopener">/ai/markets.md</a>
+        <a href="https://intellistasis.com/ai/examples.md"class="node-tag" target="_blank" rel="noopener">/ai/examples.md</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ VISION -->
+  <section id="vision">
+    <div class="sec-label">The Bigger Picture</div>
+    <h2>The web is being rebuilt<br>for AI. Get ahead of it.</h2>
+    <p>
+      Google changed everything when it started indexing the web. Sites that optimised for search
+      got found. Sites that didn't got left behind. AI search is the same shift — just faster.
+    </p>
+    <p>
+      AILattice is the open standard for AI-readable websites. Every site that adds it becomes
+      part of a growing network that AI tools can navigate with confidence. The badge is your signal
+      that you moved first — the same way having HTTPS before everyone else used to mean something.
+    </p>
+
+    <div class="callout">
+      <p>
+        <em>The standard is free. The registry is free. The listing is free.</em> Implement the files yourself and <a href="/submit">submit your site for free</a> — no payment, ever. The optional converter tool on our <a href="/convert">convert page</a> does the file generation work for you, and that's all the money is for. Nothing else.
+        Every listed site joins the <a href="/registry">AILattice Registry</a> — a public, AI-queryable catalog organised by topic and location. Organic ranking only. No paid placement. Ever.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="#spec">Spec</a>
+    <a href="#implement">Implement</a>
+    <a href="/validate">Validator</a>
+    <a href="/submit">Submit free</a>
+    <a href="/registry">Registry</a>
+    <a href="/ai/">For AI</a>
+    <a href="https://github.com/madazz01/ailattice" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://intellistasis.com" target="_blank" rel="noopener">Intelli-Stasis</a>
+    <a href="https://www.paypal.com/donate?hosted_button_id=4FU5LYQTJZTVU" target="_blank" rel="noopener">☕ Support</a>
+  </div>
+  <div class="footer-copy">AILattice™ v1.0 · MIT Licence · Open standard · Intelli-Stasis</div>
+</footer>
+
+<script>
+  const urlInput  = document.getElementById('urlInput');
+  const checkBtn  = document.getElementById('checkBtn');
+  const loading   = document.getElementById('loading');
+  const loadingUrl= document.getElementById('loadingUrl');
+  const errorMsg  = document.getElementById('errorMsg');
+  const results   = document.getElementById('results');
+  const recheckBtn= document.getElementById('recheckBtn');
+
+  // Pre-fill from query string
+  const qs = new URLSearchParams(location.search);
+  if (qs.get('url')) { urlInput.value = qs.get('url'); runCheck(); }
+
+  urlInput.addEventListener('keydown', e => { if (e.key === 'Enter') runCheck(); });
+  checkBtn.addEventListener('click', runCheck);
+
+  async function runCheck() {
+    const raw = urlInput.value.trim();
+    if (!raw) { urlInput.focus(); return; }
+
+    errorMsg.style.display  = 'none';
+    results.style.display   = 'none';
+    recheckBtn.style.display= 'none';
+    loading.style.display   = 'flex';
+    checkBtn.disabled = true;
+    loadingUrl.textContent  = raw;
+
+    try {
+      const res  = await fetch('/api/validate?url=' + encodeURIComponent(raw));
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      renderResults(data);
+    } catch(e) {
+      errorMsg.textContent   = e.message || 'Failed to check site. Make sure the URL is correct and publicly reachable.';
+      errorMsg.style.display = 'block';
+    } finally {
+      loading.style.display = 'none';
+      checkBtn.disabled = false;
+    }
+  }
+
+  function renderResults(data) {
+    const { url, score, certified, checks } = data;
+
+    // Score ring
+    const circ   = 2 * Math.PI * 30;
+    const arc    = document.getElementById('scoreArc');
+    const offset = circ - (score / 100) * circ;
+    arc.style.strokeDashoffset = offset;
+    arc.style.stroke = score >= 70 ? '#16a34a' : score >= 40 ? '#ca8a04' : '#dc2626';
+    document.getElementById('scoreVal').textContent = score;
+
+    // Title + URL
+    const title = score >= 70 ? 'AI Ready ✓' : score >= 40 ? 'Almost AI Ready' : 'Not AI Ready';
+    document.getElementById('scoreTitle').textContent = title;
+    document.getElementById('scoreUrl').textContent   = url;
+
+    // Badge chip
+    const cb = document.getElementById('certBadge');
+    cb.className = 'cert-badge ' + (score >= 70 ? 'certified' : score >= 40 ? 'partial' : 'not-cert');
+    document.getElementById('certLabel').textContent =
+      score >= 70 ? 'AI Ready · ' + score + '/100'
+      : score >= 40 ? 'Partially ready · ' + score + '/100'
+      : 'Not AI ready · ' + score + '/100';
+
+    // Check list
+    const list = document.getElementById('checkList');
+    list.innerHTML = '';
+    for (const c of checks) {
+      const item = document.createElement('div');
+      item.className = 'check-item';
+      item.innerHTML = `
+        <div class="check-icon ${c.ok ? 'pass' : 'fail'}">${c.ok ? '✓' : '✕'}</div>
+        <div class="check-body">
+          <div class="check-label">${c.label}</div>
+          ${c.detail ? `<div class="check-detail">${c.detail}</div>` : ''}
+        </div>
+        <div class="check-points ${c.ok ? 'pass' : 'fail'}">+${c.points}/${c.max}</div>
+      `;
+      list.appendChild(item);
+    }
+
+    // CTA panels
+    const certDiv     = document.getElementById('ctaCertified');
+    const notCertDiv  = document.getElementById('ctaNotCertified');
+    const ctaLabel    = document.getElementById('ctaLabel');
+
+    if (certified) {
+      // Certified: show submit free CTA + badge embed
+      const code = `<a href="https://ailattice.io" target="_blank" rel="noopener"\n   style="display:inline-flex;align-items:center;gap:9px;background:#131313;\n          border:1px solid rgba(34,197,94,0.3);border-radius:6px;\n          padding:8px 14px;font-family:monospace;font-size:12px;\n          color:#f0f0f0;text-decoration:none;">\n  <img src="https://ailattice.io/icon.svg" width="22" height="18" alt="AILattice">\n  <strong style="color:#22c55e">AILattice</strong> certified\n</a>`;
+      document.getElementById('badgeCode').textContent = code;
+      const submitBtn = document.getElementById('submitFreeBtn');
+      if (submitBtn) submitBtn.href = '/submit?url=' + encodeURIComponent(url);
+      certDiv.style.display    = 'block';
+      notCertDiv.style.display = 'none';
+    } else {
+      // Not certified / partial: two-path CTA
+      if (score >= 40) {
+        ctaLabel.textContent = 'Almost AI ready — just a few files missing. Fix it now or do it yourself.';
+      } else {
+        ctaLabel.textContent = 'AI tools can\'t fully read your site yet. Let\'s fix that.';
+      }
+      certDiv.style.display    = 'none';
+      notCertDiv.style.display = 'block';
+    }
+
+    results.style.display    = 'block';
+    recheckBtn.style.display = 'block';
+    results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function toggleEmbed() {
+    const block = document.getElementById('embedBlock');
+    block.style.display = block.style.display === 'none' ? 'block' : 'none';
+  }
+
+  function copyBadge() {
+    const code = document.getElementById('badgeCode').textContent;
+    navigator.clipboard.writeText(code).then(() => {
+      const btn = document.querySelector('.copy-btn');
+      btn.textContent = 'copied!';
+      setTimeout(() => { btn.textContent = 'copy'; }, 2000);
+    });
+  }
+</script>
+</body>
+</html>

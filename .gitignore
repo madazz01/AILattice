@@ -1,0 +1,6 @@
+node_modules/
+plugin-check/
+.env
+certs.json
+registry.json
+*.log

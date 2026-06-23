@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AILattice — The AI-Ready Web</title>
+  <meta name="description" content="Search websites that AI can actually read and understand. Free, open source, no paid placement. Add your site in minutes.">
+  <link rel="alternate" type="text/markdown" href="/ai/">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:           #ffffff;
+      --bg2:          #f8fafc;
+      --bg3:          #f1f5f9;
+      --border:       #e2e8f0;
+      --border-hi:    #cbd5e1;
+      --text:         #475569;
+      --text-dim:     #94a3b8;
+      --heading:      #0f172a;
+      --green:        #16a34a;
+      --green-dark:   #15803d;
+      --green-glow:   rgba(22,163,74,0.08);
+      --green-border: rgba(22,163,74,0.28);
+      --mono: 'JetBrains Mono','Fira Code','SF Mono',Consolas,monospace;
+      --sans: -apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.7; -webkit-font-smoothing: antialiased; min-height: 100vh; display: flex; flex-direction: column; }
+    a { color: var(--green); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 40px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      box-shadow: 0 1px 0 var(--border);
+      gap: 16px;
+    }
+    .logo { display:flex; align-items:center; gap:9px; font-family:var(--mono); font-size:15px; font-weight:700; color:var(--heading); letter-spacing:-.3px; text-decoration:none; flex-shrink:0; }
+    .logo:hover { opacity:.88; text-decoration:none; }
+    .logo em { color:var(--green); font-style:normal; }
+    .nav-links { display:flex; align-items:center; gap:20px; }
+    .nav-links a { color:var(--text); font-size:14px; font-weight:500; transition:color .15s; text-decoration:none; }
+    .nav-links a:hover { color:var(--heading); text-decoration:none; }
+    .nav-donate img { height:20px; display:block; vertical-align:middle; }
+
+    /* Check-your-site widget in nav */
+    .nav-check {
+      display: flex;
+      align-items: center;
+      background: var(--bg2);
+      border: 1px solid var(--border-hi);
+      border-radius: 9px;
+      overflow: hidden;
+      transition: border-color .15s;
+      flex-shrink: 0;
+    }
+    .nav-check:focus-within { border-color: var(--green); }
+    .nav-check input {
+      background: transparent;
+      border: none;
+      outline: none;
+      font-size: 13px;
+      color: var(--heading);
+      padding: 8px 12px;
+      width: 190px;
+      font-family: var(--sans);
+    }
+    .nav-check input::placeholder { color: var(--text-dim); }
+    .nav-check button {
+      background: var(--green);
+      color: #fff;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 8px 14px;
+      border: none;
+      cursor: pointer;
+      transition: opacity .15s;
+      white-space: nowrap;
+      font-family: var(--sans);
+    }
+    .nav-check button:hover { opacity:.88; }
+
+    /* ── HOME STATE ── */
+    #homeState {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 56px 40px 80px;
+      text-align: center;
+    }
+
+    /* Plain-English intro */
+    .intro-wrap {
+      max-width: 620px;
+      margin: 0 auto 40px;
+    }
+    .intro-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 20px;
+    }
+    .intro-dot { width:6px; height:6px; border-radius:50%; background:var(--green); flex-shrink:0; }
+    .intro-wrap h1 {
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 800;
+      color: var(--heading);
+      letter-spacing: -1.5px;
+      line-height: 1.12;
+      margin-bottom: 28px;
+    }
+    .intro-wrap h1 em { color: var(--green); font-style: normal; }
+    .intro-body {
+      text-align: left;
+      border-left: 3px solid var(--green-border);
+      padding-left: 22px;
+    }
+    .intro-body p {
+      font-size: 15.5px;
+      color: var(--text);
+      line-height: 1.75;
+    }
+    .intro-body p + p { margin-top: 16px; }
+    .intro-body strong { color: var(--heading); font-weight: 600; }
+    .intro-divider {
+      width: 40px;
+      height: 2px;
+      background: var(--green-border);
+      margin: 20px 0;
+    }
+
+    /* Search + counter */
+    .home-search-wrap {
+      width: 100%;
+      max-width: 580px;
+      margin: 0 auto 10px;
+    }
+    .search-bar {
+      display: flex;
+      background: var(--bg);
+      border: 2px solid var(--border-hi);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .search-bar:focus-within {
+      border-color: var(--green);
+      box-shadow: 0 0 0 4px rgba(22,163,74,0.10);
+    }
+    .search-bar input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      color: var(--heading);
+      padding: 16px 20px;
+      font-family: var(--sans);
+    }
+    .search-bar input::placeholder { color: var(--text-dim); }
+    .search-bar button {
+      background: var(--green);
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 16px 28px;
+      border: none;
+      cursor: pointer;
+      transition: opacity .15s;
+      white-space: nowrap;
+      font-family: var(--sans);
+      border-radius: 0 11px 11px 0;
+    }
+    .search-bar button:hover { opacity: .88; }
+
+    .site-counter {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-top: 10px;
+      min-height: 18px;
+    }
+    .site-counter strong { color: var(--green); font-weight: 700; }
+
+    /* Suggested searches */
+    .suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin: 28px 0;
+    }
+    .suggestion-chip {
+      font-size: 13px;
+      color: var(--text-dim);
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 5px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: border-color .1s, color .1s;
+    }
+    .suggestion-chip:hover { border-color: var(--green-border); color: var(--green); }
+
+    /* Trust strip */
+    .trust-strip {
+      display: flex;
+      gap: 28px;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      max-width: 580px;
+      width: 100%;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      color: var(--text-dim);
+    }
+    .trust-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+
+    /* ── RESULTS STATE ── */
+    #resultsState { display: none; flex: 1; }
+
+    .results-nav {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .results-search-bar {
+      flex: 1;
+      max-width: 540px;
+      display: flex;
+      background: var(--bg);
+      border: 1px solid var(--border-hi);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color .15s;
+    }
+    .results-search-bar:focus-within { border-color: var(--green); }
+    .results-search-bar input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 14px;
+      color: var(--heading);
+      padding: 10px 16px;
+      background: transparent;
+      font-family: var(--sans);
+    }
+    .results-search-bar button {
+      background: var(--green);
+      color: #fff;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 10px 18px;
+      border: none;
+      cursor: pointer;
+      border-radius: 0 8px 8px 0;
+    }
+    .results-search-bar button:hover { opacity: .88; }
+
+    .results-main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 32px 40px 80px;
+    }
+
+    /* Interpreted query */
+    .interpreted {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 24px;
+      font-size: 13.5px;
+      color: #166534;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .interpreted-icon { flex-shrink: 0; margin-top: 1px; }
+    .interpreted strong { color: #14532d; }
+    .interp-tag {
+      display: inline-block;
+      background: rgba(22,163,74,0.12);
+      border: 1px solid rgba(22,163,74,0.25);
+      color: #15803d;
+      font-size: 11.5px;
+      font-family: var(--mono);
+      padding: 1px 8px;
+      border-radius: 12px;
+      margin: 0 2px;
+    }
+
+    /* Results count */
+    .results-meta {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .results-meta strong { color: var(--heading); }
+
+    /* Result cards */
+    .result-list { display: flex; flex-direction: column; gap: 0; }
+    .result-card { padding: 22px 0; border-bottom: 1px solid var(--border); }
+    .result-card:last-child { border-bottom: none; }
+    .result-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+    .result-name { font-size: 18px; font-weight: 700; color: var(--green); letter-spacing: -0.3px; }
+    .result-name:hover { text-decoration: underline; }
+    .result-url { font-family: var(--mono); font-size: 12px; color: var(--text-dim); margin-bottom: 8px; }
+    .result-desc { font-size: 14px; color: var(--text); line-height: 1.6; margin-bottom: 10px; max-width: 640px; }
+    .result-footer { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .result-topic { font-size: 11.5px; font-family: var(--mono); background: var(--bg2); border: 1px solid var(--border); color: var(--text-dim); padding: 2px 9px; border-radius: 20px; }
+    .result-score { font-size: 11.5px; font-family: var(--mono); background: var(--green-glow); border: 1px solid var(--green-border); color: var(--green); padding: 2px 9px; border-radius: 20px; }
+    .result-ai-link { font-size: 11.5px; font-family: var(--mono); color: var(--text-dim); margin-left: auto; transition: color .15s; }
+    .result-ai-link:hover { color: var(--green); text-decoration: none; }
+    .result-location { font-size: 12px; color: var(--text-dim); }
+
+    /* No results */
+    .no-results { text-align: center; padding: 48px 20px; }
+    .no-results h3 { font-size: 20px; font-weight: 700; color: var(--heading); margin-bottom: 10px; }
+    .no-results p { color: var(--text-dim); margin-bottom: 20px; }
+
+    /* Footer */
+    footer { border-top:1px solid var(--border); padding:24px 40px; text-align:center; }
+    .footer-links { display:flex; gap:20px; justify-content:center; margin-bottom:10px; flex-wrap:wrap; }
+    .footer-links a { color:var(--text-dim); font-size:13px; }
+    .footer-links a:hover { color:var(--heading); text-decoration:none; }
+    .footer-copy { font-size:12px; color:var(--text-dim); }
+
+    @media (max-width: 700px) {
+      nav { padding: 12px 20px; }
+      .nav-check { display: none; }
+      #homeState { padding: 36px 20px 60px; }
+      .intro-text { font-size: 15px; }
+      .results-nav { padding: 12px 20px; flex-wrap: wrap; }
+      .results-main { padding: 24px 20px 60px; }
+      .trust-strip { gap: 16px; }
+      footer { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">
+    <img src="/icon.svg" width="28" height="22" alt="AILattice" style="display:block">
+    AI<em>Lattice</em>™
+  </a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/submit">Submit</a>
+    <a href="https://github.com/madazz01/ailattice" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://www.paypal.com/donate?hosted_button_id=4FU5LYQTJZTVU" target="_blank" rel="noopener" class="nav-donate">
+      <img src="https://www.paypalobjects.com/en_AU/i/btn/btn_donate_SM.gif" alt="Donate">
+    </a>
+  </div>
+  <div class="nav-check">
+    <input type="url" id="navCheckInput" placeholder="https://yoursite.com" autocomplete="off" spellcheck="false">
+    <button onclick="navCheckSite()">Check site →</button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════ HOME STATE -->
+<div id="homeState">
+
+  <div class="intro-wrap">
+    <div class="intro-label">
+      <span class="intro-dot"></span>
+      The Invisible Web
+    </div>
+
+    <h1>The first search engine<br>built for <em>AI</em> — not humans</h1>
+
+    <div class="intro-body">
+      <p>This directory doesn't look like much. <strong>That's the point.</strong> No pretty pictures. No private user data. No ads. No tracking. Just a clean, structured layer of the internet that AI tools like ChatGPT and Perplexity can read, navigate, and trust — invisible to humans, built entirely for machines.</p>
+
+      <div class="intro-divider"></div>
+
+      <p>Google indexes the web the way humans browse it — visuals, keywords, backlinks. <strong>AI doesn't work that way.</strong> It reads differently, reasons differently, and needs a completely different kind of signal. AILattice is that signal: a directory organised purely by <strong>topic and location</strong> — the two things AI actually uses when someone asks it to find a business, a service, or an expert anywhere in the world.</p>
+
+      <div class="intro-divider"></div>
+
+      <p><strong>No pay-for-position. Ever.</strong> Every site here earned its listing by correctly implementing an open standard — verifiably, publicly, for free. No ad spend. No SEO tricks. No algorithm that bends toward money. Just honest, AI-readable information about what a website does and who it serves.</p>
+    </div>
+  </div>
+
+  <div class="home-search-wrap">
+    <div class="search-bar">
+      <input type="text" id="homeInput" placeholder="Search by topic or location — e.g. market intelligence, legal services UK…" autocomplete="off" spellcheck="false">
+      <button onclick="doSearch()">Search →</button>
+    </div>
+    <div class="site-counter" id="siteCounter"></div>
+  </div>
+
+  <div class="suggestions">
+    <span class="suggestion-chip" onclick="suggest('market intelligence')">market intelligence</span>
+    <span class="suggestion-chip" onclick="suggest('technology startups')">technology startups</span>
+    <span class="suggestion-chip" onclick="suggest('health and wellness')">health and wellness</span>
+    <span class="suggestion-chip" onclick="suggest('sustainable energy')">sustainable energy</span>
+    <span class="suggestion-chip" onclick="suggest('legal services')">legal services</span>
+    <span class="suggestion-chip" onclick="suggest('ecommerce')">ecommerce</span>
+  </div>
+
+  <div class="trust-strip">
+    <div class="trust-item"><div class="trust-dot"></div>No pay-for-position — ever</div>
+    <div class="trust-item"><div class="trust-dot"></div>Open source · MIT standard</div>
+    <div class="trust-item"><div class="trust-dot"></div>Free to list · Always</div>
+    <div class="trust-item"><div class="trust-dot"></div>AI-only · Zero tracking</div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ RESULTS STATE -->
+<div id="resultsState">
+
+  <div class="results-nav">
+    <a href="/search" class="logo" style="flex-shrink:0">
+      <img src="/icon.svg" width="22" height="18" alt="AILattice" style="display:block">
+      AI<em>Lattice</em>™
+    </a>
+    <div class="results-search-bar">
+      <input type="text" id="resultsInput" placeholder="Search…" autocomplete="off" spellcheck="false">
+      <button onclick="doSearch()">Search</button>
+    </div>
+    <a href="/submit" style="font-size:13px;font-weight:600;color:var(--green);white-space:nowrap;flex-shrink:0;margin-left:auto">+ Add your site</a>
+  </div>
+
+  <div class="results-main">
+    <div class="interpreted" id="interpretedBox" style="display:none">
+      <svg class="interpreted-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <div id="interpretedText"></div>
+    </div>
+
+    <div class="results-meta">
+      <div id="resultsMeta"><strong>—</strong> results</div>
+      <a href="/registry" style="font-size:13px;color:var(--text-dim)">Browse all →</a>
+    </div>
+
+    <div class="result-list" id="resultList"></div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/submit">Submit your site</a>
+    <a href="/validate">Validator</a>
+    <a href="/registry">Registry</a>
+    <a href="https://github.com/madazz01/ailattice" target="_blank" rel="noopener">GitHub</a>
+  </div>
+  <div class="footer-copy">AILattice™ · Open source · Free forever · No paid placement · ailattice.io</div>
+</footer>
+
+<script>
+  // ── Nav check-your-site ───────────────────────────────────────────────────────
+  function navCheckSite() {
+    const url = document.getElementById('navCheckInput').value.trim();
+    if (!url) return;
+    const u = url.startsWith('http') ? url : 'https://' + url;
+    window.location.href = '/submit?url=' + encodeURIComponent(u);
+  }
+  document.getElementById('navCheckInput').addEventListener('keydown', e => { if (e.key === 'Enter') navCheckSite(); });
+
+  // ── Counter ───────────────────────────────────────────────────────────────────
+  async function loadCounter() {
+    try {
+      const res  = await fetch('/api/search?q=a&limit=1');
+      const data = await res.json();
+      const n    = data.total_indexed || 0;
+      const el   = document.getElementById('siteCounter');
+      if (n > 0) el.innerHTML = '<strong>' + n.toLocaleString() + '</strong> websites optimised';
+    } catch(e) {}
+  }
+  loadCounter();
+
+  // ── Routing: pre-fill from ?q= ────────────────────────────────────────────────
+  const qs = new URLSearchParams(location.search);
+  if (qs.get('q')) {
+    document.getElementById('homeInput').value    = qs.get('q');
+    document.getElementById('resultsInput').value = qs.get('q');
+    runSearch(qs.get('q'));
+  }
+
+  // ── Keyboard ──────────────────────────────────────────────────────────────────
+  document.getElementById('homeInput').addEventListener('keydown',    e => { if (e.key === 'Enter') doSearch(); });
+  document.getElementById('resultsInput').addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+
+  function suggest(text) {
+    document.getElementById('homeInput').value = text;
+    doSearch();
+  }
+
+  function doSearch() {
+    const active = document.getElementById('resultsState').style.display !== 'none';
+    const q = active
+      ? document.getElementById('resultsInput').value.trim()
+      : document.getElementById('homeInput').value.trim();
+    if (!q) return;
+    document.getElementById('homeInput').value    = q;
+    document.getElementById('resultsInput').value = q;
+    history.pushState({}, '', '/search?q=' + encodeURIComponent(q));
+    runSearch(q);
+  }
+
+  async function runSearch(q) {
+    document.getElementById('homeState').style.display    = 'none';
+    document.getElementById('resultsState').style.display = 'flex';
+    document.getElementById('resultsState').style.flexDirection = 'column';
+
+    document.getElementById('resultsMeta').innerHTML = '<span style="color:var(--text-dim)">Searching…</span>';
+    document.getElementById('interpretedBox').style.display = 'none';
+    document.getElementById('resultList').innerHTML = '';
+
+    try {
+      const res  = await fetch('/api/search?q=' + encodeURIComponent(q) + '&limit=20');
+      const data = await res.json();
+      renderResults(data);
+    } catch(e) {
+      document.getElementById('resultsMeta').innerHTML = '<span style="color:#dc2626">Search failed — please try again.</span>';
+    }
+  }
+
+  function renderResults(data) {
+    const interp = data.interpreted || {};
+    const parts  = [];
+    if (interp.topics?.length)   parts.push('Topic: ' + interp.topics.map(t => `<span class="interp-tag">${esc(t)}</span>`).join(' '));
+    if (interp.location)         parts.push('Location: <span class="interp-tag">' + esc(interp.location) + '</span>');
+    if (interp.keywords?.length) parts.push('Keywords: ' + interp.keywords.map(k => `<span class="interp-tag">${esc(k)}</span>`).join(' '));
+
+    if (parts.length) {
+      document.getElementById('interpretedText').innerHTML = '<strong>Understood:</strong> ' + parts.join(' &nbsp;·&nbsp; ');
+      document.getElementById('interpretedBox').style.display = 'flex';
+    }
+
+    const n     = data.count || 0;
+    const total = data.total_indexed || 0;
+    document.getElementById('resultsMeta').innerHTML =
+      `<strong>${n}</strong> result${n !== 1 ? 's' : ''} <span style="color:var(--text-dim)">from ${total} indexed site${total !== 1 ? 's' : ''}</span>`;
+
+    const list = document.getElementById('resultList');
+    if (!n) {
+      list.innerHTML = `
+        <div class="no-results">
+          <h3>No results yet</h3>
+          <p>The registry is growing. Be the first site in this category.</p>
+          <a href="/submit" style="display:inline-block;background:var(--green);color:#fff;font-weight:700;font-size:14px;padding:10px 22px;border-radius:8px;margin-top:4px">Add your site — free →</a>
+        </div>`;
+      return;
+    }
+
+    list.innerHTML = (data.results || []).map(r => {
+      const topics = (r.topics || []).map(t => `<span class="result-topic">${esc(t)}</span>`).join('');
+      const loc    = r.location ? `<span class="result-location">📍 ${esc(r.location)}</span>` : '';
+      const domain = (r.url || '').replace(/^https?:\/\//, '').replace(/\/$/, '');
+      return `
+        <div class="result-card">
+          <div class="result-top">
+            <div>
+              <a href="${esc(r.url)}" target="_blank" rel="noopener" class="result-name">${esc(r.name || domain)}</a>
+              <div class="result-url">${esc(domain)}</div>
+            </div>
+          </div>
+          ${r.description ? `<div class="result-desc">${esc(r.description)}</div>` : ''}
+          <div class="result-footer">
+            ${topics}
+            ${loc}
+            <span class="result-score">AI score: ${r.score}/100</span>
+            <a href="${esc(r.ai_entry)}" target="_blank" rel="noopener" class="result-ai-link">AI layer →</a>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  function esc(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+</script>
+</body>
+</html>

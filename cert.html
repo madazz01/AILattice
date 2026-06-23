@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AILattice™ Certificate</title>
+  <meta name="description" content="Official AILattice Certified™ certificate of AI compliance.">
+  <link rel="alternate" type="text/markdown" href="/ai/">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #0c0c0c;
+      --bg2:          #131313;
+      --bg3:          #1a1a1a;
+      --border:       #242424;
+      --border-hi:    #2e2e2e;
+      --text:         #c2c2c2;
+      --text-dim:     #5a5a5a;
+      --heading:      #f0f0f0;
+      --green:        #22c55e;
+      --green-glow:   rgba(34, 197, 94, 0.08);
+      --green-border: rgba(34, 197, 94, 0.22);
+      --green-mid:    rgba(34, 197, 94, 0.12);
+      --mono:         'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', Consolas, monospace;
+      --sans:         -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+    a { color: var(--green); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 40px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(12,12,12,0.95);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-family: var(--mono);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--heading);
+      letter-spacing: -0.3px;
+      text-decoration: none;
+    }
+    .logo:hover { opacity: 0.88; text-decoration: none; }
+    .logo em { color: var(--green); font-style: normal; }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { color: var(--text-dim); font-size: 14px; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+    .nav-pill { font-family: var(--mono); font-size: 11px; background: var(--green-glow); border: 1px solid var(--green-border); color: var(--green); padding: 3px 10px; border-radius: 20px; letter-spacing: 0.5px; }
+
+    /* ── Loading ── */
+    #loadingState {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      min-height: 60vh;
+      color: var(--text-dim);
+      font-size: 14px;
+    }
+    .spinner {
+      width: 20px; height: 20px;
+      border: 2px solid var(--border-hi);
+      border-top-color: var(--green);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Not found ── */
+    #notFoundState {
+      display: none;
+      text-align: center;
+      padding: 80px 40px;
+    }
+    #notFoundState h2 { font-size: 22px; color: var(--heading); margin-bottom: 10px; }
+    #notFoundState p  { color: var(--text-dim); font-size: 15px; }
+
+    /* ── Main ── */
+    #certMain {
+      display: none;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 52px 40px 80px;
+    }
+
+    /* ── Certificate card ── */
+    .cert-card {
+      background: var(--bg2);
+      border: 1px solid var(--border-hi);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(34,197,94,0.06),
+        0 0 80px rgba(34,197,94,0.05),
+        0 24px 48px rgba(0,0,0,0.5);
+    }
+
+    /* Top bar */
+    .cert-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 32px;
+      background: linear-gradient(135deg, rgba(34,197,94,0.07) 0%, rgba(34,197,94,0.02) 50%, transparent 100%);
+      border-bottom: 1px solid var(--border);
+    }
+    .cert-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--heading);
+    }
+    .cert-logo em { color: var(--green); font-style: normal; }
+    .cert-logo span { color: var(--text-dim); font-size: 11px; font-weight: 400; margin-left: 6px; }
+
+    /* Stamp */
+    .cert-stamp {
+      position: relative;
+      width: 80px; height: 80px;
+    }
+    .stamp-outer {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      border: 2px solid var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 24px rgba(34,197,94,0.18), inset 0 0 20px rgba(34,197,94,0.04);
+    }
+    .stamp-outer::before {
+      content: '';
+      position: absolute;
+      inset: 5px;
+      border-radius: 50%;
+      border: 1px solid rgba(34,197,94,0.35);
+    }
+    .stamp-inner {
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 7.5px;
+      font-weight: 900;
+      letter-spacing: 2.5px;
+      color: var(--green);
+      text-transform: uppercase;
+      line-height: 1.7;
+      position: relative;
+    }
+
+    /* Cert body */
+    .cert-body {
+      padding: 40px 40px 36px;
+      text-align: center;
+    }
+    .cert-subtitle {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 20px;
+    }
+    .cert-certifies {
+      font-size: 14px;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+    .cert-domain {
+      font-family: var(--mono);
+      font-size: clamp(22px, 4vw, 34px);
+      font-weight: 700;
+      color: var(--heading);
+      letter-spacing: -0.5px;
+      margin-bottom: 10px;
+      word-break: break-all;
+      text-shadow: 0 0 60px rgba(34,197,94,0.15);
+    }
+    .cert-statement {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.6;
+      max-width: 400px;
+      margin: 0 auto 36px;
+    }
+
+    /* Score ring */
+    .cert-score-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .cert-ring-outer {
+      position: relative;
+      width: 120px; height: 120px;
+    }
+    .cert-ring-outer svg { transform: rotate(-90deg); }
+    .cert-ring-val {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--green);
+    }
+    .cert-ring-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    /* Divider */
+    .cert-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-hi) 20%, var(--green-border) 50%, var(--border-hi) 80%, transparent);
+      margin: 0;
+    }
+
+    /* Cert footer meta */
+    .cert-footer {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 28px 40px;
+    }
+    .cert-meta { display: flex; flex-direction: column; gap: 10px; }
+    .cert-meta-row { display: flex; gap: 16px; align-items: baseline; }
+    .meta-key {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.5px;
+      width: 110px;
+      flex-shrink: 0;
+    }
+    .meta-val {
+      font-size: 13px;
+      color: var(--heading);
+    }
+    .meta-val.mono { font-family: var(--mono); font-size: 12px; color: var(--green); letter-spacing: 0.5px; }
+
+    /* Seal */
+    .cert-seal {
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .cert-seal img { opacity: 0.55; display: block; margin: 0 auto 6px; }
+    .seal-name { font-family: var(--mono); font-size: 11px; color: var(--text-dim); font-weight: 700; }
+    .seal-sub  { font-family: var(--mono); font-size: 10px; color: var(--text-dim); opacity: 0.6; }
+
+    /* ── Verify bar ── */
+    .cert-verify-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 20px 0;
+      padding: 12px 18px;
+      background: var(--green-glow);
+      border: 1px solid var(--green-border);
+      border-radius: 8px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text);
+    }
+    .verify-dot {
+      width: 8px; height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+      50%       { opacity: 0.8; box-shadow: 0 0 0 4px rgba(34,197,94,0); }
+    }
+    .verify-url { color: var(--green); }
+
+    /* ── Actions ── */
+    .cert-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .action-btn {
+      background: var(--bg3);
+      border: 1px solid var(--border-hi);
+      color: var(--text);
+      font-size: 13px;
+      font-family: var(--sans);
+      padding: 10px 18px;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .action-btn:hover { border-color: var(--green); color: var(--green); }
+
+    /* ── Badge embed ── */
+    #embedSection { display: none; margin-top: 8px; }
+    .embed-label {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 12px;
+    }
+    .code-block {
+      background: #0a0a0a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 18px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: #86efac;
+      overflow-x: auto;
+      white-space: pre;
+      position: relative;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 10px; right: 10px;
+      background: var(--bg3);
+      border: 1px solid var(--border-hi);
+      color: var(--text-dim);
+      font-size: 11px;
+      font-family: var(--mono);
+      padding: 3px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .copy-btn:hover { color: var(--green); border-color: var(--green-border); }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 40px;
+      text-align: center;
+    }
+    .footer-links { display: flex; gap: 24px; justify-content: center; margin-bottom: 12px; flex-wrap: wrap; }
+    .footer-links a { color: var(--text-dim); font-size: 14px; transition: color 0.15s; }
+    .footer-links a:hover { color: var(--text); text-decoration: none; }
+    .footer-copy { font-size: 13px; color: var(--text-dim); }
+
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .nav-links a:not(.nav-pill) { display: none; }
+      #certMain { padding: 32px 20px 60px; }
+      .cert-topbar { padding: 20px 22px; }
+      .cert-body { padding: 28px 22px 24px; }
+      .cert-footer { flex-direction: column; padding: 22px; }
+      .cert-stamp { width: 60px; height: 60px; }
+      .stamp-outer { width: 60px; height: 60px; }
+      footer { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">
+    <img src="/icon.svg" width="28" height="22" alt="AILattice icon" style="display:block;">
+    AI<em>Lattice</em>™
+  </a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/validate">Validator</a>
+    <a href="https://github.com/madazz01/ailattice" target="_blank" rel="noopener">GitHub</a>
+    <span class="nav-pill">v1 · MIT</span>
+  </div>
+</nav>
+
+<!-- Loading -->
+<div id="loadingState">
+  <div class="spinner"></div>
+  <span>Loading certificate…</span>
+</div>
+
+<!-- Not found -->
+<div id="notFoundState">
+  <h2>Certificate not found</h2>
+  <p>This certificate ID doesn't exist or may have expired.</p>
+  <p style="margin-top:16px;"><a href="/validate">Validate your site →</a></p>
+</div>
+
+<!-- Certificate -->
+<main id="certMain">
+
+  <div class="cert-card">
+
+    <!-- Top bar -->
+    <div class="cert-topbar">
+      <div class="cert-logo">
+        <img src="/icon.svg" width="28" height="22" alt="AILattice" style="display:block;">
+        AI<em>Lattice</em>™
+        <span>Official Certificate</span>
+      </div>
+      <div class="cert-stamp">
+        <div class="stamp-outer">
+          <div class="stamp-inner">AI<br>LATTICE<br>CERTIFIED</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="cert-body">
+      <div class="cert-subtitle">Certificate of AI Compliance</div>
+      <div class="cert-certifies">This is to certify that</div>
+      <div class="cert-domain" id="certDomain">—</div>
+      <div class="cert-statement">
+        has demonstrated full compliance with the AILattice™<br>
+        standard for AI-navigable web content
+      </div>
+
+      <div class="cert-score-wrap">
+        <div class="cert-ring-outer">
+          <svg width="120" height="120" viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="50" fill="none" stroke="#1a1a1a" stroke-width="8"/>
+            <circle id="certArc" cx="60" cy="60" r="50" fill="none" stroke="#22c55e" stroke-width="8"
+              stroke-linecap="round" stroke-dasharray="314.2" stroke-dashoffset="314.2"
+              style="transition: stroke-dashoffset 1.2s cubic-bezier(0.4,0,0.2,1)"/>
+          </svg>
+          <div class="cert-ring-val" id="certScore">—</div>
+        </div>
+        <div class="cert-ring-label">Compliance Score</div>
+      </div>
+    </div>
+
+    <div class="cert-divider"></div>
+
+    <!-- Footer meta -->
+    <div class="cert-footer">
+      <div class="cert-meta">
+        <div class="cert-meta-row">
+          <span class="meta-key">Certificate ID</span>
+          <span class="meta-val mono" id="certId">—</span>
+        </div>
+        <div class="cert-meta-row">
+          <span class="meta-key">Date Issued</span>
+          <span class="meta-val" id="certIssued">—</span>
+        </div>
+        <div class="cert-meta-row">
+          <span class="meta-key">Standard</span>
+          <span class="meta-val">AILattice™ v1.0</span>
+        </div>
+        <div class="cert-meta-row">
+          <span class="meta-key">Issued by</span>
+          <span class="meta-val">Intelli-Stasis</span>
+        </div>
+      </div>
+      <div class="cert-seal">
+        <img src="/icon.svg" width="44" height="35" alt="AILattice seal">
+        <div class="seal-name">Intelli-Stasis</div>
+        <div class="seal-sub">AILattice Authority</div>
+      </div>
+    </div>
+
+  </div><!-- /cert-card -->
+
+  <!-- Verify bar -->
+  <div class="cert-verify-bar">
+    <div class="verify-dot"></div>
+    <span>Verified · <span class="verify-url" id="verifyUrl">—</span></span>
+    <span style="margin-left:auto;color:var(--text-dim);font-size:11px;">ailattice.io</span>
+  </div>
+
+  <!-- Actions -->
+  <div class="cert-actions">
+    <button class="action-btn" onclick="copyLink()">📋 Copy certificate link</button>
+    <button class="action-btn" onclick="shareX()">𝕏 Share on X</button>
+    <button class="action-btn" onclick="toggleEmbed()">&#60;/&#62; Copy badge code</button>
+    <button class="action-btn" onclick="revalidate()">↻ Re-validate site</button>
+  </div>
+
+  <!-- Badge embed -->
+  <div id="embedSection">
+    <p class="embed-label">Add this verified badge — links to this certificate as permanent proof.</p>
+    <div style="position:relative">
+      <div class="code-block" id="badgeCode"></div>
+      <button class="copy-btn" onclick="copyBadge()">copy</button>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/validate">Validator</a>
+    <a href="/registry">Registry</a>
+    <a href="/ai/">For AI</a>
+    <a href="https://intellistasis.com" target="_blank" rel="noopener">Intelli-Stasis</a>
+  </div>
+  <div class="footer-copy">AILattice™ v1.0 · AILattice™ is a trademark of Intelli-Stasis</div>
+</footer>
+
+<script>
+  const certId   = location.pathname.replace(/^\/cert\/?/, '').replace(/\/$/, '') || 'demo';
+  const loading  = document.getElementById('loadingState');
+  const notFound = document.getElementById('notFoundState');
+  const certMain = document.getElementById('certMain');
+
+  async function loadCert() {
+    try {
+      const res  = await fetch('/api/cert/' + encodeURIComponent(certId));
+      if (!res.ok) throw new Error('not found');
+      const data = await res.json();
+      renderCert(data);
+    } catch(e) {
+      loading.style.display   = 'none';
+      notFound.style.display  = 'block';
+    }
+  }
+
+  function renderCert(cert) {
+    const domain = new URL(cert.site_url).hostname;
+
+    document.title = 'AILattice™ Certificate — ' + domain;
+    document.getElementById('certDomain').textContent  = domain;
+    document.getElementById('certId').textContent      = cert.cert_id;
+    document.getElementById('verifyUrl').textContent   = cert.site_url;
+
+    const issued = new Date(cert.issued_at);
+    document.getElementById('certIssued').textContent  =
+      issued.toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
+
+    const scoreEl = document.getElementById('certScore');
+    scoreEl.textContent = cert.score;
+
+    // Animate score ring
+    const circ   = 2 * Math.PI * 50;
+    const arc    = document.getElementById('certArc');
+    const offset = circ - (cert.score / 100) * circ;
+    requestAnimationFrame(() => {
+      setTimeout(() => { arc.style.strokeDashoffset = offset; }, 80);
+    });
+
+    // Badge embed code (links to this cert page)
+    const certUrl = 'https://ailattice.io/cert/' + cert.cert_id;
+    const code = `<a href="${certUrl}" target="_blank" rel="noopener"\n   style="display:inline-flex;align-items:center;gap:9px;background:#131313;\n          border:1px solid rgba(34,197,94,0.3);border-radius:6px;\n          padding:8px 14px;font-family:monospace;font-size:12px;\n          color:#f0f0f0;text-decoration:none;">\n  <img src="https://ailattice.io/icon.svg" width="22" height="18" alt="AILattice">\n  <strong style="color:#22c55e">AILattice</strong> certified\n</a>`;
+    document.getElementById('badgeCode').textContent = code;
+
+    loading.style.display  = 'none';
+    certMain.style.display = 'block';
+  }
+
+  function copyLink() {
+    navigator.clipboard.writeText(location.href).then(() => {
+      const btns = document.querySelectorAll('.action-btn');
+      btns[0].textContent = '✓ Copied!';
+      setTimeout(() => { btns[0].textContent = '📋 Copy certificate link'; }, 2000);
+    });
+  }
+
+  function shareX() {
+    const domain = document.getElementById('certDomain').textContent;
+    const text   = encodeURIComponent(`${domain} is AILattice Certified™ — officially AI-ready. Check your site at ailattice.io`);
+    const url    = encodeURIComponent(location.href);
+    window.open(`https://x.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+  }
+
+  function toggleEmbed() {
+    const sec = document.getElementById('embedSection');
+    sec.style.display = sec.style.display === 'none' ? 'block' : 'none';
+  }
+
+  function copyBadge() {
+    const code = document.getElementById('badgeCode').textContent;
+    navigator.clipboard.writeText(code).then(() => {
+      const btn = document.querySelector('.copy-btn');
+      btn.textContent = 'copied!';
+      setTimeout(() => { btn.textContent = 'copy'; }, 2000);
+    });
+  }
+
+  function revalidate() {
+    const url = document.getElementById('verifyUrl').textContent;
+    window.location.href = '/validate?url=' + encodeURIComponent(url);
+  }
+
+  loadCert();
+</script>
+</body>
+</html>

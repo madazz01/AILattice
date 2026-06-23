@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AILattice Registry — The AI-Ready Web</title>
+  <meta name="description" content="A structured catalog of AI-ready websites, organised by topic and location. Organic ranking only — no paid placement. Queryable by AI agents directly.">
+  <link rel="alternate" type="text/markdown" href="/ai/">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #ffffff;
+      --bg2:          #f8fafc;
+      --bg3:          #f1f5f9;
+      --border:       #e2e8f0;
+      --border-hi:    #cbd5e1;
+      --text:         #475569;
+      --text-dim:     #94a3b8;
+      --heading:      #0f172a;
+      --green:        #16a34a;
+      --green-glow:   rgba(22, 163, 74, 0.08);
+      --green-border: rgba(22, 163, 74, 0.28);
+      --mono: 'JetBrains Mono','Fira Code','Cascadia Code','SF Mono',Consolas,monospace;
+      --sans: -apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--green); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Nav */
+    nav { display:flex; align-items:center; justify-content:space-between; padding:18px 40px; border-bottom:1px solid var(--border); position:sticky; top:0; background:rgba(255,255,255,0.95); backdrop-filter:blur(8px); z-index:100; box-shadow:0 1px 0 var(--border); }
+    .logo { display:flex; align-items:center; gap:9px; font-family:var(--mono); font-size:15px; font-weight:700; color:var(--heading); letter-spacing:-.3px; text-decoration:none; }
+    .logo:hover { opacity:.88; text-decoration:none; }
+    .logo em { color:var(--green); font-style:normal; }
+    .nav-links { display:flex; align-items:center; gap:24px; }
+    .nav-links a { color:var(--text-dim); font-size:14px; transition:color .15s; }
+    .nav-links a:hover { color:var(--heading); text-decoration:none; }
+    .nav-links a.active { color:var(--green); }
+
+    /* Page header */
+    .page-header {
+      background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 64px 40px 52px;
+      text-align: center;
+    }
+    .page-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 16px;
+    }
+    .page-header h1 {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 800;
+      color: var(--heading);
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .page-header h1 em { color: var(--green); font-style: normal; }
+    .page-sub {
+      font-size: 18px;
+      color: var(--text);
+      max-width: 580px;
+      margin: 0 auto 28px;
+      line-height: 1.6;
+    }
+    .header-stats {
+      display: inline-flex;
+      align-items: center;
+      gap: 32px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 28px;
+    }
+    .stat { text-align: center; }
+    .stat-val { font-family: var(--mono); font-size: 22px; font-weight: 700; color: var(--heading); }
+    .stat-label { font-size: 12px; color: var(--text-dim); }
+    .stat-divider { width: 1px; height: 32px; background: var(--border); }
+
+    /* Organic badge */
+    .organic-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--green-glow);
+      border: 1px solid var(--green-border);
+      color: var(--green);
+      font-size: 12px;
+      font-family: var(--mono);
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-top: 16px;
+    }
+
+    /* Layout */
+    .catalog-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 40px 80px;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+    @media (max-width: 800px) { .catalog-wrap { grid-template-columns: 1fr; } }
+
+    /* Sidebar */
+    .sidebar { position: sticky; top: 80px; }
+    .sidebar-section { margin-bottom: 28px; }
+    .sidebar-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 10px;
+    }
+    .topic-list { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+    .topic-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 10px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 13.5px;
+      color: var(--text);
+      transition: background .1s, color .1s;
+      border: 1px solid transparent;
+    }
+    .topic-item:hover { background: var(--bg2); border-color: var(--border); }
+    .topic-item.active { background: var(--green-glow); border-color: var(--green-border); color: var(--green); font-weight: 600; }
+    .topic-count { font-family: var(--mono); font-size: 11px; color: var(--text-dim); }
+    .topic-item.active .topic-count { color: var(--green); }
+
+    /* Search bar */
+    .search-row {
+      margin-bottom: 24px;
+      display: flex;
+      gap: 0;
+    }
+    #searchInput {
+      flex: 1;
+      background: var(--bg2);
+      border: 1px solid var(--border-hi);
+      border-right: none;
+      border-radius: 8px 0 0 8px;
+      color: var(--heading);
+      font-family: var(--sans);
+      font-size: 14px;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color .15s;
+    }
+    #searchInput:focus { border-color: var(--green); background: var(--bg); }
+    #searchInput::placeholder { color: var(--text-dim); }
+    #clearSearch {
+      background: var(--bg3);
+      border: 1px solid var(--border-hi);
+      border-left: none;
+      border-radius: 0 8px 8px 0;
+      color: var(--text-dim);
+      font-size: 13px;
+      padding: 12px 16px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color .15s;
+    }
+    #clearSearch:hover { color: var(--heading); }
+
+    /* Results header */
+    .results-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .results-count {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+    .results-count strong { color: var(--heading); }
+    .sort-select {
+      font-size: 13px;
+      color: var(--text-dim);
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    /* Site cards */
+    #siteGrid { display: flex; flex-direction: column; gap: 12px; }
+
+    .site-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px 24px;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .site-card:hover { border-color: var(--border-hi); box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+    .site-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+    .site-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--heading);
+      letter-spacing: -0.2px;
+    }
+    .site-url {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
+    .site-score {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .score-ring-sm { position: relative; width: 44px; height: 44px; }
+    .score-ring-sm svg { transform: rotate(-90deg); }
+    .score-val-sm {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--heading);
+    }
+    .site-desc {
+      font-size: 13.5px;
+      color: var(--text);
+      line-height: 1.55;
+      margin-bottom: 12px;
+    }
+    .site-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .topic-tag {
+      font-size: 11.5px;
+      font-family: var(--mono);
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      padding: 2px 9px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: border-color .1s, color .1s;
+    }
+    .topic-tag:hover { border-color: var(--green-border); color: var(--green); }
+    .location-tag {
+      font-size: 11.5px;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .site-date {
+      font-size: 11.5px;
+      color: var(--text-dim);
+      margin-left: auto;
+      font-family: var(--mono);
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-dim);
+    }
+    .empty-state h3 { font-size: 18px; color: var(--heading); margin-bottom: 8px; }
+
+    /* AI endpoint note */
+    .api-note {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-top: 32px;
+      font-size: 13px;
+    }
+    .api-note strong { color: var(--heading); }
+    .api-note code { font-family: var(--mono); font-size: 12px; background: var(--bg3); padding: 1px 6px; border-radius: 4px; color: var(--green); }
+
+    /* Footer */
+    footer { border-top:1px solid var(--border); padding:28px 40px; text-align:center; }
+    .footer-links { display:flex; gap:24px; justify-content:center; margin-bottom:12px; flex-wrap:wrap; }
+    .footer-links a { color:var(--text-dim); font-size:14px; transition:color .15s; }
+    .footer-links a:hover { color:var(--heading); text-decoration:none; }
+    .footer-copy { font-size:13px; color:var(--text-dim); }
+
+    @media (max-width: 640px) {
+      nav { padding:16px 20px; }
+      .nav-links a:not(.active) { display:none; }
+      .page-header { padding:48px 20px 36px; }
+      .catalog-wrap { padding:24px 20px 60px; }
+      .header-stats { gap:16px; padding:12px 20px; }
+      footer { padding:24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">
+    <img src="/icon.svg" width="28" height="22" alt="AILattice" style="display:block">
+    AI<em>Lattice</em>™
+  </a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/search">Search</a>
+    <a href="/registry" class="active">Registry</a>
+    <a href="/convert">Get certified</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-eyebrow">The Invisible Web</div>
+  <h1>The <em>AI-Ready</em> Web Catalog</h1>
+  <p class="page-sub">A structured library of websites that speak AI. Organised by topic and location. Organic ranking only — no paid placement, no algorithm bias.</p>
+
+  <div class="header-stats">
+    <div class="stat">
+      <div class="stat-val" id="statTotal">—</div>
+      <div class="stat-label">Sites listed</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-val" id="statTopics">—</div>
+      <div class="stat-label">Topic areas</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-val" id="statAvg">—</div>
+      <div class="stat-label">Avg AI score</div>
+    </div>
+  </div>
+
+  <div><span class="organic-note">
+    <svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="currentColor" opacity="0.3"/><circle cx="5" cy="5" r="2" fill="currentColor"/></svg>
+    Ranked by compliance score &amp; registration date · Zero paid placement
+  </span></div>
+</div>
+
+<div class="catalog-wrap">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Topic</div>
+      <ul class="topic-list" id="topicList">
+        <li class="topic-item active" data-topic="" onclick="filterTopic('')">
+          All topics <span class="topic-count" id="countAll">—</span>
+        </li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Main catalog -->
+  <div>
+    <div class="search-row">
+      <input type="text" id="searchInput" placeholder="Search sites, descriptions, topics…" autocomplete="off">
+      <button id="clearSearch" onclick="clearFilters()">Clear</button>
+    </div>
+
+    <div class="results-header">
+      <div class="results-count" id="resultsCount"><strong>—</strong> sites</div>
+      <select class="sort-select" id="sortSelect" onchange="render()">
+        <option value="score">Sort: Highest score</option>
+        <option value="date">Sort: Most recent</option>
+        <option value="name">Sort: A–Z</option>
+      </select>
+    </div>
+
+    <div id="siteGrid"></div>
+
+    <div class="api-note">
+      <strong>For AI agents:</strong> this catalog is queryable directly.
+      <code>GET /api/registry</code> returns structured JSON —
+      filter by <code>?topic=Technology</code>, <code>?location=AU</code>, or <code>?q=keyword</code>.
+      No API key needed. <a href="/api/registry" target="_blank">Browse raw →</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/validate">Validator</a>
+    <a href="/convert">Get certified</a>
+    <a href="/api/registry" target="_blank">API</a>
+    <a href="https://intellistasis.com" target="_blank" rel="noopener">Intelli-Stasis</a>
+  </div>
+  <div class="footer-copy">AILattice™ Registry · Open catalog · Organic ranking · No paid placement</div>
+</footer>
+
+<script>
+  let allSites   = [];
+  let allTopics  = {};
+  let activeTopic = '';
+
+  const searchInput = document.getElementById('searchInput');
+  searchInput.addEventListener('input', render);
+
+  async function load() {
+    try {
+      const res  = await fetch('/api/registry');
+      const data = await res.json();
+      allSites  = data.sites || [];
+      allTopics = {};
+      for (const s of allSites) {
+        for (const t of (s.topics || [])) {
+          allTopics[t] = (allTopics[t] || 0) + 1;
+        }
+      }
+
+      // Stats
+      document.getElementById('statTotal').textContent  = allSites.length;
+      document.getElementById('statTopics').textContent = Object.keys(allTopics).length;
+      const avg = allSites.length
+        ? Math.round(allSites.reduce((s, e) => s + (e.score || 0), 0) / allSites.length)
+        : 0;
+      document.getElementById('statAvg').textContent = avg + '/100';
+      document.getElementById('countAll').textContent = allSites.length;
+
+      // Build topic sidebar
+      buildTopicList();
+      render();
+    } catch(e) {
+      document.getElementById('siteGrid').innerHTML = '<div class="empty-state"><h3>Could not load registry</h3><p>Please refresh to try again.</p></div>';
+    }
+  }
+
+  function buildTopicList() {
+    const ul = document.getElementById('topicList');
+    // Clear existing (keep "All")
+    while (ul.children.length > 1) ul.removeChild(ul.lastChild);
+    const sorted = Object.entries(allTopics).sort((a, b) => b[1] - a[1]);
+    for (const [topic, count] of sorted) {
+      const li = document.createElement('li');
+      li.className = 'topic-item' + (activeTopic === topic ? ' active' : '');
+      li.dataset.topic = topic;
+      li.onclick = () => filterTopic(topic);
+      li.innerHTML = `${escHtml(topic)} <span class="topic-count">${count}</span>`;
+      ul.appendChild(li);
+    }
+  }
+
+  function filterTopic(topic) {
+    activeTopic = topic;
+    document.querySelectorAll('.topic-item').forEach(el => {
+      el.classList.toggle('active', el.dataset.topic === topic);
+    });
+    render();
+  }
+
+  function render() {
+    const q    = searchInput.value.toLowerCase().trim();
+    const sort = document.getElementById('sortSelect').value;
+
+    let sites = allSites.filter(s => {
+      if (activeTopic && !(s.topics || []).includes(activeTopic)) return false;
+      if (q && !(s.name + ' ' + s.description + ' ' + (s.topics || []).join(' ')).toLowerCase().includes(q)) return false;
+      return true;
+    });
+
+    if (sort === 'score') sites = sites.sort((a, b) => (b.score || 0) - (a.score || 0));
+    else if (sort === 'date')  sites = sites.sort((a, b) => (b.registered || '').localeCompare(a.registered || ''));
+    else if (sort === 'name')  sites = sites.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+
+    document.getElementById('resultsCount').innerHTML = `<strong>${sites.length}</strong> site${sites.length !== 1 ? 's' : ''}`;
+
+    const grid = document.getElementById('siteGrid');
+    if (!sites.length) {
+      grid.innerHTML = '<div class="empty-state"><h3>No sites found</h3><p>Try clearing the filters or searching for something else.</p></div>';
+      return;
+    }
+    grid.innerHTML = sites.map(s => renderCard(s)).join('');
+  }
+
+  function renderCard(s) {
+    const score     = s.score || 0;
+    const circ      = 2 * Math.PI * 16;
+    const offset    = circ - (score / 100) * circ;
+    const color     = score >= 70 ? '#16a34a' : score >= 40 ? '#ca8a04' : '#dc2626';
+    const trackColor = score >= 70 ? 'rgba(22,163,74,0.15)' : '#e2e8f0';
+    const topics    = (s.topics || []).map(t =>
+      `<span class="topic-tag" onclick="filterTopic('${escHtml(t)}')">${escHtml(t)}</span>`
+    ).join('');
+    const location  = s.location ? `<span class="location-tag">📍 ${escHtml(s.location)}</span>` : '';
+    const date      = s.registered ? `<span class="site-date">${s.registered}</span>` : '';
+    const domain    = (s.url || '').replace(/^https?:\/\//, '').replace(/\/$/, '');
+
+    return `
+      <div class="site-card">
+        <div class="site-card-top">
+          <div>
+            <div class="site-name"><a href="${escHtml(s.url)}" target="_blank" rel="noopener">${escHtml(s.name || domain)}</a></div>
+            <div class="site-url">${escHtml(domain)}</div>
+          </div>
+          <div class="site-score">
+            <div class="score-ring-sm">
+              <svg width="44" height="44" viewBox="0 0 44 44">
+                <circle cx="22" cy="22" r="16" fill="none" stroke="${trackColor}" stroke-width="4"/>
+                <circle cx="22" cy="22" r="16" fill="none" stroke="${color}" stroke-width="4"
+                  stroke-linecap="round"
+                  stroke-dasharray="${circ.toFixed(1)}"
+                  stroke-dashoffset="${offset.toFixed(1)}"
+                  style="transform:rotate(-90deg);transform-origin:50% 50%"/>
+              </svg>
+              <div class="score-val-sm" style="color:${color}">${score}</div>
+            </div>
+          </div>
+        </div>
+        ${s.description ? `<div class="site-desc">${escHtml(s.description)}</div>` : ''}
+        <div class="site-meta">${topics}${location}${date}</div>
+      </div>
+    `;
+  }
+
+  function clearFilters() {
+    searchInput.value = '';
+    filterTopic('');
+  }
+
+  function escHtml(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  load();
+</script>
+</body>
+</html>

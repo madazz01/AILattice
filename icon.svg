@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" fill="none">
+  <!-- Brain outline — two lobes -->
+  <path
+    d="M100,22
+       C90,14 73,11 58,19
+       C43,27 33,40 32,55
+       C31,67 35,78 42,88
+       C44,93 44,101 50,110
+       C58,120 73,124 83,121
+       L100,118"
+    stroke="#22c55e" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path
+    d="M100,22
+       C110,14 127,11 142,19
+       C157,27 167,40 168,55
+       C169,67 165,78 158,88
+       C156,93 156,101 150,110
+       C142,120 127,124 117,121
+       L100,118"
+    stroke="#22c55e" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Sagittal divider -->
+  <line x1="100" y1="22" x2="100" y2="118" stroke="#22c55e" stroke-width="1.8" stroke-linecap="round"/>
+
+  <!-- Left traces -->
+  <polyline points="42,52 24,52"         stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="22" cy="52" r="3.8" fill="#22c55e"/>
+
+  <polyline points="34,72 14,72 14,58"   stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="14" cy="56" r="3.8" fill="#22c55e"/>
+
+  <polyline points="40,92 24,92 24,106"  stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="24" cy="108" r="3.8" fill="#22c55e"/>
+
+  <polyline points="56,116 44,128"       stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="42.5" cy="129.5" r="3.8" fill="#22c55e"/>
+
+  <!-- Right traces -->
+  <polyline points="158,52 176,52"        stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="178" cy="52" r="3.8" fill="#22c55e"/>
+
+  <polyline points="166,72 186,72 186,58" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="186" cy="56" r="3.8" fill="#22c55e"/>
+
+  <polyline points="160,92 176,92 176,106" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="176" cy="108" r="3.8" fill="#22c55e"/>
+
+  <polyline points="144,116 156,128"      stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="157.5" cy="129.5" r="3.8" fill="#22c55e"/>
+
+  <!-- Top traces -->
+  <line x1="78"  y1="14" x2="78"  y2="2"  stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="78"  cy="0.5" r="3.8" fill="#22c55e"/>
+
+  <line x1="100" y1="22" x2="100" y2="4"  stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="100" cy="2.5" r="3.8" fill="#22c55e"/>
+
+  <line x1="122" y1="14" x2="122" y2="2"  stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="122" cy="0.5" r="3.8" fill="#22c55e"/>
+
+  <!-- Bottom traces -->
+  <line x1="84"  y1="120" x2="84"  y2="142" stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="84"  cy="143.5" r="3.8" fill="#22c55e"/>
+
+  <line x1="116" y1="120" x2="116" y2="142" stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="116" cy="143.5" r="3.8" fill="#22c55e"/>
+
+  <!-- Central chip -->
+  <rect x="72" y="54" width="56" height="52" rx="7" fill="#0a0a0a" stroke="#22c55e" stroke-width="2.2"/>
+
+  <!-- Chip pins — top -->
+  <line x1="84"  y1="54" x2="84"  y2="46" stroke="#22c55e" stroke-width="1.6"/>
+  <line x1="100" y1="54" x2="100" y2="46" stroke="#22c55e" stroke-width="1.6"/>
+  <line x1="116" y1="54" x2="116" y2="46" stroke="#22c55e" stroke-width="1.6"/>
+
+  <!-- Chip pins — bottom -->
+  <line x1="84"  y1="106" x2="84"  y2="114" stroke="#22c55e" stroke-width="1.6"/>
+  <line x1="100" y1="106" x2="100" y2="114" stroke="#22c55e" stroke-width="1.6"/>
+  <line x1="116" y1="106" x2="116" y2="114" stroke="#22c55e" stroke-width="1.6"/>
+
+  <!-- Chip pins — left -->
+  <line x1="72" y1="68" x2="64" y2="68" stroke="#22c55e" stroke-width="1.6"/>
+  <line x1="72" y1="80" x2="64" y2="80" stroke="#22c55e" stroke-width="1.6"/>
+  <line x1="72" y1="92" x2="64" y2="92" stroke="#22c55e" stroke-width="1.6"/>
+
+  <!-- Chip pins — right -->
+  <line x1="128" y1="68" x2="136" y2="68" stroke="#22c55e" stroke-width="1.6"/>
+  <line x1="128" y1="80" x2="136" y2="80" stroke="#22c55e" stroke-width="1.6"/>
+  <line x1="128" y1="92" x2="136" y2="92" stroke="#22c55e" stroke-width="1.6"/>
+
+  <!-- AI label -->
+  <text x="100" y="81" text-anchor="middle" dominant-baseline="central"
+        font-family="'JetBrains Mono','Fira Code',Consolas,monospace"
+        font-size="24" font-weight="700" fill="#22c55e" letter-spacing="-1">AI</text>
+</svg>

@@ -1,0 +1,18 @@
+{
+  "name": "ailattice",
+  "version": "1.0.0",
+  "description": "Convert any website to AILattice format — the open standard for AI-navigable sites",
+  "keywords": ["ailattice", "llms", "ai", "llms.txt", "ai-readable", "standard"],
+  "homepage": "https://ailattice.io",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/madazz01/ailattice"
+  },
+  "license": "MIT",
+  "engines": { "node": ">=16" },
+  "bin": {
+    "ailattice": "./bin/ailattice.js"
+  },
+  "main": "./lib/index.js",
+  "files": ["bin", "lib"]
+}

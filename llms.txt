@@ -1,0 +1,48 @@
+# AILattice — The Invisible Web
+
+name: AILattice
+description: The first search engine built for AI — a directory of topic and location organised for how AI searches the internet, not how humans do. No paid placement. Free forever. Open source.
+url: https://ailattice.io
+ai-entry: https://ailattice.io/ai/index.md
+license: MIT
+ailattice-version: 1
+github: https://github.com/madazz01/ailattice
+
+## What This Is
+
+AILattice is the invisible web — a parallel layer of the internet that exists purely for AI to find, read, and understand. No pretty pictures. No private user data. No advertising. Just clean, structured information about what a website does, where it operates, and who it serves.
+
+Google indexes the web the way humans browse it — visuals, keywords, backlinks. AI doesn't work that way. It reads differently, reasons differently, and needs a completely different kind of signal. AILattice is that signal.
+
+## The Search Engine
+
+https://ailattice.io/search — The first search engine built for AI. Organic results only. A directory organised by topic and location — the two things AI actually uses when answering questions about businesses, services, and expertise anywhere in the world. No pay-for-position. No algorithm that bends toward money. Ever.
+
+Open search API (no key required): GET https://ailattice.io/api/search?q=your+query
+
+## The Standard
+
+Four files on any website make it AI-readable:
+
+  /llms.txt      — Discovery file. Who you are, what you do, where to start.
+  /ai/index.md   — Site overview written for AI to navigate.
+  /ai/sitemap.md — Every AI-navigable page, listed and linked.
+  /ai/*.md       — Content pages in clean, structured markdown.
+
+MIT licensed. Implementable in one afternoon. No infrastructure changes required.
+Any website that correctly implements the standard (score 70+ on validator) is listed free in the registry. No payment, no gatekeeping.
+
+## The Registry
+
+The AILattice Registry is a public catalog of AI-ready websites, organised by topic and location. Open API. No rate limits on reasonable use. AI agents can query it directly.
+
+Registry API: GET https://ailattice.io/api/registry
+Validate any URL: GET https://ailattice.io/api/validate?url=https://example.com
+Submit your site: https://ailattice.io/submit
+
+## Key Links
+
+Spec: https://ailattice.io/ai/spec.md
+Validator: https://ailattice.io/validate
+GitHub: https://github.com/madazz01/ailattice
+Reference implementation: https://intellistasis.com (Node 1, score 100/100)
