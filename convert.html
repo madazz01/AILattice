@@ -409,6 +409,9 @@
       if (name) document.getElementById('manualName').value = name;
       if (desc) document.getElementById('manualDesc').value = desc;
       document.getElementById('manualUrl').value = data.url || raw;
+      if (!name && !desc) {
+        showErr('scanError', 'Site scanned — we couldn\'t extract your name or description automatically. Fill them in below.');
+      }
     } catch(e) {
       showErr('scanError', 'Could not scan that URL — fill in your details below instead.');
     } finally {

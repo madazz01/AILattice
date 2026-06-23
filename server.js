@@ -161,13 +161,17 @@ async function validateSite(rawUrl) {
   checks.push({ id: 'schema_org', label: 'Schema.org structured data (Google AI)', ok: schemaOk, points: 0, max: 0,
     detail: schemaOk ? 'Found — helps Google AI Overviews cite your site' : 'Missing — add the generated JSON-LD snippet to your <head> to improve Google AI Overviews visibility' });
 
-  // Extract name + description from llms.txt for JSON-LD generation
+  // Extract name + description from llms.txt; fall back to HTML <title>
   let siteName = '', siteDescription = '';
   if (llmsOk) {
     const nm = llms.body.match(/^name:\s*(.+)$/m);
     const dc = llms.body.match(/^description:\s*(.+)$/m);
     if (nm) siteName = nm[1].trim();
     if (dc) siteDescription = dc[1].trim();
+  }
+  if (!siteName && html.status === 200) {
+    const titleMatch = html.body.match(/<title[^>]*>([^<]+)<\/title>/i);
+    if (titleMatch) siteName = titleMatch[1].replace(/\s*[|\-–—].*$/, '').trim();
   }
 
   return { url: base, score, certified: score >= 70, checks, meta: { name: siteName, description: siteDescription }, checkedAt: new Date().toISOString() };
