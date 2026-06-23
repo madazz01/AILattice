@@ -48,7 +48,14 @@ function remoteFetch(url, redirectsLeft = 5) {
       let body = '';
       let size = 0;
       res.on('data', chunk => { size += chunk.length; if (size < 512*1024) body += chunk; });
-      res.on('end', () => resolve({ status: res.statusCode, body }));
+      res.on('end', () => {
+        // For .txt and .md files, HTML catch-all responses mean the file doesn't exist
+        const expectsText = /\.(txt|md)$/i.test(parsed.pathname);
+        const trimmed     = body.trimStart();
+        const isHtml      = trimmed.startsWith('<!DOCTYPE') || trimmed.startsWith('<html') || trimmed.startsWith('<!doctype');
+        const faked       = expectsText && isHtml;
+        resolve({ status: faked ? 404 : res.statusCode, body: faked ? '' : body });
+      });
     });
     req.on('error', reject);
     req.on('timeout', () => { req.destroy(); reject(new Error('Request timed out')); });
