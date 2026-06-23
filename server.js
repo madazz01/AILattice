@@ -669,6 +669,50 @@ http.createServer(async (req, res) => {
     return res.end(JSON.stringify(topicCounts));
   }
 
+  // Badge SVGs
+  if (urlPath === '/badge.svg') {
+    const count = _registry.size;
+    const value = `${count} sites indexed`;
+    const lw = 72, rw = value.length * 6.5 + 10;
+    const w = lw + rw;
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="20">
+  <rect rx="3" width="${w}" height="20" fill="#1a1a2e"/>
+  <rect rx="3" x="${lw}" width="${rw}" height="20" fill="#0ea5e9"/>
+  <rect x="${lw}" width="4" height="20" fill="#0ea5e9"/>
+  <g fill="#fff" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11" text-anchor="middle">
+    <text x="${lw/2}" y="14" fill="#000" fill-opacity=".2">AILattice</text>
+    <text x="${lw/2}" y="13">AILattice</text>
+    <text x="${lw + rw/2}" y="14" fill="#000" fill-opacity=".2">${value}</text>
+    <text x="${lw + rw/2}" y="13">${value}</text>
+  </g>
+</svg>`;
+    res.writeHead(200, { 'Content-Type': 'image/svg+xml', 'Cache-Control': 'no-cache', 'Access-Control-Allow-Origin': '*' });
+    return res.end(svg);
+  }
+
+  if (urlPath.startsWith('/badge/') && urlPath.endsWith('.svg')) {
+    const certId = urlPath.slice('/badge/'.length, -4);
+    const entry  = [..._registry.values()].find(e => e.cert_id === certId);
+    const score  = entry ? entry.score : null;
+    const value  = score !== null ? `AI-ready · ${score}/100` : 'not found';
+    const color  = score >= 90 ? '#22c55e' : score >= 70 ? '#0ea5e9' : '#ef4444';
+    const lw = 72, rw = value.length * 6.2 + 10;
+    const w = lw + rw;
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="20">
+  <rect rx="3" width="${w}" height="20" fill="#1a1a2e"/>
+  <rect rx="3" x="${lw}" width="${rw}" height="20" fill="${color}"/>
+  <rect x="${lw}" width="4" height="20" fill="${color}"/>
+  <g fill="#fff" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11" text-anchor="middle">
+    <text x="${lw/2}" y="14" fill="#000" fill-opacity=".2">AILattice</text>
+    <text x="${lw/2}" y="13">AILattice</text>
+    <text x="${lw + rw/2}" y="14" fill="#000" fill-opacity=".2">${value}</text>
+    <text x="${lw + rw/2}" y="13">${value}</text>
+  </g>
+</svg>`;
+    res.writeHead(200, { 'Content-Type': 'image/svg+xml', 'Cache-Control': 'public, max-age=3600', 'Access-Control-Allow-Origin': '*' });
+    return res.end(svg);
+  }
+
   // Downloads
   if (urlPath === '/download/ailattice.zip') {
     const f = path.join(ROOT, 'install', 'ailattice.zip');
