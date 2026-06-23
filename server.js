@@ -433,45 +433,6 @@ function checkRateLimit(ip) {
   return true;
 }
 
-// ── Email verification ────────────────────────────────────────────────────────
-
-const pendingVerify = new Map(); // token → { url, name, desc, email, score, expiresAt }
-
-function generateToken() {
-  return require('crypto').randomBytes(24).toString('hex');
-}
-
-function sendVerificationEmail(email, token, siteUrl) {
-  const key  = process.env.RESEND_API_KEY;
-  const from = process.env.RESEND_FROM || 'AILattice <noreply@ailattice.io>';
-  if (!key) return Promise.resolve(false);
-
-  const verifyUrl = `https://ailattice.io/api/verify?token=${token}`;
-  const html = `<!DOCTYPE html><html><body style="font-family:sans-serif;max-width:520px;margin:40px auto;color:#0f172a;">
-<div style="border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;">
-  <div style="background:#0f172a;padding:24px 32px;">
-    <span style="font-family:monospace;font-size:18px;font-weight:700;color:#fff;">AI<span style="color:#22c55e;">Lattice</span>™</span>
-  </div>
-  <div style="padding:32px;">
-    <h2 style="margin:0 0 12px;font-size:20px;">Confirm your registry listing</h2>
-    <p style="color:#475569;margin:0 0 8px;">You submitted <strong>${siteUrl}</strong> to the AILattice Registry.</p>
-    <p style="color:#475569;margin:0 0 28px;">Click the button below to confirm your listing. This link expires in 24 hours.</p>
-    <a href="${verifyUrl}" style="display:inline-block;background:#16a34a;color:#fff;font-weight:700;font-size:15px;padding:14px 28px;border-radius:8px;text-decoration:none;">Confirm listing →</a>
-    <p style="color:#94a3b8;font-size:12px;margin:28px 0 0;">If you didn't submit this site, ignore this email.</p>
-  </div>
-</div>
-</body></html>`;
-
-  const payload = JSON.stringify({ from, to: [email], subject: 'Confirm your AILattice listing', html });
-  return new Promise((resolve) => {
-    const r = https.request({
-      hostname: 'api.resend.com', path: '/emails', method: 'POST',
-      headers: { 'Authorization': `Bearer ${key}`, 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(payload) },
-    }, (res) => { console.log(`[ailattice-email] ${res.statusCode} → ${email}`); resolve(res.statusCode < 300); res.resume(); });
-    r.on('error', (e) => { console.warn('[ailattice-email]', e.message); resolve(false); });
-    r.end(payload);
-  });
-}
 
 // ── HTTP server ───────────────────────────────────────────────────────────────
 
@@ -603,24 +564,7 @@ http.createServer(async (req, res) => {
     return;
   }
 
-  // API: email verification — confirm pending listing
-  if (urlPath === '/api/verify' && req.method === 'GET') {
-    const token   = parsedUrl.searchParams.get('token') || '';
-    const pending = pendingVerify.get(token);
-    if (!pending || Date.now() > pending.expiresAt) {
-      res.writeHead(302, { Location: '/submit?error=expired' });
-      return res.end();
-    }
-    const cert  = issueCert(pending.url, pending.score, pending.email);
-    const entry = enrollInRegistry(cert, { name: pending.name, description: pending.desc, email: pending.email, location: '' });
-    pingIndexNow([`https://ailattice.io/cert/${cert.cert_id}`, pending.url]);
-    pendingVerify.delete(token);
-    console.log(`[ailattice-verify] Listed: ${cert.cert_id} for ${pending.url}`);
-    res.writeHead(302, { Location: `/cert/${cert.cert_id}?verified=1` });
-    return res.end();
-  }
-
-  // API: free self-submit to registry
+// API: free self-submit to registry
   if (urlPath === '/api/submit' && req.method === 'POST') {
     let body = '';
     req.on('data', c => { body += c; });
@@ -666,20 +610,6 @@ http.createServer(async (req, res) => {
         const siteName = (name || result.meta?.name || normalUrl.replace(/^https?:\/\//, '').replace(/\/$/, '')).trim();
         const siteDesc = (description || result.meta?.description || '').trim();
 
-        // If Resend is configured — gate on email verification
-        if (process.env.RESEND_API_KEY) {
-          const token = generateToken();
-          pendingVerify.set(token, {
-            url: normalUrl, name: siteName, desc: siteDesc, email,
-            score: result.score, expiresAt: Date.now() + 86_400_000,
-          });
-          await sendVerificationEmail(email, token, normalUrl);
-          console.log(`[ailattice-submit] Pending verification for ${normalUrl} → ${email}`);
-          res.writeHead(200, { 'Content-Type': 'application/json' });
-          return res.end(JSON.stringify({ ok: true, pending_verification: true }));
-        }
-
-        // No email service — auto-approve
         const cert  = issueCert(normalUrl, result.score, email);
         const entry = enrollInRegistry(cert, { name: siteName, description: siteDesc, email, location: '' });
         const snippet = buildSchemaSnippet(normalUrl, siteName, siteDesc);
