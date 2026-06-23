@@ -256,8 +256,8 @@
           <p class="field-hint">Used for topic classification and registry display.</p>
         </div>
         <div class="form-group">
-          <label for="siteEmail">Email <span>(optional — for your records only, never shown publicly)</span></label>
-          <input type="email" id="siteEmail" placeholder="you@example.com">
+          <label for="siteEmail">Email <span>(required — never shown publicly, used to contact you about your listing)</span></label>
+          <input type="email" id="siteEmail" placeholder="you@example.com" required>
         </div>
       </div>
       <button class="btn-primary" id="submitBtn">Submit to registry — free →</button>
@@ -441,7 +441,8 @@
     const name  = document.getElementById('siteName').value.trim();
     const desc  = document.getElementById('siteDesc').value.trim();
     const email = document.getElementById('siteEmail').value.trim();
-    if (!name) { document.getElementById('siteName').focus(); return; }
+    if (!name)  { document.getElementById('siteName').focus(); return; }
+    if (!email) { showErr('submitError', 'Email is required — we use it to contact you about your listing.'); document.getElementById('siteEmail').focus(); return; }
 
     hide('submitError');
     show('submitLoading', 'flex');

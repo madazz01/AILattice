@@ -330,6 +330,7 @@ function enrollInRegistry(cert, meta) {
     topics:        topics.length ? topics : ['General'],
     location:      meta.location || '',
     score:         cert.score,
+    email:         cert.email || meta.email || '',
     registered_at: Date.now(),
   };
   _registry.set(cert.cert_id, entry);
@@ -555,7 +556,8 @@ http.createServer(async (req, res) => {
     req.on('end', async () => {
       try {
         const { url, name, description, email } = JSON.parse(body);
-        if (!url) throw new Error('url required');
+        if (!url)   throw new Error('url required');
+        if (!email) throw new Error('email required');
 
         const result = await validateSite(url);
         if (result.score < 70) {
@@ -653,6 +655,7 @@ http.createServer(async (req, res) => {
         location:     e.location,
         score:        e.score,
         registered:   e.registered_at ? new Date(e.registered_at).toISOString().slice(0,10) : null,
+        // email intentionally excluded — private
       })),
     };
     res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=60', 'Access-Control-Allow-Origin': '*' });
