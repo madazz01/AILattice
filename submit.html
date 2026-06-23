@@ -260,6 +260,9 @@
           <input type="email" id="siteEmail" placeholder="you@example.com" required>
         </div>
       </div>
+      <!-- Honeypot: hidden from humans, bots fill this in -->
+      <input type="text" name="website" id="hpWebsite" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;">
+      <input type="text" name="phone" id="hpPhone" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;">
       <button class="btn-primary" id="submitBtn">Submit to registry — free →</button>
       <div class="loading-row" id="submitLoading" style="margin-top:14px;">
         <div class="spinner"></div>
@@ -452,11 +455,20 @@
       const res  = await fetch('/api/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url, name, description: desc, email }),
+        body: JSON.stringify({
+          url, name, description: desc, email,
+          website: document.getElementById('hpWebsite').value,
+          phone:   document.getElementById('hpPhone').value,
+        }),
       });
       const data = await res.json();
+      if (res.status === 409) throw new Error('This site is already listed in the AILattice Registry.');
       if (!res.ok || data.error) throw new Error(data.error || 'Submission failed');
-      renderSuccess(data);
+      if (data.pending_verification) {
+        renderPendingVerification(email);
+      } else {
+        renderSuccess(data);
+      }
     } catch(e) {
       showErr('submitError', e.message || 'Submission failed — please try again.');
       submitBtn.disabled = false;
@@ -478,6 +490,22 @@
         title: 'PayPal - The safer, easier way to pay online!',
       }
     }).render('#donate-button-submit');
+  }
+
+  function renderPendingVerification(email) {
+    hide('checkResults');
+    const el = document.getElementById('success');
+    el.innerHTML = `
+      <div class="success-banner" style="background:var(--yellow-glow);border-color:var(--yellow-border);">
+        <div class="success-title" style="color:var(--yellow);">Check your email ✉</div>
+        <div class="success-sub">We've sent a confirmation link to <strong>${email}</strong>. Click it to complete your listing — the link expires in 24 hours.</div>
+        <div class="success-actions">
+          <a href="/search" class="btn-secondary">Browse the registry →</a>
+        </div>
+      </div>
+    `;
+    show('success');
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   function renderSuccess(data) {
