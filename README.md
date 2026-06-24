@@ -6,9 +6,11 @@
 
 > **The first search engine built for AI — not humans.**
 
-A directory of topic and location organised for how AI actually searches the internet. No paid placement. No algorithm that bends toward money. Free to list. Open source. Forever.
+AI is answering questions directly and sending fewer visitors to the websites it learned from. The click that paid for that content is disappearing. AILattice is building the alternative: a direct, structured connection between AI agents and content sources — not a silent scrape, not a footnote in an AI Overview, but a declared relationship where your site is acknowledged as the source.
 
-→ **[ailattice.io](https://ailattice.io)** · [Search](https://ailattice.io/search) · [Validate your site](https://ailattice.io/validate) · [Submit for free](https://ailattice.io/submit)
+No paid placement. No algorithm that bends toward money. Free to list. Open standard. Forever.
+
+→ **[ailattice.io](https://ailattice.io)** · [Search](https://ailattice.io/search) · [Check your site](https://ailattice.io/submit) · [Make AI-ready](https://ailattice.io/convert)
 
 ---
 
@@ -227,6 +229,12 @@ See [`examples/`](examples/) for reference files:
 Google's model is advertising. An organic directory with zero paid placement is structurally incompatible with their business. That's the moat.
 
 ---
+
+## Community & support
+
+This is a community project. The standard is open, the listing is free, and it always will be. The only things that cost money are the server and the hours it takes to build and maintain this.
+
+If AILattice helped you, [buying me a coffee](https://www.paypal.com/donate?hosted_button_id=4FU5LYQTJZTVU) goes directly to keeping it free for everyone else. No pressure — but if everyone who benefits chips in a little, it pays for itself.
 
 ## Contributing
 
