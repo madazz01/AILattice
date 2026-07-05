@@ -1,12 +1,12 @@
-# AILattice™ — The Invisible Web
+# AILattice™ — The Introduction Layer
 
 [![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![ailattice.io](https://img.shields.io/badge/registry-ailattice.io-16a34a)](https://ailattice.io)
 [![npm](https://img.shields.io/badge/npm-ailattice-cb3837)](https://www.npmjs.com/package/ailattice)
 
-> **The first search engine built for AI — not humans.**
+> **Everything should introduce itself before AI touches it.**
 
-AI is answering questions directly and sending fewer visitors to the websites it learned from. The click that paid for that content is disappearing. AILattice is building the alternative: a direct, structured connection between AI agents and content sources — not a silent scrape, not a footnote in an AI Overview, but a declared relationship where your site is acknowledged as the source.
+Introduction is the oldest social protocol in human history. You meet someone, you say who you are, what you do, why you're here. AI needs the same thing — not silent HTML scraping, not a footnote in an AI Overview — a proper introduction. AILattice is the introduction layer for the web: a declared, structured connection where your site tells AI who it is, what it does, and what it wants AI to know.
 
 No paid placement. No algorithm that bends toward money. Free to list. Open standard. Forever.
 
@@ -16,15 +16,16 @@ No paid placement. No algorithm that bends toward money. Free to list. Open stan
 
 ## What this is
 
-Google indexes the web the way humans browse it — visuals, keywords, backlinks. **AI doesn't work that way.** It reads differently, reasons differently, and needs a completely different kind of signal. Without that signal, AI scrapes your HTML, strips design, mis-parses structure, and hallucinates answers. It recommends the wrong sites. It skips you entirely.
+Introduction is what every civilised exchange begins with. It tells you who someone is before you rely on them, quote them, or send someone their way. Without it, AI does what a stranger does when they can't ask — it guesses, scrapes, and hallucinates.
 
-AILattice fixes this with a four-file open standard. Add four plain text files to your website and AI tools — ChatGPT, Perplexity, Claude, Gemini — can read, navigate, and cite you directly. No scraping. No guessing. No hallucination from mis-parsed content.
+AILattice is four plain text files. Add them to your website and AI tools — ChatGPT, Perplexity, Claude, Gemini — can read you correctly, cite you accurately, and find you organically. No scraping. No guessing. A proper introduction.
 
 ```
 /llms.txt          ← who you are, what you do, where to start
 /ai/index.md       ← site overview written for AI to navigate
 /ai/sitemap.md     ← every AI-navigable page, listed and linked
 /ai/*.md           ← your content in clean markdown
+/.intro            ← your introduction: identity, purpose, constraints (optional, paid tier)
 ```
 
 The standard is MIT licensed. Implement it freely. No attribution required.
