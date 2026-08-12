@@ -1,89 +1,220 @@
-The AILattice repository contains two distinct components, each under a separate licence.
+The AILattice repository contains two distinct components under separate licences.
 
----
+═══════════════════════════════════════════════════════════════════════════════
+PART 1 — THE INTRODUCTION LAYER SPECIFICATION
+═══════════════════════════════════════════════════════════════════════════════
 
-## 1. The Introduction Layer Specification
+Files covered: drafts/specification.md, paper.html, conformance/README.md,
+and all documents describing the Introduction Layer standard, its architecture,
+and its conformance requirements.
 
-Files: `drafts/specification.md`, `paper.html`, and all documents describing
-the Introduction Layer standard, its architecture, and its conformance requirements.
+Licensed under Creative Commons Attribution 4.0 International (CC BY 4.0).
 
-Licensed under the Creative Commons Attribution 4.0 International Licence (CC BY 4.0).
+NOTE: This licence is applied by the author pending confirmation that it is
+compatible with W3C Community Group document licensing requirements. If the
+W3C process requires a different licence for community group specifications,
+the W3C licence will take precedence for specification documents. The intent
+is irrevocably open: the specification is free to implement, share, and adapt
+with attribution, and no entity may claim exclusive control of the standard.
 
-You are free to:
-  - Share — copy and redistribute the specification in any medium or format
-  - Adapt — build upon, extend, and implement the specification for any purpose,
-    including commercially
+Full CC BY 4.0 licence: https://creativecommons.org/licenses/by/4.0/legalcode
 
-Under the following terms:
-  - Attribution — You must give appropriate credit to Bryan Horsfield and
-    Intelli-Stasis as originators of the Introduction Layer specification,
-    provide a link to the licence, and indicate if changes were made.
-  - No additional restrictions — You may not apply legal terms or technological
-    measures that legally restrict others from doing anything the licence permits.
+Summary of rights:
+  You are free to share (copy and redistribute) and adapt (build upon) the
+  specification for any purpose, including commercially, provided you give
+  appropriate credit to Bryan Horsfield and Intelli-Stasis as originators,
+  and do not apply terms that restrict others from the same freedoms.
 
-Full licence text: https://creativecommons.org/licenses/by/4.0/
+═══════════════════════════════════════════════════════════════════════════════
+PART 2 — THE AILATTICE REFERENCE IMPLEMENTATION
+═══════════════════════════════════════════════════════════════════════════════
 
-The Introduction Layer specification is an open standard. Conforming implementations
-are encouraged across all entity classes and consuming system types. No entity may
-claim exclusive ownership of the standard or restrict conformant implementation by others.
+All software in this repository not covered by Part 1 — including server.js,
+all .js files, scripts, and application code — is licensed under the
+Apache License, Version 2.0 (the "License").
 
----
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
 
-## 2. The AILattice Reference Implementation
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 
-All software in this repository not covered by Section 1 above — including server.js,
-all .js files, scripts, and application code.
+   1. Definitions.
 
-Licensed under the Apache License, Version 2.0.
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
 
-You may not use this software except in compliance with the Apache 2.0 Licence.
-You may obtain a copy of the Licence at:
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
 
-  https://www.apache.org/licenses/LICENSE-2.0
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
 
-Unless required by applicable law or agreed to in writing, software distributed
-under the Licence is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-CONDITIONS OF ANY KIND, either express or implied. See the Licence for the specific
-language governing permissions and limitations under the Licence.
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
 
-Copyright 2026 Intelli-Stasis (Bryan Horsfield)
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
 
----
+      "Object" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
 
-## Trademarks
+      "Work" shall mean the work of authorship made available under
+      the License, as indicated by a copyright notice that is included in
+      or attached to the work (an example is provided in the Appendix below).
 
-AILattice™ and AILattice Certified™ are trademarks of Intelli-Stasis.
+      "Derivative Works" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
 
-The licences above grant rights to use, implement, and build upon the software
-and specification in this repository. They do not grant rights to:
-  - Use the AILattice™ trademark in any way that implies official affiliation
-  - Represent that a resource is "AILattice Certified™" without obtaining
-    certification through the official process at https://ailattice.io
-  - Claim to be an official AILattice registry without authorisation
+      "Contribution" shall mean, as submitted to the Licensor for inclusion
+      in the Work by the copyright owner or by an individual or Legal Entity
+      authorized to submit on behalf of the copyright owner. For the purposes
+      of this definition, "submitted" means any form of electronic, verbal,
+      or written communication sent to the Licensor or its representatives,
+      including but not limited to communication on electronic mailing lists,
+      source code control systems, and issue tracking systems that are managed
+      by, or on behalf of, the Licensor for the purpose of discussing and
+      improving the Work, but excluding communication that is conspicuously
+      marked or otherwise designated in writing by the copyright owner as
+      "Not a Contribution."
 
-Third-party implementations of the Introduction Layer standard are welcome and
-encouraged. They must not represent themselves as AILattice or as AILattice-certified
-without authorisation.
+      "Contributor" shall mean Licensor and any Legal Entity on behalf of
+      whom a Contribution has been received by the Licensor and subsequently
+      incorporated within the Work.
 
----
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
 
-## Patent Grant (Apache 2.0 — reference implementation)
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a cross-claim
+      or counterclaim in a lawsuit) alleging that the Work or a Contribution
+      incorporated within the Work constitutes direct or contributory patent
+      infringement, then any patent licenses granted to You under this License
+      for that Work shall terminate as of the date such litigation is filed.
 
-Subject to the terms and conditions of the Apache 2.0 Licence, each contributor
-hereby grants to you a perpetual, worldwide, non-exclusive, no-charge, royalty-free,
-irrevocable patent licence to make, have made, use, offer to sell, sell, import,
-and otherwise transfer the software, where such licence applies only to those patent
-claims licensable by such contributor that are necessarily infringed by their
-contribution(s) alone or by combination of their contribution(s) with the software.
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
 
----
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
 
-## The Standard is a Commons
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
 
-The Introduction Layer standard exists to serve the open web, AI systems, and the
-entities that use them. Its governance is through the W3C Introduction Layer
-Community Group. No commercial entity — including Intelli-Stasis — may unilaterally
-modify the standard or restrict conformant implementation by others.
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
 
-Contributions to the specification are welcomed through the W3C community group process.
-Contributions to the reference implementation are welcomed through this repository.
+      (d) If the Work includes a "NOTICE" text file, You must include a
+          readable copy of the attribution notices contained within such
+          NOTICE file, in at least one of the following places: within a
+          NOTICE text file distributed as part of the Derivative Works;
+          within the Source form or documentation, if provided along with
+          the Derivative Works; or, within a display generated by the
+          Derivative Works, if and wherever such third-party notices normally
+          appear. The contents of the NOTICE file are for informational
+          purposes only and do not modify the License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or reproducing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or exemplary damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or all other
+      commercial damages or losses), even if such Contributor has been
+      advised of the possibility of such damages.
+
+   9. Accepting Warranty or Liability. While redistributing the Work or
+      Derivative Works thereof, You may choose to offer, and charge a fee
+      for, acceptance of support, warranty, indemnity, or other liability
+      obligations and/or rights consistent with this License. However, in
+      accepting such obligations, You may offer such conditions only on
+      Your own behalf and on Your sole responsibility, not on behalf of
+      any other Contributor, and only if You agree to indemnify, defend,
+      and hold each Contributor harmless for any liability incurred by,
+      or claims asserted against, such Contributor by reason of your
+      accepting any warranty or additional liability.
+
+   Copyright 2026 Bryan Horsfield / Intelli-Stasis
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+═══════════════════════════════════════════════════════════════════════════════
+TRADEMARKS — REQUIRES OUTSIDE INTERVENTION (see LEGAL-TODO.md)
+═══════════════════════════════════════════════════════════════════════════════
+
+AILattice™ and AILattice Certified™ are claimed trademarks of Intelli-Stasis.
+
+NOTE: The ™ symbol indicates a trademark claim, not a registered trademark.
+Registration status and jurisdiction coverage require legal advice — see
+LEGAL-TODO.md. Until registration is confirmed, these marks are asserted
+under common law trademark rights in jurisdictions where that applies.
+
+This licence does not grant permission to use the AILattice name or marks
+in any way that implies official affiliation, certification, or endorsement
+without authorisation from Intelli-Stasis.
+
+═══════════════════════════════════════════════════════════════════════════════
+THE STANDARD IS A COMMONS
+═══════════════════════════════════════════════════════════════════════════════
+
+The Introduction Layer standard exists to serve the open web. Its governance
+is through the W3C Introduction Layer Community Group. No commercial entity —
+including Intelli-Stasis — may unilaterally modify the standard or restrict
+conformant implementation by others.
