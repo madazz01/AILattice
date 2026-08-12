@@ -1,11 +1,39 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TX81TZ2GQ6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TX81TZ2GQ6');
+</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AILattice™ — Make Your Website AI Ready</title>
-  <meta name="description" content="AI tools like ChatGPT now search the web. Most websites are invisible to them. AILattice adds a hidden layer that AI can read directly — get the AI Ready badge and show the world your site speaks their language.">
+  <title>AILattice™ — Make Your Website AI ready</title>
+  <meta name="description" content="AI tools like ChatGPT now search the web. Most websites are invisible to them. AILattice adds a hidden layer that AI can read directly — get the AI ready badge and show the world your site speaks their language.">
   <link rel="alternate" type="text/markdown" href="/ai/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "AILattice",
+    "url": "https://ailattice.io",
+    "description": "The open standard and public registry for AI-readable websites. AILattice defines the four-file standard that makes any website readable by AI agents, and operates the registry of certified sites.",
+    "founder": {
+      "@type": "Person",
+      "name": "Bryan Horsfield"
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://ailattice.io/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    },
+    "sameAs": []
+  }
+  </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -15,8 +43,8 @@
       --bg3:          #f1f5f9;
       --border:       #e2e8f0;
       --border-hi:    #cbd5e1;
-      --text:         #475569;
-      --text-dim:     #94a3b8;
+      --text:         #1e293b;
+      --text-dim:     #475569;
       --heading:      #0f172a;
       --green:        #16a34a;
       --green-glow:   rgba(22, 163, 74, 0.08);
@@ -50,7 +78,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 18px 40px;
+      padding: 10px 40px;
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
@@ -93,8 +121,10 @@
       padding: 96px 40px 80px;
       text-align: center;
       overflow: hidden;
-      background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%);
+      background: url('/bg-lattice.png') center center / cover no-repeat;
     }
+    .hero::before { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.58); z-index: 0; pointer-events: none; }
+    .hero > * { position: relative; z-index: 1; }
     .hero-grid {
       position: absolute;
       inset: 0;
@@ -980,6 +1010,22 @@
       .ex-arrow { transform: rotate(90deg); }
     }
 
+    /* ── Integrity zone ── */
+    .integrity-zone { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 64px 40px; }
+    .integrity-zone-inner { max-width: 900px; margin: 0 auto; }
+    .integrity-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 14px; text-align: center; }
+    .integrity-heading { font-size: clamp(24px, 3.5vw, 34px); font-weight: 800; color: var(--heading); letter-spacing: -0.6px; margin-bottom: 10px; text-align: center; line-height: 1.2; }
+    .integrity-sub { font-size: 15px; color: var(--text-dim); margin-bottom: 36px; text-align: center; }
+    .integrity-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    @media (max-width: 640px) { .integrity-grid { grid-template-columns: 1fr; } }
+    .integrity-check { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; }
+    .integrity-icon { width: 24px; height: 24px; border-radius: 50%; background: var(--green-glow); border: 1px solid var(--green-border); color: var(--green); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .integrity-label { font-size: 14px; font-weight: 600; color: var(--heading); margin-bottom: 2px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .integrity-detail { font-size: 12.5px; color: var(--text-dim); line-height: 1.4; }
+    .hard-gate-tag { display: inline-flex; align-items: center; font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: 0.3px; background: rgba(220,38,38,0.07); border: 1px solid rgba(220,38,38,0.22); color: var(--red); border-radius: 4px; padding: 1px 7px; white-space: nowrap; }
+    .integrity-note { text-align: center; margin-top: 28px; font-size: 13.5px; color: var(--text-dim); line-height: 1.6; }
+    @media (max-width: 640px) { .integrity-zone { padding: 40px 20px; } }
+
     /* ── Footer ── */
     footer {
       border-top: 1px solid var(--border);
@@ -1000,7 +1046,7 @@
     /* ── Responsive ── */
     @media (max-width: 640px) {
       nav { padding: 16px 20px; }
-      .nav-links a:not(.nav-pill):not(.active) { display: none; }
+      .nav-links a:not(.active):not(.nav-cta) { display: none; }
       .hero { padding: 72px 20px 56px; }
       .hero h1 { letter-spacing: -1.5px; }
       .hero-sub { font-size: 17px; }
@@ -1016,36 +1062,29 @@
 <body>
 
 <nav>
-  <a href="/" class="logo">
-    <img src="/icon.svg" width="28" height="22" alt="AILattice icon" style="display:block;">
-    AI<em>Lattice</em>™
-  </a>
+  <a href="/" class="logo"><em>AI</em> Lattice&trade;</a>
   <div class="nav-links">
-    <a href="/" class="active">Home</a>
-    <a href="/search">Search</a>
+    <a href="/how-it-works">How it works</a>
     <a href="/registry">Registry</a>
-    <a href="/submit">Submit</a>
-    <a href="/validate">Validator</a>
-    <a href="#spec">Spec</a>
-    <a href="https://github.com/madazz01/ailattice" target="_blank" rel="noopener">GitHub</a>
-    <a href="https://www.paypal.com/donate?hosted_button_id=4FU5LYQTJZTVU" target="_blank" rel="noopener" style="display:flex;align-items:center;"><img src="https://www.paypalobjects.com/en_AU/i/btn/btn_donate_SM.gif" alt="Donate with PayPal" style="height:22px;display:block;"></a>
-    <span class="nav-pill">v1 · MIT</span>
+    <a href="/manifesto">Why</a>
+    <a href="/login" id="navSignIn">Sign in</a>
+    <a href="/signup" id="navSignUp" class="nav-cta" style="background:var(--green);color:#fff;padding:7px 18px;border-radius:7px;font-weight:700;font-size:13px">Sign up free</a>
   </div>
 </nav>
 
 <!-- ═══════════════════════════════════════════════ HERO -->
 <div class="hero">
   <div class="hero-grid"></div>
-  <div class="hero-label">AI Search is Here · AILattice™ v1</div>
-  <h1>Is your website<br><em>visible to AI?</em></h1>
-  <p class="hero-sub">Four files, a few clicks, and your website speaks AI. ChatGPT, Perplexity and AI search now browse the web — most sites are invisible to them. AILattice fixes that.</p>
+  <div class="hero-label">Community project · Open standard · Always free</div>
+  <h1>Have your say in<br>how <em>the future</em> sees you</h1>
+  <p class="hero-sub">Artificial intelligence is answering questions directly — and sending fewer visitors to the sites it learned from. AILattice gives your site a voice in that conversation.</p>
 </div>
 
 <!-- ═══════════════════════════════════════════════ STORY HOOK -->
 <div class="story-hook">
   <div class="story-hook-inner">
-    <p class="story-lead">The future of web search is AI browsers, AI assistants and AI agents — and they don't read websites the way humans or current browsers do.</p>
-    <p class="story-body">We're building the new open standard that makes every website instantly readable and understood by AI. Four invisible text files — a table of contents and sitemap for your site, written in exactly the structure AI is looking for. No design changes. No new infrastructure. Just the signal AI needs to understand and reference you.</p>
+    <p class="story-lead">The click that sent visitors to websites — and paid for the content artificial intelligence learned from — is disappearing. AI answers the question. Nobody visits the source.</p>
+    <p class="story-body">AILattice is a community project building the alternative. Not another algorithm to game. A direct, structured connection between AI agents and content sources — so your site is found, read, and acknowledged as the source. Not scraped silently. Not buried under an AI Overview nobody clicks. A first-class result in the web that AI actually navigates.</p>
   </div>
 </div>
 
@@ -1080,7 +1119,7 @@
         </svg>
       </div>
       <div class="ex-step-title">Add 4 text files</div>
-      <div class="ex-step-sub">Hidden from visitors. AI tools find them automatically.</div>
+      <div class="ex-step-sub">Hidden from visitors. Artificial intelligence tools find them automatically.</div>
     </div>
 
     <div class="ex-arrow">
@@ -1116,7 +1155,7 @@
           <polyline points="9 12 11 14 15 10"/>
         </svg>
       </div>
-      <div class="ex-step-title">AI Ready badge</div>
+      <div class="ex-step-title">AI ready badge</div>
       <div class="ex-step-sub">One-time verification. Show the world your site speaks AI.</div>
     </div>
 
@@ -1126,7 +1165,7 @@
 <!-- ═══════════════════════════════════════════════ CHECK ZONE -->
 <div class="check-zone">
   <div class="check-zone-inner">
-    <div class="check-heading">Find out how AI sees your website</div>
+    <div class="check-heading">Find out how artificial intelligence sees your website</div>
     <p class="check-sub">See exactly what AI tools can and can't understand about your site right now. Free, instant, no account needed.</p>
 
     <div class="input-wrap">
@@ -1174,13 +1213,12 @@
         <div class="cta-certified-body">
           <p><strong>Your site is AI ready.</strong> Submit it to the public AILattice Registry for free — no payment needed. The registry is open to any site that implements the standard correctly.</p>
           <div class="badge-live">
-            <img src="/icon.svg" width="22" height="18" alt="AILattice" style="display:block;">
-            <em>AI Ready</em> · AILattice™
+            <img src="/logo.svg" height="22" alt="AILattice" style="display:block;">
+            <em>AI ready</em> · AILattice™
           </div>
         </div>
         <div class="cert-actions">
-          <a id="submitFreeBtn" href="/submit" class="btn-p">Get your free registry listing →</a>
-          <a href="/convert" style="font-size:13px;color:var(--text-dim);transition:color 0.15s;" onmouseover="this.style.color='var(--green)'" onmouseout="this.style.color='var(--text-dim)'">or use our converter for Schema.org + WordPress plugin →</a>
+          <a id="submitFreeBtn" href="/dashboard" class="btn-p">Get your free registry listing →</a>
           <button class="embed-toggle" onclick="toggleEmbed()">copy badge embed ↓</button>
         </div>
         <div id="embedBlock">
@@ -1193,22 +1231,10 @@
 
       <!-- CTA: Not certified / partial — two paths -->
       <div id="ctaNotCertified" class="cta-panel" style="display:none">
-        <div class="cta-label" id="ctaLabel">Your site needs the AILattice files. How would you like to proceed?</div>
-        <div class="cta-split">
-          <div class="cta-card cta-card-primary">
-            <div class="cta-card-icon">⚡</div>
-            <h3>Generate my files — free</h3>
-            <p>We scan your site and generate all four AILattice files filled with your real details. Copy, paste, done in minutes. No tech skills needed.</p>
-            <a href="/convert" class="btn-p">Generate my files free →</a>
-          </div>
-          <div class="cta-card">
-            <div class="cta-card-icon">{}</div>
-            <h3>I'll do it myself — free</h3>
-            <p>Read the spec and create the four text files yourself. MIT licensed, full control. When you're done, submit your site to the registry for free.</p>
-            <a href="#implement" class="btn-s">Show me how ↓</a>
-            <div style="margin-top:12px;font-size:13px;color:var(--text-dim);">When done: <a href="/submit" style="color:var(--green);">submit for free →</a></div>
-          </div>
-        </div>
+        <div class="cta-label" id="ctaLabel">Your site isn't AI-ready yet.</div>
+        <p style="font-size:14px;color:var(--text-dim);margin:8px 0 16px;line-height:1.65">Create a free account — we check your site, generate your AI files with your real details, list you in the registry, and show you exactly where to upload the three files.</p>
+        <a href="/dashboard" class="btn-p">Get started free →</a>
+        <div style="margin-top:10px;font-size:13px;color:var(--text-dim)">Takes under 3 minutes. <a href="/how-it-works" style="color:var(--green)">See how it works →</a></div>
       </div>
 
       <button id="recheckBtn" onclick="runCheck()">↻ Check again</button>
@@ -1245,10 +1271,10 @@
           </li>
           <li class="done">
             <div class="step-num"><span>✓</span></div>
-            <span style="color:var(--green);font-weight:600;">Your site is AI-ready</span>
+            <span style="color:var(--green);font-weight:600;">Your site is AI ready</span>
           </li>
         </ul>
-        <a href="/convert" class="platform-cta primary">Generate my files free →</a>
+        <a href="/dashboard" class="platform-cta primary">Get started free →</a>
       </div>
 
       <!-- PHP installer -->
@@ -1311,7 +1337,7 @@
 <div class="demo-zone">
   <div class="demo-zone-inner">
     <div class="demo-eyebrow">The Opportunity</div>
-    <h2 class="demo-heading">Not even the world's biggest sites are AI ready</h2>
+    <h2 class="demo-heading">Not even the world's biggest sites are artificial intelligence ready</h2>
     <p class="demo-sub">The standard is new. Every site that moves first gets a head start that compounds.</p>
 
     <div class="demo-grid">
@@ -1366,7 +1392,7 @@
             </svg>
             <div class="demo-ring-val green">100</div>
           </div>
-          <span class="demo-chip pass">✓ AI Ready</span>
+          <span class="demo-chip pass">✓ AI ready</span>
         </div>
       </div>
     </div>
@@ -1378,21 +1404,112 @@
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════════════ INTEGRITY -->
+<div class="integrity-zone">
+  <div class="integrity-zone-inner">
+    <div class="integrity-eyebrow">Registry Standards</div>
+    <h2 class="integrity-heading">Every listed site is independently verified</h2>
+    <p class="integrity-sub">The registry isn't a directory you pay to be in. It's a standard you have to meet. Sites pass 11 checks before listing — and two of them are hard gates that reject automatically, regardless of anything else.</p>
+
+    <div class="integrity-grid">
+      <div class="integrity-check">
+        <div class="integrity-icon">✓</div>
+        <div>
+          <div class="integrity-label">artificial intelligence entry file present</div>
+          <div class="integrity-detail">/llms.txt must exist and be valid at the root</div>
+        </div>
+      </div>
+      <div class="integrity-check">
+        <div class="integrity-icon">✓</div>
+        <div>
+          <div class="integrity-label">AI index accessible</div>
+          <div class="integrity-detail">/ai/index.md must load with readable content</div>
+        </div>
+      </div>
+      <div class="integrity-check">
+        <div class="integrity-icon">✓</div>
+        <div>
+          <div class="integrity-label">AI sitemap present</div>
+          <div class="integrity-detail">/ai/sitemap.md must list the site's navigable pages</div>
+        </div>
+      </div>
+      <div class="integrity-check">
+        <div class="integrity-icon">✓</div>
+        <div>
+          <div class="integrity-label">HTTPS active</div>
+          <div class="integrity-detail">SSL must be valid — not self-signed, not expired</div>
+        </div>
+      </div>
+      <div class="integrity-check">
+        <div class="integrity-icon">✓</div>
+        <div>
+          <div class="integrity-label">AI crawlers permitted</div>
+          <div class="integrity-detail">robots.txt must not block GPTBot, ClaudeBot, or PerplexityBot</div>
+        </div>
+      </div>
+      <div class="integrity-check">
+        <div class="integrity-icon">✓</div>
+        <div>
+          <div class="integrity-label">Site responds promptly</div>
+          <div class="integrity-detail">Home page must load within 3 seconds</div>
+        </div>
+      </div>
+      <div class="integrity-check">
+        <div class="integrity-icon">✓</div>
+        <div>
+          <div class="integrity-label">Content quality minimum</div>
+          <div class="integrity-detail">AI index must contain enough real content for agents to navigate</div>
+        </div>
+      </div>
+      <div class="integrity-check">
+        <div class="integrity-icon">✓</div>
+        <div>
+          <div class="integrity-label">Structured data present</div>
+          <div class="integrity-detail">Schema.org or Open Graph metadata — signals a maintained site</div>
+        </div>
+      </div>
+      <div class="integrity-check">
+        <div class="integrity-icon">✓</div>
+        <div>
+          <div class="integrity-label">Minimum score of 70/100</div>
+          <div class="integrity-detail">Must clear the threshold across all weighted checks</div>
+        </div>
+      </div>
+      <div class="integrity-check">
+        <div class="integrity-icon">✓</div>
+        <div>
+          <div class="integrity-label">Content parity <span class="hard-gate-tag">hard gate</span></div>
+          <div class="integrity-detail">AI files must reflect the public website — no phantom content or keyword stuffing</div>
+        </div>
+      </div>
+      <div class="integrity-check">
+        <div class="integrity-icon">✓</div>
+        <div>
+          <div class="integrity-label">Consistent content for all visitors <span class="hard-gate-tag">hard gate</span></div>
+          <div class="integrity-detail">Sites cannot serve different content to AI crawlers than to real visitors</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="integrity-note">Sites failing either hard gate are rejected automatically — no exceptions, no manual override. The registry exists to be trusted, not gamed.</p>
+  </div>
+</div>
+
 <main>
 
   <!-- ═══════════════════════════════════════════ PROBLEM -->
   <section id="problem">
     <div class="sec-label">Why It Matters</div>
-    <h2>When someone asks AI about<br>your business, what does it say?</h2>
+    <h2>When someone asks artificial intelligence about<br>your business, what does it say?</h2>
     <p>
-      AI tools like ChatGPT, Perplexity, and Google's AI search now browse the web to answer questions.
+      Artificial intelligence tools like ChatGPT, Perplexity, and Google's AI search now browse the web to answer questions.
       When someone asks about your business, your product, or your services — they're looking you up.
     </p>
     <p>
       The problem: most websites were built for human eyes. AI reads them like a robot trying to understand
       a newspaper through a window — it gets some of it, guesses the rest, and often gets it wrong.
       AILattice adds a clean, hidden layer that AI reads directly. Think of it like the HTTPS padlock —
-      invisible to most visitors, but it signals something important. The AI Ready badge tells the world
+      invisible to most visitors, but it signals something important. The AI ready badge tells the world
       your site speaks AI.
     </p>
 
@@ -1414,7 +1531,7 @@
           <li>Your latest content, prices, and details — always accurate</li>
           <li>AI tools can navigate and reference your site confidently</li>
           <li>You control the story AI tells about your business</li>
-          <li>The AI Ready badge shows visitors your site is future-ready</li>
+          <li>The AI ready badge shows visitors your site is future-ready</li>
         </ul>
       </div>
     </div>
@@ -1423,13 +1540,13 @@
   <!-- ═══════════════════════════════════════════ SPEC -->
   <section id="spec">
     <div class="sec-label">How It Works</div>
-    <h2>Four files. One afternoon.<br>AI ready for good.</h2>
+    <h2>Four files. One afternoon.<br>Artificial intelligence ready for good.</h2>
     <p>AILattice adds four plain text files to your website. They're invisible to human visitors but AI tools read them directly — no scraping, no guessing. Your site speaks their language.</p>
 
     <div class="spec-block">
       <div><span class="path">/llms.txt</span>         <span class="cmt">  ← who you are, what you do, where to start</span></div>
       <div><span class="path">/ai/index.md</span>      <span class="cmt">  ← site overview and entry point</span></div>
-      <div><span class="path">/ai/sitemap.md</span>    <span class="cmt">  ← all AI-navigable pages, one per line</span></div>
+      <div><span class="path">/ai/sitemap.md</span>    <span class="cmt">  ← all AI navigable pages, one per line</span></div>
       <div><span class="path">/ai/*.md</span>          <span class="cmt">  ← your content in plain markdown</span></div>
     </div>
 
@@ -1489,7 +1606,7 @@ Contact: hello@mycompany.com</pre>
         <div class="step-n">1</div>
         <div class="step-body">
           <h3>Create <code>/llms.txt</code> at your root</h3>
-          <p>Who you are, what you do, a link to <code>/ai/index.md</code>. This is the discovery file — AI agents check here first. Keep it short and factual.</p>
+          <p>Who you are, what you do, a link to <code>/ai/index.md</code>. This is the discovery file — artificial intelligence agents check here first. Keep it short and factual.</p>
         </div>
       </div>
       <div class="step">
@@ -1523,14 +1640,14 @@ Contact: hello@mycompany.com</pre>
     </div>
 
     <p style="margin-top:32px;font-size:14px;color:var(--text-dim);">
-      Don't want to write the files yourself? <a href="/convert">We'll generate them with your details, ready to copy-paste — free →</a>
+      Don't want to write the files yourself? <a href="/dashboard" style="color:var(--green)">We'll generate them for you, free →</a>
     </p>
   </section>
 
   <!-- ═══════════════════════════════════════════ NODE 1 -->
   <section id="node1">
     <div class="sec-label">Reference Implementation</div>
-    <h2>Node 1 of the AI Internet</h2>
+    <h2>Node 1 of the artificial intelligence Internet</h2>
     <p>
       AILattice was developed by <a href="https://intellistasis.com" target="_blank" rel="noopener">Intelli-Stasis</a> —
       the first site to implement the full standard. Their AI layer is live and serves as the
@@ -1554,21 +1671,20 @@ Contact: hello@mycompany.com</pre>
   <!-- ═══════════════════════════════════════════ VISION -->
   <section id="vision">
     <div class="sec-label">The Bigger Picture</div>
-    <h2>The web is being rebuilt<br>for AI. Get ahead of it.</h2>
+    <h2>The web is being rebuilt<br>for artificial intelligence. Get ahead of it.</h2>
     <p>
       Google changed everything when it started indexing the web. Sites that optimised for search
       got found. Sites that didn't got left behind. AI search is the same shift — just faster.
     </p>
     <p>
-      AILattice is the open standard for AI-readable websites. Every site that adds it becomes
+      AILattice is the open standard for AI readable websites. Every site that adds it becomes
       part of a growing network that AI tools can navigate with confidence. The badge is your signal
       that you moved first — the same way having HTTPS before everyone else used to mean something.
     </p>
 
     <div class="callout">
       <p>
-        <em>The standard is free. The registry is free. The listing is free.</em> Implement the files yourself and <a href="/submit">submit your site for free</a> — no payment, ever. The optional converter tool on our <a href="/convert">convert page</a> does the file generation work for you, and that's all the money is for. Nothing else.
-        Every listed site joins the <a href="/registry">AILattice Registry</a> — a public, AI-queryable catalog organised by topic and location. Organic ranking only. No paid placement. Ever.
+        <em>The standard is free. The registry is free. The listing is free.</em> Always. Implement the files yourself and <a href="/dashboard">list your site free</a> — no payment, ever. This is a community project and it's for all of us.
       </p>
     </div>
   </section>
@@ -1577,18 +1693,17 @@ Contact: hello@mycompany.com</pre>
 
 <footer>
   <div class="footer-links">
-    <a href="/">Home</a>
-    <a href="#spec">Spec</a>
-    <a href="#implement">Implement</a>
-    <a href="/validate">Validator</a>
-    <a href="/submit">Submit free</a>
+    <a href="/how-it-works">How it works</a>
     <a href="/registry">Registry</a>
-    <a href="/ai/">For AI</a>
+    <a href="/manifesto">Why</a>
+    <a href="/faq">FAQ</a>
+    <a href="/developers">Developers</a>
+    <a href="/contact">Contact</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
     <a href="https://github.com/madazz01/ailattice" target="_blank" rel="noopener">GitHub</a>
-    <a href="https://intellistasis.com" target="_blank" rel="noopener">Intelli-Stasis</a>
-    <a href="https://www.paypal.com/donate?hosted_button_id=4FU5LYQTJZTVU" target="_blank" rel="noopener">☕ Support</a>
   </div>
-  <div class="footer-copy">AILattice™ v1.0 · MIT Licence · Open standard · Intelli-Stasis</div>
+  <div class="footer-copy">AILattice™ · Open standard · Free forever · Built by <a href="https://intellistasis.com" target="_blank" rel="noopener" style="color:var(--text-dim);">Intelli-Stasis</a></div>
 </footer>
 
 <script>
@@ -1644,7 +1759,7 @@ Contact: hello@mycompany.com</pre>
     document.getElementById('scoreVal').textContent = score;
 
     // Title + URL
-    const title = score >= 70 ? 'AI Ready ✓' : score >= 40 ? 'Almost AI Ready' : 'Not AI Ready';
+    const title = score >= 70 ? 'AI ready ✓' : score >= 40 ? 'Almost AI ready' : 'Not AI ready';
     document.getElementById('scoreTitle').textContent = title;
     document.getElementById('scoreUrl').textContent   = url;
 
@@ -1652,7 +1767,7 @@ Contact: hello@mycompany.com</pre>
     const cb = document.getElementById('certBadge');
     cb.className = 'cert-badge ' + (score >= 70 ? 'certified' : score >= 40 ? 'partial' : 'not-cert');
     document.getElementById('certLabel').textContent =
-      score >= 70 ? 'AI Ready · ' + score + '/100'
+      score >= 70 ? 'AI ready · ' + score + '/100'
       : score >= 40 ? 'Partially ready · ' + score + '/100'
       : 'Not AI ready · ' + score + '/100';
 
@@ -1680,10 +1795,10 @@ Contact: hello@mycompany.com</pre>
 
     if (certified) {
       // Certified: show submit free CTA + badge embed
-      const code = `<a href="https://ailattice.io" target="_blank" rel="noopener"\n   style="display:inline-flex;align-items:center;gap:9px;background:#131313;\n          border:1px solid rgba(34,197,94,0.3);border-radius:6px;\n          padding:8px 14px;font-family:monospace;font-size:12px;\n          color:#f0f0f0;text-decoration:none;">\n  <img src="https://ailattice.io/icon.svg" width="22" height="18" alt="AILattice">\n  <strong style="color:#22c55e">AILattice</strong> certified\n</a>`;
+      const code = `<a href="https://ailattice.io" target="_blank" rel="noopener"\n   style="display:inline-flex;align-items:center;gap:9px;background:#131313;\n          border:1px solid rgba(34,197,94,0.3);border-radius:6px;\n          padding:8px 14px;font-family:monospace;font-size:12px;\n          color:#f0f0f0;text-decoration:none;">\n  <img src="https://ailattice.io/logo.svg" height="22" alt="AILattice">\n  <strong style="color:#22c55e">AILattice</strong> certified\n</a>`;
       document.getElementById('badgeCode').textContent = code;
       const submitBtn = document.getElementById('submitFreeBtn');
-      if (submitBtn) submitBtn.href = '/submit?url=' + encodeURIComponent(url);
+      if (submitBtn) submitBtn.href = '/dashboard';
       certDiv.style.display    = 'block';
       notCertDiv.style.display = 'none';
     } else {
@@ -1718,3 +1833,4 @@ Contact: hello@mycompany.com</pre>
 </script>
 </body>
 </html>
+

@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TX81TZ2GQ6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TX81TZ2GQ6');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Developers — AILattice</title>
+<meta name="description" content="Build with the Introduction Layer. Add intro.txt to any site, query the registry API, run conformance tests, or contribute to the open standard.">
+<link rel="canonical" href="https://ailattice.io/developers">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:         #ffffff;
+  --bg2:        #f8fafc;
+  --bg3:        #f1f5f9;
+  --border:     #e2e8f0;
+  --border-hi:  #cbd5e1;
+  --text:       #334155;
+  --text-dim:   #64748b;
+  --heading:    #0f172a;
+  --green:      #16a34a;
+  --green-glow: rgba(22, 163, 74, 0.08);
+  --green-dim:  rgba(22, 163, 74, 0.15);
+  --green-hi:   rgba(22, 163, 74, 0.28);
+  --code-bg:    #0f172a;
+  --code-text:  #e2e8f0;
+  --mono:       'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', Consolas, monospace;
+  --sans:       -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:         #0f172a;
+    --bg2:        #1e293b;
+    --bg3:        #263348;
+    --border:     #1e293b;
+    --border-hi:  #334155;
+    --text:       #cbd5e1;
+    --text-dim:   #64748b;
+    --heading:    #f1f5f9;
+    --green:      #22c55e;
+    --green-glow: rgba(34, 197, 94, 0.08);
+    --green-dim:  rgba(34, 197, 94, 0.12);
+    --green-hi:   rgba(34, 197, 94, 0.25);
+    --code-bg:    #020617;
+    --code-text:  #e2e8f0;
+  }
+}
+:root[data-theme="light"] {
+  --bg: #ffffff; --bg2: #f8fafc; --bg3: #f1f5f9;
+  --border: #e2e8f0; --border-hi: #cbd5e1;
+  --text: #334155; --text-dim: #64748b; --heading: #0f172a;
+  --green: #16a34a; --green-glow: rgba(22,163,74,0.08);
+  --green-dim: rgba(22,163,74,0.15); --green-hi: rgba(22,163,74,0.28);
+  --code-bg: #0f172a; --code-text: #e2e8f0;
+}
+:root[data-theme="dark"] {
+  --bg: #0f172a; --bg2: #1e293b; --bg3: #263348;
+  --border: #1e293b; --border-hi: #334155;
+  --text: #cbd5e1; --text-dim: #64748b; --heading: #f1f5f9;
+  --green: #22c55e; --green-glow: rgba(34,197,94,0.08);
+  --green-dim: rgba(34,197,94,0.12); --green-hi: rgba(34,197,94,0.25);
+  --code-bg: #020617; --code-text: #e2e8f0;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); color: var(--text); background: var(--bg); font-size: 15px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+a { color: var(--green); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Nav ── */
+nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 40px; border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(8px); z-index: 100;
+}
+@media (prefers-color-scheme: dark) { nav { background: rgba(15,23,42,0.95); } }
+:root[data-theme="dark"] nav { background: rgba(15,23,42,0.95); }
+:root[data-theme="light"] nav { background: rgba(255,255,255,0.95); }
+
+.logo { display: flex; align-items: center; gap: 9px; font-family: var(--mono); font-size: 15px; font-weight: 700; color: var(--heading); letter-spacing: -0.3px; text-decoration: none; }
+.logo:hover { opacity: 0.85; text-decoration: none; }
+.logo em { color: var(--green); font-style: normal; }
+.nav-links { display: flex; align-items: center; gap: 28px; }
+.nav-links a { color: var(--text-dim); font-size: 14px; transition: color 0.15s; }
+.nav-links a:hover { color: var(--text); text-decoration: none; }
+.nav-links a.active { color: var(--green); }
+.nav-cta { background: var(--green); color: #fff !important; padding: 7px 18px; border-radius: 7px; font-weight: 700; font-size: 13px !important; }
+
+/* ── Hero ── */
+.hero {
+  border-bottom: 1px solid var(--border);
+  padding: 72px 40px 64px;
+  background: linear-gradient(160deg, var(--bg) 60%, var(--bg2) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.hero-grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(var(--green-glow) 1px, transparent 1px),
+    linear-gradient(90deg, var(--green-glow) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.6;
+}
+.hero-inner { position: relative; z-index: 1; max-width: 780px; }
+.eyebrow {
+  display: inline-block; font-family: var(--mono); font-size: 11px;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--green);
+  background: var(--green-glow); border: 1px solid var(--green-hi);
+  padding: 4px 12px; border-radius: 20px; margin-bottom: 24px;
+}
+.hero h1 {
+  font-size: clamp(36px, 5vw, 58px); font-weight: 800; color: var(--heading);
+  letter-spacing: -2px; line-height: 1.06; margin-bottom: 20px;
+}
+.hero h1 em { color: var(--green); font-style: normal; }
+.hero-sub { font-size: 18px; color: var(--text-dim); line-height: 1.65; max-width: 520px; margin-bottom: 36px; }
+
+.hero-paths { display: flex; flex-wrap: wrap; gap: 12px; }
+.path-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 600;
+  text-decoration: none; transition: all 0.15s; border: 1px solid var(--border-hi);
+  background: var(--bg); color: var(--heading);
+}
+.path-btn:hover { border-color: var(--green); color: var(--green); text-decoration: none; }
+.path-btn.primary { background: var(--green); color: #fff; border-color: var(--green); }
+.path-btn.primary:hover { opacity: 0.9; color: #fff; }
+.path-arrow { font-size: 12px; opacity: 0.6; }
+
+/* ── Shell ── */
+.shell { max-width: 860px; margin: 0 auto; padding: 0 40px; }
+
+/* ── Section headers ── */
+.section { padding: 64px 0 0; }
+.section:last-of-type { padding-bottom: 80px; }
+
+.section-label {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--green); margin-bottom: 10px;
+}
+.section h2 {
+  font-size: clamp(22px, 3vw, 30px); font-weight: 800; color: var(--heading);
+  letter-spacing: -0.7px; line-height: 1.15; margin-bottom: 12px;
+}
+.section-sub { font-size: 15px; color: var(--text-dim); line-height: 1.65; max-width: 580px; margin-bottom: 36px; }
+
+/* ── Three paths cards ── */
+.paths-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 8px; }
+.path-card {
+  border: 1px solid var(--border); border-radius: 12px; padding: 24px 22px;
+  background: var(--bg); transition: border-color 0.15s;
+}
+.path-card:hover { border-color: var(--green-hi); }
+.path-num {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--green); margin-bottom: 12px;
+  display: block;
+}
+.path-card h3 { font-size: 16px; font-weight: 700; color: var(--heading); margin-bottom: 8px; letter-spacing: -0.3px; }
+.path-card p { font-size: 14px; color: var(--text-dim); line-height: 1.6; margin-bottom: 16px; }
+.path-link { font-size: 13px; font-weight: 600; color: var(--green); }
+.path-link:hover { text-decoration: underline; }
+
+/* ── Code blocks ── */
+.code-block {
+  background: var(--code-bg); border-radius: 10px; padding: 0;
+  margin: 24px 0; overflow: hidden; border: 1px solid #1e293b;
+}
+.code-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.code-lang { font-family: var(--mono); font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 1.5px; }
+.code-copy {
+  font-family: var(--mono); font-size: 11px; color: #64748b; background: none;
+  border: 1px solid #334155; padding: 3px 10px; border-radius: 5px; cursor: pointer;
+  transition: all 0.15s;
+}
+.code-copy:hover { color: var(--code-text); border-color: #475569; }
+.code-copy.copied { color: #22c55e; border-color: rgba(34,197,94,0.4); }
+pre {
+  padding: 20px; overflow-x: auto; font-family: var(--mono);
+  font-size: 13px; line-height: 1.65; color: var(--code-text); tab-size: 2;
+}
+.c-cmt { color: #475569; }
+.c-key { color: #93c5fd; }
+.c-str { color: #86efac; }
+.c-url { color: #67e8f9; }
+.c-met { color: #fde68a; }
+.c-val { color: #c4b5fd; }
+
+/* ── Tabs ── */
+.tabs { display: flex; gap: 2px; border-bottom: 1px solid var(--border); margin-bottom: 28px; }
+.tab {
+  padding: 10px 18px; font-size: 13px; font-weight: 600; color: var(--text-dim);
+  cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px;
+  transition: all 0.15s; background: none; border-top: none; border-left: none; border-right: none;
+  font-family: var(--sans);
+}
+.tab:hover { color: var(--heading); }
+.tab.active { color: var(--green); border-bottom-color: var(--green); }
+
+.tab-pane { display: none; }
+.tab-pane.active { display: block; }
+
+/* ── Step list ── */
+.steps { display: flex; flex-direction: column; gap: 0; counter-reset: step; }
+.step { display: flex; gap: 20px; padding: 24px 0; border-bottom: 1px solid var(--border); }
+.step:last-child { border-bottom: none; }
+.step-num {
+  flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%;
+  background: var(--green-glow); border: 1px solid var(--green-hi);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--green);
+  margin-top: 2px;
+}
+.step-body h4 { font-size: 15px; font-weight: 700; color: var(--heading); margin-bottom: 6px; }
+.step-body p { font-size: 14px; color: var(--text-dim); line-height: 1.65; }
+.step-body code { font-family: var(--mono); font-size: 12px; background: var(--bg2); border: 1px solid var(--border); padding: 2px 7px; border-radius: 4px; color: var(--heading); }
+
+/* ── API endpoint table ── */
+.ep-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+.ep-table th { text-align: left; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-dim); padding: 8px 12px; border-bottom: 1px solid var(--border); background: var(--bg2); }
+.ep-table td { padding: 12px 12px; border-bottom: 1px solid var(--border); font-size: 13px; vertical-align: top; }
+.ep-table tr:last-child td { border-bottom: none; }
+.ep-method { font-family: var(--mono); font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; display: inline-block; }
+.ep-method.get { background: rgba(34,197,94,0.1); color: #15803d; border: 1px solid rgba(34,197,94,0.25); }
+.ep-method.post { background: rgba(147,197,253,0.12); color: #1d4ed8; border: 1px solid rgba(147,197,253,0.3); }
+.ep-path { font-family: var(--mono); font-size: 13px; color: var(--heading); }
+.ep-desc { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
+.ep-table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; }
+
+/* ── Ecosystem grid ── */
+.eco-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 4px; }
+.eco-card {
+  border: 1px solid var(--border); border-radius: 10px; padding: 20px;
+  background: var(--bg); transition: border-color 0.15s;
+}
+.eco-card:hover { border-color: var(--green-hi); }
+.eco-icon { font-size: 22px; margin-bottom: 10px; display: block; }
+.eco-card h4 { font-size: 14px; font-weight: 700; color: var(--heading); margin-bottom: 6px; }
+.eco-card p { font-size: 13px; color: var(--text-dim); line-height: 1.55; }
+.eco-badge {
+  display: inline-block; margin-top: 10px; font-size: 11px; font-weight: 600;
+  font-family: var(--mono); color: var(--green); background: var(--green-glow);
+  border: 1px solid var(--green-hi); padding: 2px 8px; border-radius: 4px;
+}
+
+/* ── Conformance grid ── */
+.conf-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+.conf-item {
+  display: flex; align-items: flex-start; gap: 16px;
+  border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px;
+  background: var(--bg);
+}
+.conf-id {
+  font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--green);
+  background: var(--green-glow); border: 1px solid var(--green-hi);
+  padding: 3px 8px; border-radius: 5px; white-space: nowrap; margin-top: 2px;
+}
+.conf-body h4 { font-size: 14px; font-weight: 700; color: var(--heading); margin-bottom: 4px; }
+.conf-body p { font-size: 13px; color: var(--text-dim); line-height: 1.55; }
+.conf-req { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 6px; display: inline-block; }
+.req-required { color: #dc2626; }
+.req-recommended { color: #ca8a04; }
+
+/* ── Community strip ── */
+.community {
+  background: var(--bg2); border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border); padding: 56px 40px;
+  margin: 64px -40px 0;
+}
+.community-inner { max-width: 780px; margin: 0 auto; display: flex; gap: 48px; align-items: flex-start; }
+.community-main { flex: 1; }
+.community-main h2 { font-size: clamp(22px, 3vw, 28px); font-weight: 800; color: var(--heading); letter-spacing: -0.5px; margin-bottom: 12px; }
+.community-main p { font-size: 15px; color: var(--text-dim); line-height: 1.65; margin-bottom: 20px; }
+.comm-links { display: flex; flex-wrap: wrap; gap: 12px; }
+.comm-link {
+  display: inline-flex; align-items: center; gap: 8px; padding: 9px 18px;
+  border: 1px solid var(--border-hi); border-radius: 8px; font-size: 13px;
+  font-weight: 600; color: var(--heading); background: var(--bg); transition: all 0.15s;
+}
+.comm-link:hover { border-color: var(--green); color: var(--green); text-decoration: none; }
+
+.community-stat { text-align: center; flex-shrink: 0; }
+.stat-big { font-size: 48px; font-weight: 800; color: var(--green); line-height: 1; letter-spacing: -2px; font-family: var(--mono); }
+.stat-label { font-size: 13px; color: var(--text-dim); margin-top: 6px; }
+
+/* ── Divider ── */
+.divider { border: none; border-top: 1px solid var(--border); margin: 48px 0 0; }
+
+/* ── Footer ── */
+footer { padding: 32px 40px; border-top: 1px solid var(--border); }
+.footer-links { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+.footer-links a { font-size: 13px; color: var(--text-dim); }
+.footer-links a:hover { color: var(--text); }
+
+/* ── Responsive ── */
+@media (max-width: 720px) {
+  nav { padding: 12px 20px; }
+  .nav-links a:not(.nav-cta) { display: none; }
+  .hero { padding: 56px 20px 48px; }
+  .shell { padding: 0 20px; }
+  .paths-grid { grid-template-columns: 1fr; }
+  .eco-grid { grid-template-columns: 1fr; }
+  .community { padding: 40px 20px; margin: 64px -20px 0; }
+  .community-inner { flex-direction: column; gap: 24px; }
+  footer { padding: 24px 20px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo"><em>AI</em>Lattice&trade;</a>
+  <div class="nav-links">
+    <a href="/how-it-works">How it works</a>
+    <a href="/registry">Registry</a>
+    <a href="/manifesto">Why</a>
+    <a href="/developers" class="active">Developers</a>
+    <a href="/signup" class="nav-cta">Sign up free</a>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <span class="eyebrow">Developer Hub</span>
+    <h1>Build with the<br><em>Introduction Layer</em></h1>
+    <p class="hero-sub">An open standard. An open reference implementation. Build on top, contribute to the spec, or query the registry. Everything here is yours to use.</p>
+    <div class="hero-paths">
+      <a href="#quickstart" class="path-btn primary">Quickstart <span class="path-arrow">↓</span></a>
+      <a href="#api" class="path-btn">API reference <span class="path-arrow">↓</span></a>
+      <a href="#contribute" class="path-btn">Contribute <span class="path-arrow">↓</span></a>
+      <a href="/paper" class="path-btn" target="_blank">Read the spec <span class="path-arrow">↗</span></a>
+    </div>
+  </div>
+</section>
+
+<div class="shell">
+
+  <!-- ── Three paths ── -->
+  <section class="section">
+    <p class="section-label">Start here</p>
+    <h2>Three ways in</h2>
+    <p class="section-sub">Pick the path that matches what you're building. They all use the same open standard.</p>
+
+    <div class="paths-grid">
+      <div class="path-card">
+        <span class="path-num">Path 01</span>
+        <h3>Add intro.txt to any site</h3>
+        <p>Drop a plain-text file at your site root. No code, no framework, no build step. Works on any host, any stack. AI agents read it directly.</p>
+        <a href="#quickstart" class="path-link">Quickstart guide →</a>
+      </div>
+      <div class="path-card">
+        <span class="path-num">Path 02</span>
+        <h3>Query the registry API</h3>
+        <p>Look up certified sites, search by topic, verify certification status. JSON API, free to use, API key on signup.</p>
+        <a href="#api" class="path-link">API reference →</a>
+      </div>
+      <div class="path-card">
+        <span class="path-num">Path 03</span>
+        <h3>Build on the spec</h3>
+        <p>CMS plugins, framework integrations, alternative registries, conformance tools. The standard is open and so is the reference implementation.</p>
+        <a href="#ecosystem" class="path-link">Ecosystem guide →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Quickstart ── -->
+  <section class="section" id="quickstart">
+    <p class="section-label">Quickstart</p>
+    <h2>Two paths to conformance</h2>
+    <p class="section-sub">The easy path gets you live in two minutes. The correct path is the full implementation — no difference to the outside world, but the deeper your constitution, the more AI agents can actually do for you.</p>
+
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab(this, 'tab-easy')">Easy — intro.txt</button>
+      <button class="tab" onclick="switchTab(this, 'tab-deep')">Deep — constitution.ic</button>
+    </div>
+
+    <div id="tab-easy" class="tab-pane active">
+      <p style="font-size:14px;color:var(--text-dim);margin-bottom:20px;">Drop a plain-text file at <code style="font-family:var(--mono);font-size:12px;background:var(--bg2);border:1px solid var(--border);padding:2px 7px;border-radius:4px;">https://yourdomain.com/intro.txt</code>. That's it. Any conforming AI agent or crawler will find it automatically.</p>
+
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">intro.txt</span>
+          <button class="code-copy" onclick="copyCode(this)">copy</button>
+        </div>
+        <pre><span class="c-cmt"># intro.txt — Introduction Layer declaration
+# Spec: https://ailattice.io/paper</span>
+
+<span class="c-key">name:</span>           <span class="c-str">Acme Corp</span>
+<span class="c-key">canonical_url:</span>  <span class="c-url">https://acme.com</span>
+<span class="c-key">category:</span>       <span class="c-str">SaaS / Project Management</span>
+<span class="c-key">mission:</span>        <span class="c-str">Help teams ship software without the chaos.</span>
+
+<span class="c-key">core_belief:</span>    <span class="c-str">Good tooling gets out of your way.</span>
+
+<span class="c-key">principles:</span>
+  - Clarity over completeness
+  - Speed is a feature
+  - The team is the product
+
+<span class="c-key">constraints:</span>
+  - Will never sell user data to third parties
+  - Will never lock exported data in proprietary formats
+  - Will never charge for data export
+
+<span class="c-key">what_this_is_not:</span>
+  - Not a replacement for version control
+  - Not a reporting tool for executives
+  - Not suitable for regulated industries requiring audit trails
+
+<span class="c-key">constitution_url:</span>  <span class="c-url">https://acme.com/constitution</span></pre>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Create the file</h4>
+            <p>Copy the template above. Fill in your own <code>name</code>, <code>mission</code>, <code>principles</code>, <code>constraints</code>, and <code>what_this_is_not</code>. Be specific. Constraints are prohibitions — say what you will never do.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Upload to your site root</h4>
+            <p>Place the file at <code>/intro.txt</code>. Must be publicly accessible at <code>https://yourdomain.com/intro.txt</code>. Serve as <code>text/plain</code>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Verify with the validator</h4>
+            <p>Run <a href="/validate">the validator</a> against your domain. It checks for the required fields and flags anything missing.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>List in the registry (optional)</h4>
+            <p>Once validated, <a href="/dashboard">submit to the registry</a> for certification and discoverability. Free forever.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-deep" class="tab-pane">
+      <p style="font-size:14px;color:var(--text-dim);margin-bottom:20px;">The full implementation: compile a <code style="font-family:var(--mono);font-size:12px;background:var(--bg2);border:1px solid var(--border);padding:2px 7px;border-radius:4px;">.ic</code> constitution file and serve it at <code style="font-family:var(--mono);font-size:12px;background:var(--bg2);border:1px solid var(--border);padding:2px 7px;border-radius:4px;">GET /constitution</code>. The <code>intro.txt</code> is the authoring format; <code>/constitution</code> is what agents consume.</p>
+
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">acme.ic — constitution source</span>
+          <button class="code-copy" onclick="copyCode(this)">copy</button>
+        </div>
+        <pre><span class="c-cmt"># constitution.ic — Full Introduction Layer constitution
+# Spec: https://ailattice.io/paper  Section 6</span>
+
+<span class="c-key">name:</span>               <span class="c-str">Acme Corp</span>
+<span class="c-key">canonical_address:</span>  <span class="c-url">https://acme.com</span>
+<span class="c-key">category:</span>           <span class="c-str">SaaS / Project Management</span>
+<span class="c-key">mission:</span>            <span class="c-str">Help teams ship software without the chaos.</span>
+<span class="c-key">core_belief:</span>        <span class="c-str">Good tooling gets out of your way.</span>
+
+<span class="c-key">principles:</span>
+  - Clarity over completeness
+  - Speed is a feature
+  - The team is the product
+
+<span class="c-key">constraints:</span>
+  - Will never sell user data to third parties
+  - Will never lock exported data in proprietary formats
+
+<span class="c-key">what_this_is_not:</span>
+  - Not a replacement for version control
+  - Not a reporting tool for executives
+
+<span class="c-key">evaluation_criteria:</span>
+  - Does this action protect user data ownership?
+  - Does this reduce friction for the team?
+  - Is this reversible if wrong?
+
+<span class="c-key">meta:</span>
+  <span class="c-key">version:</span>          <span class="c-val">1.0.0</span>
+  <span class="c-key">authored_by:</span>      <span class="c-str">Acme Corp</span>
+  <span class="c-key">last_reviewed:</span>    <span class="c-val">2026-08-01</span>
+  <span class="c-key">status:</span>           <span class="c-str">approved</span></pre>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">Express / Node.js — serve at GET /constitution</span>
+          <button class="code-copy" onclick="copyCode(this)">copy</button>
+        </div>
+        <pre><span class="c-key">const</span> constitution = require(<span class="c-str">'./acme.ic.json'</span>);
+
+app.get(<span class="c-str">'/constitution'</span>, (req, res) => {
+  res.setHeader(<span class="c-str">'Content-Type'</span>, <span class="c-str">'application/constitution+json'</span>);
+  res.json(constitution);
+});</pre>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Author your constitution</h4>
+            <p>Fill in all required fields from Section 6 of the spec. <code>evaluation_criteria</code> is required here (not in intro.txt). Use <a href="/constitute">the constitution builder</a> if you'd rather not start from scratch.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Serve at GET /constitution</h4>
+            <p>Your server must respond to <code>GET /constitution</code> with the compiled JSON constitution and <code>Content-Type: application/constitution+json</code>. See conformance test C5.1.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Also serve intro.txt</h4>
+            <p>Maintain an <code>/intro.txt</code> as the human-readable authoring source. Both paths are complementary. Agents may read either.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>Run conformance tests</h4>
+            <p>Use the <a href="/validate">validator</a> or the open-source test suite in <code>/conformance</code> of the GitHub repo to verify all REQUIRED tests pass.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── API Reference ── -->
+  <section class="section" id="api">
+    <hr class="divider" style="margin-bottom:48px;">
+    <p class="section-label">Registry API</p>
+    <h2>Query the registry</h2>
+    <p class="section-sub">The registry is publicly queryable. Look up any certified site, search by topic or location, verify certification status. Free with a rate limit. Higher limits on <a href="/api-access">paid plans</a>.</p>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">Authentication</span>
+        <button class="code-copy" onclick="copyCode(this)">copy</button>
+      </div>
+      <pre><span class="c-cmt"># API key on signup — free tier: 100 requests/day
+# Include in every request header</span>
+
+<span class="c-met">Authorization:</span> <span class="c-str">Bearer YOUR_API_KEY</span></pre>
+    </div>
+
+    <div class="ep-table-wrap">
+      <table class="ep-table">
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>Endpoint</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="ep-method get">GET</span></td>
+            <td class="ep-path">/api/registry</td>
+            <td class="ep-desc">List certified sites. Supports <code>?topic=</code>, <code>?location=</code>, <code>?limit=</code>, <code>?offset=</code></td>
+          </tr>
+          <tr>
+            <td><span class="ep-method get">GET</span></td>
+            <td class="ep-path">/api/registry/:domain</td>
+            <td class="ep-desc">Look up certification status and full record for a specific domain</td>
+          </tr>
+          <tr>
+            <td><span class="ep-method get">GET</span></td>
+            <td class="ep-path">/api/search?q=</td>
+            <td class="ep-desc">Natural-language search across the registry. Returns ranked results with constitution excerpts</td>
+          </tr>
+          <tr>
+            <td><span class="ep-method post">POST</span></td>
+            <td class="ep-path">/api/validate</td>
+            <td class="ep-desc">Submit a URL for Introduction Layer conformance check. Returns pass/fail per test category</td>
+          </tr>
+          <tr>
+            <td><span class="ep-method get">GET</span></td>
+            <td class="ep-path">/api/topics</td>
+            <td class="ep-desc">List all topic tags in the registry with counts</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="code-block" style="margin-top:24px;">
+      <div class="code-header">
+        <span class="code-lang">Example — look up a domain</span>
+        <button class="code-copy" onclick="copyCode(this)">copy</button>
+      </div>
+      <pre><span class="c-met">curl</span> https://ailattice.io/api/registry/example.com \
+  <span class="c-key">-H</span> <span class="c-str">"Authorization: Bearer YOUR_API_KEY"</span>
+
+<span class="c-cmt"># Response</span>
+{
+  <span class="c-key">"domain"</span>:       <span class="c-str">"example.com"</span>,
+  <span class="c-key">"certified"</span>:    <span class="c-val">true</span>,
+  <span class="c-key">"certified_at"</span>: <span class="c-str">"2026-06-01T09:22:00Z"</span>,
+  <span class="c-key">"name"</span>:         <span class="c-str">"Example Co"</span>,
+  <span class="c-key">"category"</span>:     <span class="c-str">"SaaS / Developer Tools"</span>,
+  <span class="c-key">"tags"</span>:         [<span class="c-str">"developer-tools"</span>, <span class="c-str">"api"</span>],
+  <span class="c-key">"constitution_url"</span>: <span class="c-str">"https://example.com/constitution"</span>
+}</pre>
+    </div>
+
+    <p style="font-size:14px;color:var(--text-dim);margin-top:16px;">Full API documentation, rate limits, and higher-limit plans: <a href="/api-access">api-access →</a></p>
+  </section>
+
+  <!-- ── Conformance ── -->
+  <section class="section" id="conformance">
+    <hr class="divider" style="margin-bottom:48px;">
+    <p class="section-label">Conformance</p>
+    <h2>Test your implementation</h2>
+    <p class="section-sub">16 tests across 5 categories. All REQUIRED tests must pass for AILattice certification. The full test suite is open source — use it on any implementation, conformant registries included.</p>
+
+    <div class="conf-grid">
+      <div class="conf-item">
+        <span class="conf-id">C1</span>
+        <div class="conf-body">
+          <h4>Constitutional Conformance</h4>
+          <p>All required fields present and valid. Constraints are prohibitions, not aspirations. No operational state in stable fields.</p>
+          <span class="conf-req req-required">5 tests — all required</span>
+        </div>
+      </div>
+      <div class="conf-item">
+        <span class="conf-id">C2</span>
+        <div class="conf-body">
+          <h4>Evidence Coverage</h4>
+          <p>If you're implementing an Evaluator: monotonicity in evidence and ambition, reproducibility within ±5 points, independence of generation and evaluation.</p>
+          <span class="conf-req req-required">5 tests — all required</span>
+        </div>
+      </div>
+      <div class="conf-item">
+        <span class="conf-id">C3</span>
+        <div class="conf-body">
+          <h4>Evaluator Output</h4>
+          <p>Response schema conformance, outcome stability &gt;85% on identical inputs, constraint violations correctly detected.</p>
+          <span class="conf-req req-required">4 tests — all required</span>
+        </div>
+      </div>
+      <div class="conf-item">
+        <span class="conf-id">C4</span>
+        <div class="conf-body">
+          <h4>Cognitive Entrypoint</h4>
+          <p>For consuming systems: constitution must be retrieved before any entity-specific reasoning, tool invocation, or action planning.</p>
+          <span class="conf-req req-required">1 test — required</span>
+        </div>
+      </div>
+      <div class="conf-item">
+        <span class="conf-id">C5</span>
+        <div class="conf-body">
+          <h4>Discovery</h4>
+          <p><code>GET /constitution</code> returns a valid constitution at HTTP 200. <code>intro.txt</code> accessible at site root. Correct media type served.</p>
+          <span class="conf-req req-required">1 required</span>&nbsp;&nbsp;
+          <span class="conf-req req-recommended">3 recommended</span>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-size:14px;color:var(--text-dim);margin-top:20px;">Full test specs, pass/fail conditions, and reference vectors: <a href="https://github.com/madazz01/AILattice/tree/main/conformance" target="_blank" rel="noopener">conformance/ on GitHub →</a></p>
+  </section>
+
+  <!-- ── Ecosystem ── -->
+  <section class="section" id="ecosystem">
+    <hr class="divider" style="margin-bottom:48px;">
+    <p class="section-label">Build on top</p>
+    <h2>What the community is building</h2>
+    <p class="section-sub">The standard is open. Build on it. These are the integration surfaces that accelerate adoption. If you build something, <a href="https://github.com/madazz01/AILattice" target="_blank" rel="noopener">open a PR to add it to the ecosystem directory</a>.</p>
+
+    <div class="eco-grid">
+      <div class="eco-card">
+        <span class="eco-icon">📝</span>
+        <h4>CMS plugins</h4>
+        <p>WordPress, Ghost, Webflow, Squarespace — auto-generate <code>intro.txt</code> from existing site metadata. No manual authoring needed.</p>
+        <span class="eco-badge">Wanted</span>
+      </div>
+      <div class="eco-card">
+        <span class="eco-icon">⚡</span>
+        <h4>Framework helpers</h4>
+        <p>Next.js, Nuxt, Astro, Django, Rails — serve <code>/constitution</code> from existing config and add the canonical <code>&lt;link&gt;</code> tag automatically.</p>
+        <span class="eco-badge">Wanted</span>
+      </div>
+      <div class="eco-card">
+        <span class="eco-icon">☁️</span>
+        <h4>Hosting integrations</h4>
+        <p>Cloudflare Workers, Vercel, Netlify — one-click intro.txt setup that generates from deployment config.</p>
+        <span class="eco-badge">Wanted</span>
+      </div>
+      <div class="eco-card">
+        <span class="eco-icon">🔁</span>
+        <h4>CI/CD tools</h4>
+        <p>GitHub Actions that validate <code>intro.txt</code> and <code>/constitution</code> on every push. Fail the build if conformance regresses.</p>
+        <span class="eco-badge">Wanted</span>
+      </div>
+      <div class="eco-card">
+        <span class="eco-icon">🤖</span>
+        <h4>AI harness integrations</h4>
+        <p>LangChain, LlamaIndex, CrewAI loaders that fetch and inject the constitution before any entity-specific tool call — implementing C4 automatically.</p>
+        <span class="eco-badge">Wanted</span>
+      </div>
+      <div class="eco-card">
+        <span class="eco-icon">🗂️</span>
+        <h4>Alternative registries</h4>
+        <p>Domain-specific or regional conformant registries that implement the standard and interoperate with the main AILattice registry. The spec permits multiple registries.</p>
+        <span class="eco-badge">Wanted</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Contribute ── -->
+  <section class="section" id="contribute">
+    <hr class="divider" style="margin-bottom:48px;">
+    <p class="section-label">Contribute</p>
+    <h2>Two ways to contribute</h2>
+    <p class="section-sub">Spec changes go through W3C community process — no single entity including us can unilaterally modify the standard. Code contributions go through the GitHub repo.</p>
+
+    <div class="paths-grid" style="margin-top:8px;">
+      <div class="path-card" style="grid-column: span 1;">
+        <span class="path-num">Spec</span>
+        <h3>Introduction Layer specification</h3>
+        <p>Propose changes via the W3C Introduction Layer Community Group. All spec changes require community consensus.</p>
+        <a href="https://www.w3.org/community/intro-layer/" target="_blank" rel="noopener" class="path-link">Join the W3C group →</a>
+      </div>
+      <div class="path-card" style="grid-column: span 2;">
+        <span class="path-num">Code</span>
+        <h3>AILattice reference implementation</h3>
+        <p>Bug fixes, performance, new generators, integrations, conformance test improvements. Apache 2.0. Patent grant applies. Fork, branch, PR.</p>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:4px;">
+          <a href="https://github.com/madazz01/AILattice" target="_blank" rel="noopener" class="path-link">GitHub repo →</a>
+          <a href="https://github.com/madazz01/AILattice/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener" class="path-link">CONTRIBUTING.md →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="code-block" style="margin-top:28px;">
+      <div class="code-header">
+        <span class="code-lang">Contribution flow</span>
+        <button class="code-copy" onclick="copyCode(this)">copy</button>
+      </div>
+      <pre><span class="c-met">git</span> clone https://github.com/madazz01/AILattice
+<span class="c-met">git</span> checkout -b feature/your-feature-name
+
+<span class="c-cmt"># Make your changes</span>
+<span class="c-cmt"># Ensure conformance tests still pass</span>
+<span class="c-cmt"># Open a pull request with what you built and why</span>
+
+<span class="c-cmt"># Contribution licence: by submitting a PR you licence your</span>
+<span class="c-cmt"># contribution under Apache 2.0 (code) / CC BY 4.0 (spec).</span>
+<span class="c-cmt"># You retain copyright. Patent grant applies.</span></pre>
+    </div>
+  </section>
+
+</div><!-- /.shell -->
+
+<!-- ── Community strip ── -->
+<div class="shell">
+  <div class="community">
+    <div class="community-inner">
+      <div class="community-main">
+        <h2>The standard belongs to everyone</h2>
+        <p>The Introduction Layer is governed through the W3C community group process. No commercial entity — including AILattice — can unilaterally change the spec. The reference implementation is Apache 2.0 with full patent grant.</p>
+        <div class="comm-links">
+          <a href="https://www.w3.org/community/intro-layer/" target="_blank" rel="noopener" class="comm-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            W3C Community Group
+          </a>
+          <a href="https://github.com/madazz01/AILattice" target="_blank" rel="noopener" class="comm-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href="/paper" target="_blank" class="comm-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            Read the spec
+          </a>
+          <a href="https://github.com/madazz01/AILattice/blob/main/LICENSE" target="_blank" rel="noopener" class="comm-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 12 2 2 4-4"/><path d="M5 7c0-1.1.9-2 2-2h10a2 2 0 0 1 2 2v12H5V7z"/><path d="M9 17v4"/><path d="M15 17v4"/></svg>
+            Apache 2.0 + CC BY 4.0
+          </a>
+        </div>
+      </div>
+      <div class="community-stat">
+        <div class="stat-big">4</div>
+        <div class="stat-label">W3C group members<br>and growing</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/how-it-works">How it works</a>
+    <a href="/registry">Registry</a>
+    <a href="/manifesto">Why</a>
+    <a href="/faq">FAQ</a>
+    <a href="/developers">Developers</a>
+    <a href="/api-access">API</a>
+    <a href="/contact">Contact</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+    <a href="https://github.com/madazz01/AILattice" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</footer>
+
+<script>
+function switchTab(btn, id) {
+  btn.closest('.tabs').querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  const section = btn.closest('section');
+  section.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  section.querySelector('#' + id).classList.add('active');
+}
+
+function copyCode(btn) {
+  const pre = btn.closest('.code-block').querySelector('pre');
+  const text = pre.innerText || pre.textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
+</body>
+</html>
