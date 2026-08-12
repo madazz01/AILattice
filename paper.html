@@ -1,0 +1,916 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Introduction Layer: Specification v0.2 — Intelli-Stasis</title>
+<style>
+  :root {
+    --bg: #FAFAFA;
+    --surface: #FFFFFF;
+    --text: #111118;
+    --muted: #666672;
+    --border: #E0E0E8;
+    --rule: #D8D8E4;
+    --accent: #1A3FCC;
+    --code-bg: #F2F2F8;
+    --code-text: #1A1A2E;
+    --heading: #0A0A14;
+    --label: #888898;
+    --pullquote-bg: #F0F3FD;
+    --pullquote-border: #1A3FCC;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0C0C12;
+      --surface: #14141C;
+      --text: #E8E8F0;
+      --muted: #8888A4;
+      --border: #252535;
+      --rule: #1E1E30;
+      --accent: #6080FF;
+      --code-bg: #18182A;
+      --code-text: #B8C8FF;
+      --heading: #F0F0FC;
+      --label: #6868A0;
+      --pullquote-bg: #10142A;
+      --pullquote-border: #6080FF;
+    }
+  }
+
+  :root[data-theme="light"] {
+    --bg: #FAFAFA;
+    --surface: #FFFFFF;
+    --text: #111118;
+    --muted: #666672;
+    --border: #E0E0E8;
+    --rule: #D8D8E4;
+    --accent: #1A3FCC;
+    --code-bg: #F2F2F8;
+    --code-text: #1A1A2E;
+    --heading: #0A0A14;
+    --label: #888898;
+    --pullquote-bg: #F0F3FD;
+    --pullquote-border: #1A3FCC;
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0C0C12;
+    --surface: #14141C;
+    --text: #E8E8F0;
+    --muted: #8888A4;
+    --border: #252535;
+    --rule: #1E1E30;
+    --accent: #6080FF;
+    --code-bg: #18182A;
+    --code-text: #B8C8FF;
+    --heading: #F0F0FC;
+    --label: #6868A0;
+    --pullquote-bg: #10142A;
+    --pullquote-border: #6080FF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { background: var(--bg); }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 17px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 72px 32px 100px;
+  }
+
+  /* Document header */
+  .doc-head {
+    border-bottom: 2px solid var(--text);
+    padding-bottom: 28px;
+    margin-bottom: 40px;
+  }
+
+  .doc-title {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--heading);
+    margin-bottom: 6px;
+    text-wrap: balance;
+  }
+
+  .doc-subtitle {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+
+  .doc-meta {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 12px;
+    color: var(--label);
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 4px 0;
+    line-height: 1.7;
+  }
+
+  .doc-meta dt { font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+  .doc-meta dd { color: var(--text); }
+
+  /* Invariant banner */
+  .invariant {
+    margin: 40px 0;
+    padding: 24px 28px;
+    border-left: 4px solid var(--accent);
+    background: var(--pullquote-bg);
+    border-radius: 0 6px 6px 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  /* Table of contents */
+  .toc {
+    margin: 40px 0;
+    padding: 24px 28px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+  }
+
+  .toc-title {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--label);
+    margin-bottom: 14px;
+  }
+
+  .toc ol {
+    padding-left: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 2;
+    color: var(--text);
+  }
+
+  .toc a { color: var(--accent); text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+
+  /* Sections */
+  .section { margin: 56px 0; }
+
+  h2 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: clamp(20px, 3vw, 24px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--heading);
+    margin-bottom: 20px;
+    margin-top: 48px;
+    padding-top: 8px;
+    border-top: 1px solid var(--rule);
+    text-wrap: balance;
+  }
+
+  h2:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+
+  h3 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--heading);
+    margin-bottom: 14px;
+    margin-top: 32px;
+  }
+
+  p { margin-bottom: 18px; }
+  p:last-child { margin-bottom: 0; }
+  strong { font-weight: 700; }
+  em { font-style: italic; }
+
+  /* Pull quote / callout */
+  .callout {
+    margin: 28px 0;
+    padding: 20px 24px;
+    border-left: 3px solid var(--accent);
+    background: var(--pullquote-bg);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* Formal math / key claim */
+  .formal {
+    margin: 24px 0;
+    padding: 18px 22px;
+    background: var(--code-bg);
+    border-radius: 4px;
+    font-family: 'Courier New', 'Consolas', monospace;
+    font-size: 14px;
+    color: var(--code-text);
+    line-height: 1.8;
+    overflow-x: auto;
+  }
+
+  .formal p { margin-bottom: 6px; font-family: inherit; color: inherit; }
+  .formal p:last-child { margin-bottom: 0; }
+
+  pre {
+    margin: 20px 0;
+    padding: 18px 22px;
+    background: var(--code-bg);
+    border-radius: 4px;
+    font-family: 'Courier New', 'Consolas', monospace;
+    font-size: 13px;
+    color: var(--code-text);
+    line-height: 1.6;
+    overflow-x: auto;
+    white-space: pre;
+  }
+
+  code {
+    font-family: 'Courier New', 'Consolas', monospace;
+    font-size: 0.87em;
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 2px 5px;
+    border-radius: 3px;
+  }
+
+  pre code { background: none; padding: 0; font-size: inherit; }
+
+  /* Lists */
+  ul, ol {
+    padding-left: 24px;
+    margin-bottom: 18px;
+  }
+
+  li { margin-bottom: 6px; line-height: 1.65; }
+  li:last-child { margin-bottom: 0; }
+
+  ul li { list-style-type: disc; }
+
+  /* Definition list style */
+  .defs { margin: 20px 0; }
+
+  .def-term {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 4px;
+    margin-top: 20px;
+  }
+
+  .def-body {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.65;
+    padding-left: 0;
+    margin-bottom: 0;
+  }
+
+  /* Table */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 24px 0;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; }
+  thead tr { background: var(--code-bg); }
+  th {
+    text-align: left;
+    padding: 10px 14px;
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--label);
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  td { padding: 11px 14px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.55; }
+  tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: var(--code-bg); }
+  td:first-child { font-weight: 600; }
+
+  /* Rule */
+  .rule { border: none; border-top: 1px solid var(--rule); margin: 48px 0; }
+
+  /* Conformance label */
+  .rfc { font-weight: 700; text-transform: uppercase; font-size: 0.9em; letter-spacing: 0.03em; }
+
+  /* Appendix */
+  .appendix-label {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--label);
+    margin-bottom: 8px;
+  }
+
+  /* Footer */
+  .doc-footer {
+    margin-top: 80px;
+    padding-top: 28px;
+    border-top: 2px solid var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .doc-footer strong { color: var(--text); }
+
+  @media (max-width: 600px) {
+    .page { padding: 40px 20px 72px; }
+    .doc-meta { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="doc-head">
+    <h1 class="doc-title">The Introduction Layer: Specification</h1>
+    <p class="doc-subtitle">Architectural Specification — Draft 0.2</p>
+    <dl class="doc-meta">
+      <dt>Status</dt><dd>Draft 0.2</dd>
+      <dt>Date</dt><dd>2026-06-30</dd>
+      <dt>Author</dt><dd>Bryan Horsfield · Intelli-Stasis · intellistasis.com</dd>
+      <dt>W3C Group</dt><dd>Introduction Layer Community Group — announced 2026-08-10</dd>
+      <dt>Reference impl.</dt><dd>Intelli-Stasis + AILattice</dd>
+      <dt>Licence</dt><dd>Creative Commons Attribution 4.0 International (CC BY 4.0) — open standard, free to implement</dd>
+      <dt>Governance</dt><dd>W3C Introduction Layer Community Group — no single entity controls this standard</dd>
+    </dl>
+  </header>
+
+  <!-- WHY THIS EXISTS -->
+  <section class="section" id="rationale">
+    <h2>Why This Specification Exists</h2>
+    <p>Human-readable information systems evolved for human consumers. HTML, CSS, and the document-centric web were designed to render meaning for minds capable of inference, context, and judgment.</p>
+    <p>Machine-readable systems — APIs, structured data, protocol specifications — evolved for deterministic software: systems that execute defined operations on well-specified inputs.</p>
+    <p>Autonomous reasoning systems fit neither category. They read language, but they are not human. They execute instructions, but they are not deterministic. They reason about entities they have never encountered, in domains they were not specifically trained for, and take actions whose consequences extend into physical reality.</p>
+    <p>Neither existing architecture was designed to serve them. The human-readable web gives them content to process but no frame within which to interpret it. Machine-readable protocols give them structure but not meaning. What neither provides is what autonomous reasoning systems most require: <strong>permanent introduction</strong> — a declaration from the entities they interact with that survives system boundaries, precedes reasoning, and remains stable across every session and every system that encounters it.</p>
+    <p>This specification proposes the missing architectural layer.</p>
+  </section>
+
+  <!-- ABSTRACT -->
+  <section class="section" id="abstract">
+    <h2>Abstract</h2>
+    <p>This document specifies The Introduction Layer: a persistent architectural layer that preserves governing intent across heterogeneous system boundaries, enabling consuming systems to inherit rather than infer the identity, constraints, and purpose of the entities they interact with.</p>
+    <p>This specification does not propose a new AI model, programming language, transport protocol, or data format. It proposes an architectural layer intended to sit between information producers and consuming systems, independent of the technologies on either side.</p>
+    <p>The key words <span class="rfc">must</span>, <span class="rfc">must not</span>, <span class="rfc">required</span>, <span class="rfc">shall</span>, <span class="rfc">should</span>, <span class="rfc">should not</span>, <span class="rfc">recommended</span>, <span class="rfc">may</span>, and <span class="rfc">optional</span> in this document are to be interpreted as described in RFC 2119.</p>
+    <p>This specification defines: the problem the architecture addresses; the invariant the architecture derives from; the design principles that generated the architecture; the components a conforming implementation <span class="rfc">must</span> include; the interfaces between those components; the guarantees a conforming implementation provides; and the explicit scope boundaries of the architecture.</p>
+    <p>This specification does not prescribe implementation technology, generation method, transport protocol, registry design, or application-layer systems built on top of a conforming implementation.</p>
+  </section>
+
+  <!-- TOC -->
+  <nav class="toc">
+    <div class="toc-title">Contents</div>
+    <ol>
+      <li><a href="#s1">The Translation Cost Problem</a></li>
+      <li><a href="#s2">The Invariant</a></li>
+      <li><a href="#s3">Design Principles</a></li>
+      <li><a href="#s4">Terminology</a></li>
+      <li><a href="#s5">Architecture</a></li>
+      <li><a href="#s6">The Constitution</a></li>
+      <li><a href="#s7">Evidence Coverage</a></li>
+      <li><a href="#s8">The Evaluator</a></li>
+      <li><a href="#s9">The Cognitive Entrypoint</a></li>
+      <li><a href="#s10">Forward Integration</a></li>
+      <li><a href="#s11">Discovery and Representation</a></li>
+      <li><a href="#s12">Conformance</a></li>
+      <li><a href="#s13">Explicit Scope</a></li>
+      <li><a href="#s14">Falsifiability</a></li>
+      <li><a href="#s15">Reference Implementation</a></li>
+      <li><a href="#appendix-c">Appendix C — Updates: August 2026</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1 -->
+  <section class="section" id="s1">
+    <h2>1. The Translation Cost Problem</h2>
+    <h3>1.1 Statement</h3>
+    <p>Every boundary in an information system discards context. At each crossing, the consuming system receives what the transfer format was designed to carry — data, content, structure — and loses what it was never designed to carry: governing intent, constraints, and the interpretive frame within which transferred information should be understood.</p>
+    <p>This loss is structural, not incidental. It cannot be eliminated by improving the content layer or the context layer alone.</p>
+
+    <h3>1.2 Formal characterisation</h3>
+    <div class="formal">
+      <p>Let <em>B(p, c)</em> denote a boundary between producer <em>p</em> and consuming system <em>c</em>.</p>
+      <p>Let <em>I(p)</em> denote the full governing intent of <em>p</em>.</p>
+      <p>Let <em>T(B)</em> denote the information transferred across <em>B</em>.</p>
+      <p>For all current information system boundaries:</p>
+      <p><strong>I(p) ⊄ T(B)</strong></p>
+    </div>
+    <p>Governing intent is not a subset of transferred information. The consuming system must reconstruct <em>I(p)</em> — or a proxy for it — from <em>T(B)</em> alone. This reconstruction is inference. Its cost and error rate scale with the gap between <em>I(p)</em> and <em>T(B)</em>.</p>
+
+    <h3>1.3 Consequence</h3>
+    <p>A consuming system operating from inferred governing intent cannot: know the reliability of its own model of the entity; detect constraint violations it was unaware of; provide consistent output across sessions; or guarantee alignment with the entity's actual purpose.</p>
+    <p>These limitations are not correctable by improving the inference mechanism. They are properties of inference as an epistemic starting point. The Introduction Layer addresses them at the structural level by making intent a first-class carrier across system boundaries.</p>
+  </section>
+
+  <!-- 2 -->
+  <section class="section" id="s2">
+    <h2>2. The Invariant</h2>
+    <div class="invariant">The foundational introduction layer, that allows universal forward integration.</div>
+    <p>All definitions, requirements, and guarantees in this specification derive from this statement. Implementations <span class="rfc">must</span> be evaluable against it.</p>
+  </section>
+
+  <!-- 3 -->
+  <section class="section" id="s3">
+    <h2>3. Design Principles</h2>
+    <p>The following principles are the philosophical invariants that generated this architecture. They are not implementation requirements — they are the reasoning from which all requirements in this specification derive. Where two requirements appear to conflict, these principles provide the resolution.</p>
+
+    <div class="defs">
+      <div class="def-term">P.1 — Intent precedes reasoning.</div>
+      <p class="def-body">A consuming system <span class="rfc">should</span> inherit the governing intent of an entity before domain-specific reasoning begins. Reasoning conducted without an inherited frame is inference by default. Inference is a fallback mode, not the preferred mode.</p>
+
+      <div class="def-term">P.2 — Generation and governance are separate concerns.</div>
+      <p class="def-body">The system that produces an introduction and the system that evaluates conformance to it <span class="rfc">must</span> be architecturally separate. A system cannot reliably govern its own outputs.</p>
+
+      <div class="def-term">P.3 — Reality has authority over generated output.</div>
+      <p class="def-body">When a generated declaration conflicts with observable reality, observable reality takes precedence. Evidence Coverage exists to enforce this principle: claims must be traceable to what is actually true of the entity, not only to what the generation system produced.</p>
+
+      <div class="def-term">P.4 — Translation cost is a structural problem requiring a structural solution.</div>
+      <p class="def-body">Translation cost cannot be adequately compensated for by better inference algorithms, larger models, or richer retrieval. It requires a persistent layer that carries intent across boundaries — not a more sophisticated reconstruction of intent at each boundary.</p>
+
+      <div class="def-term">P.5 — The entity controls the frame.</div>
+      <p class="def-body">The entity, not the consuming system, controls the cognitive frame within which the entity is reasoned about. A consuming system <span class="rfc">may</span> decline to act on a low-quality frame; it <span class="rfc">must not</span> substitute its own inferred frame for a declared one without disclosure.</p>
+
+      <div class="def-term">P.6 — Complexity is absorbed into the architecture, not exposed to consumers.</div>
+      <p class="def-body">The mechanisms of coverage verification, evaluator governance, and cognitive entrypoint sequencing are the architecture's concern. A consuming system that correctly calls a conforming implementation <span class="rfc">should not</span> need to understand the internal mechanics to benefit from the guarantees the architecture provides.</p>
+
+      <div class="def-term">P.7 — Forward integration requires establishment before the consuming systems it serves are built.</div>
+      <p class="def-body">An introduction layer established after autonomous consuming systems have already formed their interpretive assumptions provides backward integration only. Forward integration — the ability of future systems to inherit intent from entities that pre-date them — requires the layer to exist first.</p>
+
+      <div class="def-term">P.8 — Relevance precedes representation.</div>
+      <p class="def-body">An introduction layer does not preserve all information about an entity equally. It preserves the information that most materially affects how a consuming system should reason about and act on behalf of the entity. The constitution is the highest-relevance set — the minimum sufficient information that governs understanding of what the entity fundamentally is and what it must never do. Information that does not change the outcome does not belong in the frame.</p>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="section" id="s4">
+    <h2>4. Terminology</h2>
+    <div class="defs">
+      <div class="def-term">introduction layer</div>
+      <p class="def-body">The architectural layer that sits between information producers and consuming systems. Its function is to carry governing intent — not content, not context — across system boundaries in a form consuming systems can inherit before reasoning begins.</p>
+
+      <div class="def-term">Entity</div>
+      <p class="def-body">Any information-producing subject capable of declaring governing intent. Entities include but are not limited to: websites, software systems, physical facilities, IoT devices, machines, organisations, and any other subject with a stable identity and persistent governing purpose.</p>
+
+      <div class="def-term">Consuming system</div>
+      <p class="def-body">Any system that reasons about or acts on information from an entity it was not designed to work with. Consuming systems include but are not limited to: AI agents, autonomous machines, robotic systems, logistics platforms, decision engines, and any future system class not yet defined.</p>
+
+      <div class="def-term">Translation cost</div>
+      <p class="def-body">The accumulated effort and error introduced when a consuming system must reconstruct governing intent from fragments at a system boundary. Translation cost is structural: it arises at every boundary where intent is not explicitly carried.</p>
+
+      <div class="def-term">Inference</div>
+      <p class="def-body">The epistemic mode in which a consuming system constructs a model of an entity from available fragments. The resulting model is the consuming system's reconstruction — non-authoritative, probabilistic, and unverifiable against the entity's actual intent.</p>
+
+      <div class="def-term">Inheritance</div>
+      <p class="def-body">The epistemic mode in which a consuming system receives a declared cognitive frame from the entity before reasoning begins. The received frame is the entity's own declaration — authoritative by construction, evidence-verifiable, and persistent.</p>
+
+      <div class="def-term">Constitution</div>
+      <p class="def-body">The primary artefact of The Introduction Layer. A structured, entity-controlled, evidence-grounded declaration of an entity's governing intent. A constitution is the mechanism through which inheritance becomes possible.</p>
+
+      <div class="def-term">Evidence Coverage (EC)</div>
+      <p class="def-body">The quantitative metric that measures what fraction of a constitution's claims are grounded in observable evidence from the entity. Evidence Coverage is the governance metric of The Introduction Layer.</p>
+
+      <div class="def-term">Evaluator</div>
+      <p class="def-body">The component that validates outputs of a consuming system against a constitution. The Evaluator is the enforcement mechanism of The Introduction Layer.</p>
+
+      <div class="def-term">Cognitive entrypoint</div>
+      <p class="def-body">The point in a consuming system's reasoning sequence at which the constitution is inherited. The cognitive entrypoint <span class="rfc">must</span> precede all domain-specific reasoning.</p>
+
+      <div class="def-term">Forward integration</div>
+      <p class="def-body">The capability of a consuming system not yet built to inherit a reliable cognitive frame from an entity that declared its constitution before the consuming system existed. Forward integration is the primary consequence of a conforming introduction layer implementation.</p>
+
+      <div class="def-term">Certification</div>
+      <p class="def-body">The process by which a constitution is validated as meeting this specification's requirements and made available for inheritance by consuming systems.</p>
+
+      <div class="def-term">Registry</div>
+      <p class="def-body">A system that stores certified constitutions and makes them discoverable and retrievable by consuming systems. Registry design is outside the scope of this specification; conformance requirements for registries are defined in Section 10.</p>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="section" id="s5">
+    <h2>5. Architecture</h2>
+
+    <h3>5.1 Three-layer model</h3>
+    <p>A conforming introduction layer implementation treats AI-readable information about any entity as three distinct layers:</p>
+
+    <div class="defs">
+      <div class="def-term">Layer 1 — Content</div>
+      <p class="def-body">What a consuming system reads. Includes: web pages, structured data, sensor streams, API responses, documentation, and any other machine-readable representation of what an entity contains or offers. Existing standards (Schema.org, llms.txt, sitemaps, OPC-UA, WoT Thing Descriptions) operate at this layer.</p>
+
+      <div class="def-term">Layer 2 — Context</div>
+      <p class="def-body">What a consuming system retrieves in response to a specific task. Includes: RAG outputs, vector search results, tool call responses, knowledge base lookups. Session-scoped and query-dependent. Controlled by the consuming system.</p>
+
+      <div class="def-term">Layer 3 — Intent</div>
+      <p class="def-body">What a consuming system inherits before reasoning begins. Contains: the entity's declared purpose, governing philosophy, operating principles, hard constraints, and explicit disambiguation. Persistent across sessions and systems. Controlled by the entity. <strong>This layer is The Introduction Layer.</strong></p>
+    </div>
+
+    <div class="callout"><strong>Required property:</strong> Layers 1 and 2 <span class="rfc">must not</span> substitute for Layer 3. A system implementing only Layers 1 and 2 is not conformant. A conforming implementation <span class="rfc">must</span> provide a mechanism for Layer 3 to be declared, verified, and inherited.</div>
+
+    <h3>5.2 Component architecture</h3>
+    <p>A conforming implementation <span class="rfc">must</span> include the following components:</p>
+    <pre>Entity
+  │
+  │ declares
+  ▼
+Constitution ◄──── Evidence Coverage (verifies)
+  │
+  │ certified
+  ▼
+Registry / Distribution
+  │
+  │ retrieved at cognitive entrypoint
+  ▼
+Consuming System
+  │
+  │ produces output
+  ▼
+Evaluator ──► verdict (proceed / flag / reject)</pre>
+    <p>The four required components are: The Constitution (Section 6), Evidence Coverage (Section 7), The Evaluator (Section 8), and The Cognitive Entrypoint (Section 9).</p>
+
+    <h3>5.3 Separation requirements</h3>
+    <p>The following separations are <span class="rfc">required</span> and <span class="rfc">must not</span> be collapsed:</p>
+    <p><strong>Generation / governance separation:</strong> The system that generates a constitution <span class="rfc">must not</span> be the same system that certifies it. Independent evaluation (P.2) is a hard requirement, not a preference.</p>
+    <p><strong>Entity / consuming system separation:</strong> The entity controls its constitution. The consuming system does not modify, override, or reinterpret the constitution prior to inheritance. A consuming system <span class="rfc">may</span> decline to act on a low-coverage constitution; it <span class="rfc">must not</span> alter its content.</p>
+    <p><strong>Intent / inference separation:</strong> A conforming consuming system <span class="rfc">must</span> distinguish between inherited introductions and inferred models. It <span class="rfc">must not</span> treat an inferred model as equivalent to an inherited constitution.</p>
+  </section>
+
+  <!-- 6 -->
+  <section class="section" id="s6">
+    <h2>6. The Constitution</h2>
+
+    <h3>6.1 Definition</h3>
+    <p>A constitution is a structured, entity-controlled, evidence-grounded declaration of an entity's governing intent. It is the primary mechanism through which The Introduction Layer enables inheritance.</p>
+    <p>A constitution is the minimum sufficient set of information that materially changes how a consuming system reasons about and acts on behalf of the entity. It is not a comprehensive record. Information that does not change the interpretation does not belong in the constitution — it belongs in the content or context layers.</p>
+    <p>A constitution is explicitly not: documentation; a prompt; a context file; or structured content metadata. Documentation explains; a constitution governs. Prompts are session-scoped; a constitution is persistent. Context is query-dependent; a constitution precedes all queries.</p>
+
+    <h3>6.2 Required fields</h3>
+    <p>A conforming constitution <span class="rfc">must</span> include all of the following:</p>
+    <div class="defs">
+      <div class="def-term">6.2.1 Identity</div>
+      <p class="def-body">Name, canonical address, and primary category. Establishes the referent unambiguously across sessions and systems.</p>
+      <div class="def-term">6.2.2 Mission</div>
+      <p class="def-body">A statement of why the entity exists. <span class="rfc">Must</span> be expressed in terms a consuming system can use as an interpretive frame, not solely as marketing copy.</p>
+      <div class="def-term">6.2.3 Core belief</div>
+      <p class="def-body">A single governing principle that takes precedence when other principles conflict. <span class="rfc">Must</span> be stated as a principle, not a capability.</p>
+      <div class="def-term">6.2.4 Operating principles</div>
+      <p class="def-body">The values that shape entity behaviour. <span class="rfc">Must</span> be ordered by precedence. A consuming system <span class="rfc">must</span> be able to derive from these principles how the entity would behave in cases the constitution does not explicitly address.</p>
+      <div class="def-term">6.2.5 Constraints</div>
+      <p class="def-body">Explicit statements of what this entity will never do, regardless of instruction, context, or external pressure. These are the safety envelope of the constitution. Constraint claims carry higher epistemic weight than any other field and <span class="rfc">must</span> be treated as boundary conditions, not preferences. Constraint fields <span class="rfc">must</span> be stated as explicit prohibitions, not aspirational language. "We prioritise privacy" is not a constraint. "We will never sell user data to third parties" is a constraint.</p>
+      <div class="def-term">6.2.6 Disambiguation</div>
+      <p class="def-body">Explicit statements of what this entity is not. Eliminates the most common category conflation errors for consuming systems. <span class="rfc">Must</span> address the most probable misclassifications for this entity type.</p>
+      <div class="def-term">6.2.7 Evaluation criteria</div>
+      <p class="def-body">Questions any consuming system <span class="rfc">should</span> apply to its own outputs before acting on behalf of this entity. These are the self-governance frame expressed as actionable tests.</p>
+    </div>
+
+    <h3>6.3 Optional fields</h3>
+    <p>A constitution <span class="rfc">may</span> include: a glossary of domain-specific terms the entity uses with non-standard meanings; historical context relevant to interpreting current purpose; explicitly stated relationships to other entities; and domain-specific governance fields relevant to the entity's operating context.</p>
+
+    <h3>6.4 Stability requirement</h3>
+    <p>A constitution <span class="rfc">must</span> represent permanent introduction, not current operational state. Fields that change frequently — pricing, personnel, current offerings — are not constitution fields. A constitution <span class="rfc">should</span> remain stable across months or years; operational details belong in content or context layers.</p>
+
+    <h3>6.5 Authorship requirement</h3>
+    <p>A constitution <span class="rfc">must</span> be approved by the entity it represents. A constitution generated by any system — including an automated generation engine — is not a valid constitution until the entity has reviewed and approved it. Unapproved generated constitutions <span class="rfc">must</span> be treated as drafts, not as certified declarations.</p>
+  </section>
+
+  <!-- 7 -->
+  <section class="section" id="s7">
+    <h2>7. Evidence Coverage</h2>
+
+    <h3>7.1 Purpose</h3>
+    <p>Evidence Coverage is the grounding mechanism that distinguishes a constitution from an unverifiable assertion. It ensures that constitutional claims are traceable to observable reality before a constitution is certified. A constitution without Evidence Coverage is a declaration without accountability.</p>
+
+    <h3>7.2 Formal definition</h3>
+    <div class="formal">
+      <p>Let the constitution for entity <em>e</em> be a set of claims: <strong>C = {c₁, c₂, ..., cₙ}</strong></p>
+      <p>Let <strong>E(e)</strong> be the evidence set — the observable content publicly associated with entity <em>e</em>, gathered independently of the constitution generation process.</p>
+      <p><strong>Grounded claim:</strong> <em>cᵢ</em> is grounded w.r.t. <em>E(e)</em> if there exists at least one segment <em>s ∈ E(e)</em> such that <em>cᵢ</em> is directly stated in or unambiguously entailed by <em>s</em>, as assessed by an evaluator independent of the generation process.</p>
+      <p><strong>Evidence Coverage:</strong></p>
+      <p><strong>EC(C, E) = |{cᵢ ∈ C : cᵢ is grounded}| / |C| × 100</strong></p>
+      <p>where EC(C, E) ∈ [0, 100].</p>
+      <p><strong>Weighted variant</strong> (recommended where partial grounding is distinguished):</p>
+      <p><strong>EC_w(C, E) = ( |G| + α × |P| ) / |C| × 100</strong></p>
+      <p>where <em>G</em> = fully grounded claims, <em>P</em> = partially grounded claims, α ∈ (0,1). Reference value: α = 0.5.</p>
+    </div>
+
+    <h3>7.3 Required properties</h3>
+    <p>A conforming Evidence Coverage implementation <span class="rfc">must</span> satisfy:</p>
+    <ul>
+      <li><strong>P1 — Monotonicity in evidence.</strong> EC(C, E) <span class="rfc">must</span> be non-decreasing as E grows. Additional evidence <span class="rfc">must not</span> reduce coverage.</li>
+      <li><strong>P2 — Monotonicity in ambition.</strong> EC(C, E) <span class="rfc">must</span> be non-increasing as ungrounded claims are added to C.</li>
+      <li><strong>P3 — Reproducibility.</strong> Independent evaluators applying the same methodology to fixed C and fixed E(e) <span class="rfc">must</span> produce scores within ±5 percentage points.</li>
+      <li><strong>P4 — Independence.</strong> The evaluator that computes EC(C, E) <span class="rfc">must</span> be architecturally separate from the system that generated C.</li>
+    </ul>
+
+    <h3>7.4 The ungrounded claim set</h3>
+    <p>Coverage computation <span class="rfc">must</span> produce, in addition to the score, an explicit enumeration of ungrounded claims: <strong>U = {cᵢ ∈ C : cᵢ is ungrounded}</strong>. This set <span class="rfc">must</span> be made available to the entity as a diagnostic.</p>
+
+    <h3>7.5 Coverage thresholds</h3>
+    <p><strong>For web and AI-agent contexts:</strong> A constitution with EC &lt; 60 <span class="rfc">should not</span> be certified. A constitution with EC ≥ 80 <span class="rfc">may</span> be certified subject to entity approval.</p>
+    <p><strong>For physical systems and autonomous operation contexts:</strong> Constraint claims with EC = 0 <span class="rfc">must</span> be treated as absent by consuming systems acting in physical environments.</p>
+
+    <h3>7.6 The improvement loop</h3>
+    <pre>Generate → Measure coverage → Surface ungrounded claims
+  → Entity improves expression → Regenerate → Remeasure → Certify</pre>
+    <p>The loop has a natural convergence condition: when an entity's expressed presence accurately represents its declared intent, coverage approaches its achievable maximum.</p>
+  </section>
+
+  <!-- 8 -->
+  <section class="section" id="s8">
+    <h2>8. The Evaluator</h2>
+
+    <h3>8.1 Definition</h3>
+    <p>The Evaluator is the component that validates outputs produced by or for a consuming system against a certified constitution. It is the enforcement mechanism of The Introduction Layer.</p>
+
+    <h3>8.2 Required inputs</h3>
+    <p>A conforming Evaluator <span class="rfc">must</span> accept: a consuming system output (text, structured data, or action specification); and a certified constitution for the entity the output concerns.</p>
+
+    <h3>8.3 Required output schema</h3>
+    <pre>{
+  "outcome":               "proceed" | "flag" | "reject",
+  "score":                 0–100,
+  "checks": [
+    {
+      "question":          string,
+      "result":            "pass" | "fail" | "partial",
+      "note":              string
+    }
+  ],
+  "constraint_violations": string[],
+  "summary":               string
+}</pre>
+
+    <h3>8.4 Outcome definitions</h3>
+    <div class="defs">
+      <div class="def-term">proceed</div>
+      <p class="def-body">The output is consistent with the introduction. No constitutional concerns identified. The consuming system <span class="rfc">may</span> act on this output.</p>
+      <div class="def-term">flag</div>
+      <p class="def-body">The output is technically within the introduction but introduces a concern that <span class="rfc">should</span> be acknowledged before action.</p>
+      <div class="def-term">reject</div>
+      <p class="def-body">The output violates a constitutional constraint or escapes the declared frame in a material way. The consuming system <span class="rfc">must not</span> act on a rejected output without entity-level review. In physical systems contexts, reject is an operational stop.</p>
+    </div>
+
+    <h3>8.5 Independence requirement</h3>
+    <p>The Evaluator <span class="rfc">must</span> be architecturally independent of the system whose outputs it evaluates. A consuming system <span class="rfc">must not</span> modify, override, or reweight Evaluator verdicts without explicit entity authorisation.</p>
+  </section>
+
+  <!-- 9 -->
+  <section class="section" id="s9">
+    <h2>9. The Cognitive Entrypoint</h2>
+
+    <h3>9.1 Definition</h3>
+    <p>The cognitive entrypoint is the point in a consuming system's reasoning sequence at which the constitution is retrieved and inherited. It marks the transition from uninitialised to constitutionally-framed operation.</p>
+
+    <h3>9.2 Timing requirement</h3>
+    <p>A consuming system operating with a certified constitution <span class="rfc">must</span> retrieve and inherit the constitution <strong>before</strong> any domain-specific reasoning, tool invocation, or action planning for the constituted entity begins. A constitution retrieved after domain-specific reasoning has begun cannot retroactively govern that reasoning.</p>
+
+    <h3>9.3 Conformance</h3>
+    <p>A consuming system is conformant with the cognitive entrypoint requirement if: it retrieves the certified constitution from a conforming registry; retrieval occurs before any entity-specific reasoning begins; the constitution is made available to all reasoning components operating on behalf of the entity; and the Evaluator has access to the constitution when assessing outputs.</p>
+
+    <h3>9.4 Implementation note (non-normative)</h3>
+    <p>In tool-calling architectures, the cognitive entrypoint <span class="rfc">should</span> be implemented as the first registered tool, documented explicitly as the required first call. In Model Context Protocol implementations, <code>stasis_intent</code> or equivalent <span class="rfc">must</span> be documented as: "Call this first. Always."</p>
+  </section>
+
+  <!-- 10 -->
+  <section class="section" id="s10">
+    <h2>10. Forward Integration</h2>
+
+    <h3>10.1 Definition</h3>
+    <p>Forward integration is the capability of a consuming system not yet built to correctly inherit a reliable cognitive frame from an entity that declared its constitution before the consuming system was designed. It is the primary consequence of a conforming introduction layer implementation — what distinguishes a introduction from a snapshot.</p>
+
+    <h3>10.2 Requirement</h3>
+    <p>A conforming constitution <span class="rfc">must</span> be: persistent — available indefinitely, not session-scoped; stable — not changing faster than the entity's governing intent changes; versioned — such that a consuming system can determine which version it inherited and when; and accessible — retrievable by any conforming consuming system without bespoke configuration.</p>
+
+    <h3>10.3 The forward integration guarantee</h3>
+    <div class="callout">Any conforming consuming system that encounters a certified entity for the first time <span class="rfc">will</span> inherit the entity's declared governing intent, at the coverage level at time of certification, without reconstruction from inference.</div>
+    <p>This guarantee is the reason the architecture <span class="rfc">must</span> be established before the consuming systems it serves are built. Retrofitting cannot provide forward integration — consuming systems already built have already formed their interpretive assumptions.</p>
+  </section>
+
+  <!-- 11 -->
+  <section class="section" id="s11">
+    <h2>11. Discovery and Representation</h2>
+
+    <h3>11.1 Discovery</h3>
+    <p>A constitution <span class="rfc">must</span> be accessible via a predictable, no-configuration-required path. Consuming systems <span class="rfc">must not</span> require bespoke knowledge of a site's structure to discover a constitution.</p>
+    <p><strong>Standard discovery sequence:</strong></p>
+    <ol>
+      <li><code>GET /constitution</code> — the standard endpoint. No extension, no subdirectory, no content negotiation required. This is the primary convention.</li>
+      <li><code>GET /constitution.ic</code> — the static-file fallback, for implementations served from static hosts without server-side routing.</li>
+    </ol>
+    <p>A consuming system <span class="rfc">must</span> attempt step 1 before step 2. A response at <code>/constitution</code> takes precedence.</p>
+    <p>Convention-based discovery, not configuration-based discovery, is how protocols achieve adoption. <code>GET /robots.txt</code> succeeded not because <code>.txt</code> is special, but because every crawler knew exactly where to look without negotiation. This specification follows that precedent.</p>
+
+    <h3>11.2 Canonical representation</h3>
+    <p>The canonical representation of a constitution is JSON, served with:</p>
+    <pre>Content-Type: application/constitution+json</pre>
+    <p>The media type <code>application/constitution+json</code> is the long-term target for IANA registration, following the precedent of <code>application/ld+json</code>. Until registered, implementations <span class="rfc">may</span> use <code>application/vnd.ailattice.constitution+json</code>.</p>
+
+    <h3>11.3 Authoring formats — two paths</h3>
+    <p>There are two ways to implement this specification. Both are fully conformant. Choose based on where you are starting from.</p>
+
+    <p><strong>The easiest implementable way:</strong> Create a file called <code>intro.txt</code> and place it at your site root. Same location as <code>robots.txt</code> and <code>llms.txt</code>. Fill in the required fields using plain key-value syntax. Submit it to a conforming registry for verification. That is the entire implementation on the entity side. No tooling, no infrastructure, no JSON. The progression is intentional: <code>robots.txt</code> says what not to touch. <code>llms.txt</code> says what to read. <code>intro.txt</code> says who I am.</p>
+
+    <p><strong>The deeper, most correct way:</strong> Author a <code>constitution.ic</code> file using the full Intent Constitution format. Compile it to canonical JSON. Serve it at <code>GET /constitution</code> with <code>Content-Type: application/constitution+json</code>. Submit for Evidence Coverage verification and certification. The result is a machine-native, versioned, evidence-grounded declaration that any conforming consuming system can retrieve and inherit without configuration.</p>
+
+    <p>Both paths produce the same output for consuming systems. <code>intro.txt</code> is the on-ramp. <code>constitution.ic</code> compiled to <code>GET /constitution</code> is the destination. A conforming registry <span class="rfc">should</span> accept either and handle compilation where needed. Implementations <span class="rfc">must</span> preserve semantic equivalence across all representations.</p>
+
+    <h3>11.4 Schema endpoint</h3>
+    <p>Implementations <span class="rfc">should</span> expose a schema endpoint: <code>GET /constitution/schema</code>. A publicly accessible schema at a stable URL functions as the equivalent of a JSON Schema or OpenAPI definition for this format.</p>
+
+    <h3>11.5 Ownership principle</h3>
+    <div class="callout">The constitution belongs to the entity. The registry indexes it.</div>
+    <p>A conforming registry <span class="rfc">must not</span> claim ownership of constitutions it indexes. Entities <span class="rfc">may</span> self-host their constitutions at <code>/constitution</code> independently of any registry. Registry certification is a trust signal, not a custody arrangement.</p>
+  </section>
+
+  <!-- 12 -->
+  <section class="section" id="s12">
+    <h2>12. Conformance</h2>
+
+    <h3>12.1 Component conformance</h3>
+    <p>An implementation is <strong>constitutionally conformant</strong> if its constitutions meet all requirements of Section 6. It is <strong>coverage conformant</strong> if its Evidence Coverage computation meets all requirements of Section 7, including the four formal properties (P1–P4). It is <strong>evaluator conformant</strong> if its Evaluator meets all requirements of Section 8. It is <strong>entrypoint conformant</strong> if consuming systems built on it meet the timing requirement of Section 9.2. It is <strong>discovery conformant</strong> if it exposes constitutions at the standard discovery paths defined in Section 11.1.</p>
+
+    <h3>12.2 Full conformance</h3>
+    <p>An implementation is <strong>fully conformant</strong> if it meets all five component conformance requirements above.</p>
+
+    <h3>12.3 Partial conformance</h3>
+    <p>Partial conformance is permitted and useful. Partial conformance <span class="rfc">must</span> be disclosed and <span class="rfc">must not</span> be represented as full conformance.</p>
+  </section>
+
+  <!-- 13 -->
+  <section class="section" id="s13">
+    <h2>13. Explicit Scope</h2>
+
+    <h3>13.1 In scope</h3>
+    <p>This specification covers: the architectural layer definition and its required components; the constitution format and required fields; Evidence Coverage definitions, formal properties, and threshold guidance; Evaluator interface and outcome definitions; cognitive entrypoint timing requirements; forward integration requirements; discovery conventions; canonical representation; authoring format equivalence; and the ownership principle.</p>
+
+    <h3>13.2 Out of scope</h3>
+    <p>This specification explicitly does not cover: how constitutions are generated; what language model or reasoning engine is used by any component; specific registry implementation design; authentication and authorisation mechanisms; application-layer systems built on top of a conforming implementation; domain-specific constitution field requirements beyond the required minimum; or pricing, licensing, or commercial terms for implementations.</p>
+
+    <h3>13.3 Implementation freedom</h3>
+    <p>Within the constraints of this specification, implementers have full freedom in technology stack, generation mechanism, registry architecture, user interface, pricing model, and deployment topology. The specification defines what a conforming implementation guarantees. It does not define how those guarantees are achieved.</p>
+  </section>
+
+  <!-- 14 -->
+  <section class="section" id="s14">
+    <h2>14. Falsifiability</h2>
+    <p>This architecture makes testable claims. The following conditions, if satisfied by empirical observation, would indicate that the architecture does not provide its claimed benefits:</p>
+    <ul>
+      <li><strong>F1:</strong> AI agents queried about constituted entities produce outputs with no measurably lower constraint violation rate than agents queried about non-constituted entities of matched complexity, across a sample of ≥ 100 entity pairs.</li>
+      <li><strong>F2:</strong> Independent coverage evaluations on fixed inputs produce scores with variance &gt; 10 points consistently, across ≥ 50 evaluation pairs.</li>
+      <li><strong>F3:</strong> Entities that act on low-coverage diagnostics show no measurable coverage improvement on regeneration, across ≥ 30 entities.</li>
+      <li><strong>F4:</strong> Consuming systems inheriting certified constitutions produce outputs with measurably higher constitutional misalignment rates than consuming systems operating from inferred identity.</li>
+    </ul>
+    <p>Conditions F2 and F3 are testable with existing implementations without wide adoption. F1 and F4 require a sample of constituted entities but not global deployment. This specification considers itself falsified if any of F1–F4 is satisfied under rigorous experimental conditions.</p>
+  </section>
+
+  <!-- 15 -->
+  <section class="section" id="s15">
+    <h2>15. Reference Implementation</h2>
+    <p>The reference implementation of this specification is:</p>
+    <ul>
+      <li><strong>Intelli-Stasis</strong> (intellistasis.com) — constitutional generation engine and governance layer</li>
+      <li><strong>AILattice</strong> (ailattice.io) — reference registry for the web-to-AI-agent case</li>
+    </ul>
+    <p>The reference implementation demonstrates conformance for one domain: websites as entities, AI agents as consuming systems. The specification is domain-agnostic. Other conforming implementations are expected for other entity classes — IoT devices, physical facilities, autonomous systems, organisations — and other consuming system classes.</p>
+    <div class="invariant">The reference implementation is not the architecture. It is a proof that the architecture is implementable.</div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- APPENDIX A -->
+  <section class="section" id="appendix-a">
+    <div class="appendix-label">Appendix A</div>
+    <h2>Minimum Viable Constitution Template (<code>.ic</code> format)</h2>
+    <pre>name:              [entity name]
+canonical_address: [primary URL or identifier]
+category:          [primary domain or type]
+
+mission: >
+  [Why this entity exists. One to three sentences.]
+
+core_belief: >
+  [The single principle that governs when others conflict.]
+
+principles:
+  - [Principle 1 — highest precedence]
+  - [Principle 2]
+  - [Principle 3]
+
+constraints:
+  - "Will never [explicit prohibition 1]"
+  - "Will never [explicit prohibition 2]"
+  - "Will never [explicit prohibition 3]"
+
+what_this_is_not:
+  - "Not [common misclassification 1]"
+  - "Not [common misclassification 2]"
+
+evaluation_criteria:
+  - "Does this output respect [constraint 1]?"
+  - "Does this output represent the entity as [mission statement]?"
+  - "Would the entity approve this output if shown it?"
+
+evidence_coverage:   [score 0–100]
+version:             [semver]
+certified_date:      [ISO 8601]
+certifying_entity:   [who certified this]</pre>
+  </section>
+
+  <!-- APPENDIX B -->
+  <section class="section" id="appendix-b">
+    <div class="appendix-label">Appendix B</div>
+    <h2>Relationship to Existing Standards</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Standard</th><th>Layer</th><th>Relationship to this specification</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Schema.org</td><td>Content (Layer 1)</td><td>Describes what an entity contains. Does not declare governing intent. Complementary.</td></tr>
+          <tr><td>llms.txt</td><td>Content (Layer 1)</td><td>Provides AI-readable content index. Does not declare governing intent. Complementary.</td></tr>
+          <tr><td>robots.txt</td><td>Content (Layer 1)</td><td>Specifies access permissions. Does not declare purpose or constraints. Discovery model (<code>/robots.txt</code>) is the direct precedent for <code>GET /constitution</code>.</td></tr>
+          <tr><td>Sitemaps</td><td>Content (Layer 1)</td><td>Describes structure. Does not declare meaning. Complementary.</td></tr>
+          <tr><td>RAG</td><td>Context (Layer 2)</td><td>Session-scoped retrieval. Does not provide permanent introduction. Complementary.</td></tr>
+          <tr><td>Constitutional AI (Anthropic)</td><td>Model training</td><td>Governs model behaviour during training. This specification governs entity identity at runtime. Different scope.</td></tr>
+          <tr><td>Model Context Protocol</td><td>Transport</td><td>Provides infrastructure for agent-to-system communication. This specification defines what should be communicated first. Compatible.</td></tr>
+          <tr><td>W3C WoT Thing Descriptions</td><td>Technical interoperability</td><td>Describes device capabilities and interaction model. Does not declare governing intent or constraints. Complementary.</td></tr>
+          <tr><td><code>.well-known/</code> (RFC 5785)</td><td>Discovery</td><td>Convention for service discovery endpoints. <code>GET /constitution</code> follows the same principle without requiring the subdirectory. Compatible.</td></tr>
+          <tr><td><code>intro.txt</code></td><td>Intent (Layer 3)</td><td>Zero-friction authoring format defined by this specification. Same syntax as <code>constitution.ic</code>. Placed at site root alongside <code>robots.txt</code> and <code>llms.txt</code>. Compiled to canonical JSON served at <code>GET /constitution</code>. The recommended entry point for web developers adopting the standard.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- APPENDIX C -->
+  <section class="section" id="appendix-c">
+    <div class="appendix-label">Appendix C</div>
+    <h2>Updates — August 2026</h2>
+    <p>The following developments occurred after the publication date of this specification (2026-06-30). They are recorded here as external validation and institutional progress, not as amendments to the specification itself.</p>
+
+    <h3>W3C Introduction Layer Community Group</h3>
+    <p>The W3C Introduction Layer Community Group was officially proposed on 2026-08-10. The group is sponsored through W3C's community group process and chaired by Bryan Horsfield. The group's permanent record is maintained at w3.org. Sebastian Zimmeck (Associate Professor, Wesleyan University; co-creator of Global Privacy Control; W3C PING co-chair) joined within 48 hours of announcement.</p>
+
+    <h3>Independent Academic Validation</h3>
+    <p>Three independent research teams published work in August 2026 that arrived at the same architectural gap this specification addresses. None proposed a universal declaration standard. All three confirm the gap exists.</p>
+    <div class="defs">
+      <div class="def-term">EvoHarness-RL — Meta AI + UIUC (arXiv:2608.05446, COLM 2026)</div>
+      <p class="def-body">Proposes a runtime harness layer that persists context for AI agents across long-horizon tasks via model-specific fine-tuning and session-scoped state. This is a Layer 2 (Context) solution. The Introduction Layer addresses the same problem at Layer 3 (Intent) — model-agnostically, persistently, and before any agent begins reasoning. Their Behaviour Policy Encoding (BPE) is a session-scoped analogue of a constitution without the permanence, portability, or entity control that this specification requires.</p>
+
+      <div class="def-term">Eywa — UIUC (arXiv:2604.27351)</div>
+      <p class="def-body">Proposes heterogeneous model collaboration via MCP bridges. Identifies the need for context coherence when multiple models interact with the same entity. The Introduction Layer is the declaration standard that makes such collaboration safe and coherent without bespoke bridging code per integration.</p>
+
+      <div class="def-term">Wang et al. — 2026</div>
+      <p class="def-body">Formal academic framing of the human-to-agent interface paradigm shift. Identifies the need for explicit interface contracts as AI agents replace humans as primary consumers of digital resources. The Introduction Layer is that contract, standardised and entity-controlled.</p>
+    </div>
+
+    <h3>Live Market Demonstration</h3>
+    <p>xAI launched Grok Bot on 2026-08-11 — always-on AI agents with dedicated cloud infrastructure that sign into user tools and execute multi-step tasks autonomously. Multiple agents share context by passing messages in group chats. Each agent has no standard way to declare who it is working for, what constraints it operates under, or what its responsible party is. The platforms it interacts with have no standard way to verify these things either. Grok Bot is a high-profile live demonstration of the gap this specification addresses. The Introduction Layer is the missing layer in every major agent product shipping as of the date of this update.</p>
+
+    <h3>Industry Analysis — August 2026</h3>
+    <div class="def-term">McGregor, L. — "Three Shifts Coming to AI in the Next 12 Months" (August 5, 2026)</div>
+    <p class="def-body">Practitioner analysis identifying three structural shifts in AI deployment: value moving from models to harnesses; models commoditising; and systems becoming plural and networked across organisational boundaries. The analysis arrives independently at the same architectural gap this specification addresses, without naming a solution.</p>
+    <p class="def-body">On cross-organisational agent coordination: <em>"MCP is a dead protocol for the internet. I'm not sure what the replacement will be, but agents will run beyond the boundaries of their own organisations, and they'll need to collaborate securely."</em> The Introduction Layer is the replacement he cannot name. Cross-organisational agent collaboration requires each agent to inherit the identity, constraints, and responsible party of the entities it acts for before any interaction begins — precisely what this specification defines.</p>
+    <p class="def-body">On document-based workflows as the coordination workhorse: <em>"agents are built for text, for documentation, for reading and filling out forms."</em> The <code>intro.txt</code> authoring format defined in Section 11.3 of this specification is a document. It fits directly into the document-based workflow infrastructure McGregor identifies as the dominant coordination mechanism. The cognitive entrypoint (Section 9) is, in practice, an agent reading a document before beginning work.</p>
+    <p class="def-body">McGregor maps a roadmap that terminates at this specification. The harness needs something to inherit from. The commodity model needs entity-agnostic constitutional context to produce consistent output. The cross-organisational agent network needs a declaration standard to operate securely. None of these are named. All three are this specification.</p>
+  </section>
+
+  <footer class="doc-footer">
+    <p><em>The Introduction Layer Specification is open. Conforming implementations are encouraged across all entity classes and consuming system types.</em></p>
+    <br>
+    <p><strong>Intelli-Stasis</strong> · intellistasis.com &nbsp;·&nbsp; <strong>AILattice</strong> · ailattice.io</p>
+    <p>W3C Introduction Layer Community Group — proposed 2026-08-10</p>
+  </footer>
+
+</div>
+</body>
+</html>

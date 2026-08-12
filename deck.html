@@ -1,0 +1,756 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Introduction Layer — Investor Proposal v3 · August 2026</title>
+<style>
+  :root {
+    --bg: #F8F8FA;
+    --surface: #FFFFFF;
+    --text: #0F0F12;
+    --muted: #6B6B80;
+    --border: #E2E2EA;
+    --rule: #DCDCE8;
+    --accent: #1A3FCC;
+    --accent-2: #CC3A1A;
+    --tag-bg: #EEF1FB;
+    --tag-text: #1A3FCC;
+    --callout-bg: #F0F3FD;
+    --table-head: #F4F4F8;
+    --validation-bg: #FFF8F5;
+    --validation-border: #CC3A1A;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0C0C10;
+      --surface: #16161C;
+      --text: #EEEEF4;
+      --muted: #8888A0;
+      --border: #2A2A38;
+      --rule: #222230;
+      --accent: #5D7AF5;
+      --accent-2: #E85C34;
+      --tag-bg: #1A1F3A;
+      --tag-text: #7A9BFF;
+      --callout-bg: #12152A;
+      --table-head: #1A1A22;
+      --validation-bg: #1A1008;
+      --validation-border: #CC3A1A;
+    }
+  }
+
+  :root[data-theme="light"] {
+    --bg: #F8F8FA;
+    --surface: #FFFFFF;
+    --text: #0F0F12;
+    --muted: #6B6B80;
+    --border: #E2E2EA;
+    --rule: #DCDCE8;
+    --accent: #1A3FCC;
+    --accent-2: #CC3A1A;
+    --tag-bg: #EEF1FB;
+    --tag-text: #1A3FCC;
+    --callout-bg: #F0F3FD;
+    --table-head: #F4F4F8;
+    --validation-bg: #FFF8F5;
+    --validation-border: #CC3A1A;
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0C0C10;
+    --surface: #16161C;
+    --text: #EEEEF4;
+    --muted: #8888A0;
+    --border: #2A2A38;
+    --rule: #222230;
+    --accent: #5D7AF5;
+    --accent-2: #E85C34;
+    --tag-bg: #1A1F3A;
+    --tag-text: #7A9BFF;
+    --callout-bg: #12152A;
+    --table-head: #1A1A22;
+    --validation-bg: #1A1008;
+    --validation-border: #CC3A1A;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { background: var(--bg); color: var(--text); font-size: 16px; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 72px 32px 100px;
+  }
+
+  .doc-header { margin-bottom: 64px; }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .version-badge {
+    display: inline-block;
+    background: var(--accent-2);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  h1.doc-title {
+    font-size: clamp(36px, 6vw, 58px);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.0;
+    color: var(--text);
+    margin-bottom: 20px;
+    text-wrap: balance;
+  }
+
+  .doc-deck {
+    font-size: clamp(16px, 2vw, 19px);
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 580px;
+    text-wrap: balance;
+  }
+
+  .tags {
+    margin-top: 28px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 5px 11px;
+    border-radius: 3px;
+  }
+
+  .tag.hot {
+    background: var(--accent-2);
+    color: #fff;
+  }
+
+  .rule { border: none; border-top: 1px solid var(--rule); margin: 56px 0; }
+
+  .thesis {
+    margin-bottom: 64px;
+    padding: 36px 40px;
+    border-left: 3px solid var(--accent);
+    background: var(--callout-bg);
+    border-radius: 0 6px 6px 0;
+  }
+
+  .thesis-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+
+  .thesis-text {
+    font-size: clamp(19px, 2.8vw, 24px);
+    font-weight: 650;
+    line-height: 1.4;
+    color: var(--text);
+    text-wrap: balance;
+  }
+
+  .one-sentence {
+    margin-bottom: 64px;
+    padding: 28px 36px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+  }
+
+  .one-sentence-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .one-sentence-text {
+    font-size: clamp(15px, 2vw, 17px);
+    font-weight: 500;
+    line-height: 1.55;
+    color: var(--text);
+  }
+
+  .section { margin-bottom: 64px; }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  h2 {
+    font-size: clamp(22px, 3vw, 28px);
+    font-weight: 750;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--text);
+    margin-bottom: 20px;
+    text-wrap: balance;
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+    margin-top: 28px;
+  }
+
+  p { margin-bottom: 18px; color: var(--text); }
+  p:last-child { margin-bottom: 0; }
+  strong { font-weight: 700; }
+
+  .pullquote {
+    margin: 36px 0;
+    padding: 32px 36px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+    font-size: clamp(17px, 2.2vw, 20px);
+    font-style: italic;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.5;
+    text-wrap: balance;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    margin: 24px 0;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead tr { background: var(--table-head); }
+  th {
+    text-align: left;
+    padding: 11px 16px;
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.55; font-size: 14px; }
+  tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: var(--table-head); }
+  td:first-child { font-weight: 600; white-space: nowrap; }
+
+  .traction { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
+
+  .traction-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 18px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .traction-marker {
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin-top: 8px;
+    flex-shrink: 0;
+  }
+
+  /* External validation section */
+  .validation-block {
+    margin: 24px 0;
+    border-left: 3px solid var(--accent-2);
+    background: var(--validation-bg);
+    border-radius: 0 6px 6px 0;
+    overflow: hidden;
+  }
+
+  .validation-header {
+    padding: 14px 20px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .validation-items { display: flex; flex-direction: column; }
+
+  .validation-item {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .validation-item:last-child { border-bottom: none; }
+
+  .validation-source {
+    padding: 16px 18px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--accent-2);
+    border-right: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    padding-top: 18px;
+  }
+
+  .validation-text {
+    padding: 16px 20px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  .validation-text strong { color: var(--text); }
+
+  .grok-callout {
+    margin: 28px 0 0;
+    padding: 24px 24px;
+    border: 1px solid var(--accent-2);
+    border-radius: 6px;
+    background: var(--validation-bg);
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  .grok-callout .marker {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    margin-bottom: 10px;
+  }
+
+  .defense-grid { display: grid; gap: 12px; margin: 20px 0; }
+
+  .defense-card {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 16px;
+    align-items: start;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+  }
+
+  .defense-type {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding-top: 2px;
+  }
+
+  .defense-title { font-weight: 700; margin-bottom: 4px; font-size: 14px; }
+  .defense-desc { color: var(--muted); font-size: 13px; line-height: 1.55; }
+
+  .license-callout {
+    margin: 28px 0 0;
+    padding: 28px 32px;
+    border-left: 3px solid var(--accent);
+    background: var(--callout-bg);
+    border-radius: 0 6px 6px 0;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--text);
+  }
+
+  .license-callout p { margin-bottom: 0; }
+
+  .closing {
+    margin-top: 72px;
+    padding: 48px;
+    background: var(--text);
+    color: var(--bg);
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .closing h2 {
+    color: var(--bg);
+    font-size: clamp(22px, 3.5vw, 32px);
+    margin-bottom: 18px;
+    letter-spacing: -0.025em;
+  }
+
+  .closing .sub {
+    color: var(--bg);
+    opacity: 0.7;
+    font-size: 16px;
+    max-width: 480px;
+    margin: 0 auto 28px;
+    line-height: 1.6;
+  }
+
+  .contact { margin-top: 24px; display: flex; flex-direction: column; gap: 6px; align-items: center; }
+  .contact a { color: var(--bg); opacity: 0.55; font-size: 13px; text-decoration: none; }
+  .contact a:hover { opacity: 0.9; }
+
+  @media (max-width: 600px) {
+    .page { padding: 48px 20px 80px; }
+    .thesis { padding: 24px 20px; }
+    .closing { padding: 32px 20px; }
+    .defense-card { grid-template-columns: 1fr; gap: 6px; }
+    .validation-item { grid-template-columns: 1fr; }
+    .validation-source { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="doc-header">
+    <p class="eyebrow">Investor Proposal · August 2026 <span class="version-badge">v3</span></p>
+    <h1 class="doc-title">The Introduction Layer</h1>
+    <p class="doc-deck">The foundational standard for how anything — every AI system, every resource, every device — declares itself before any intelligent interaction happens. We chair it.</p>
+    <div class="tags">
+      <span class="tag hot">W3C Community Group — Proposed</span>
+      <span class="tag">3 Members · 48 Hours</span>
+      <span class="tag">Reference Implementation Live</span>
+      <span class="tag">Pre-Incorporation</span>
+    </div>
+  </header>
+
+  <div class="one-sentence">
+    <div class="one-sentence-label">The One Sentence Version</div>
+    <p class="one-sentence-text">We are building the ranking and trust infrastructure for the AI web — the same way Google built it for the human web — on top of an open W3C standard we chair.</p>
+  </div>
+
+  <div class="thesis">
+    <div class="thesis-label">The Thesis</div>
+    <p class="thesis-text">The person who chairs the universal standard for AI interaction is in a position that will not exist twice. We are that person. We are offering a seat at the table before the table is full.</p>
+  </div>
+
+  <!-- THE GAP -->
+  <section class="section">
+    <p class="section-label">The Problem</p>
+    <h2>AI Arrived With No Introduction</h2>
+    <p>Every website, API, service, device, and platform on the internet was built for humans. A human arrives, reads, interprets, decides. The resource doesn't need to explain itself — humans figure it out.</p>
+    <p>AI agents are now first-class consumers of the web. And they have a fundamental problem that no existing standard addresses:</p>
+    <div class="pullquote">Before I interact with this resource, what do I need to know about it? What is it? What am I allowed to do? Who is responsible for it? What must never happen?</div>
+    <p>An AI arriving at any resource today has no reliable way to answer these questions. It guesses. It infers. It hallucinates context. And when AI guesses wrong — that is where every AI safety incident, every agent misbehaviour, every autonomous system doing something it shouldn't, begins.</p>
+    <p>The same problem exists in the other direction. AI systems themselves have no standard way to introduce themselves to the resources they interact with. Platforms can't verify whether the entity arriving is legitimate, what it intends to do, or who is responsible for it.</p>
+    <p><strong>Nothing has ever introduced itself. So nothing knows what it is dealing with.</strong></p>
+  </section>
+
+  <hr class="rule">
+
+  <!-- WHY NOTHING FIXES IT -->
+  <section class="section">
+    <p class="section-label">The Landscape</p>
+    <h2>Why No Existing Standard Fills the Gap</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Standard</th><th>What It Does</th><th>What It Doesn't Do</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>robots.txt</td><td>Says what not to crawl</td><td>No identity, purpose, or constraints</td></tr>
+          <tr><td>OpenAPI</td><td>Describes endpoints and shape</td><td>Not intent, ownership, or hard limits</td></tr>
+          <tr><td>Schema.org</td><td>Describes content semantics</td><td>Not operational parameters for AI</td></tr>
+          <tr><td>llms.txt</td><td>Hints at AI readability</td><td>Informal, no constraint declaration</td></tr>
+          <tr><td>AIPref (IETF)</td><td>Content use preferences</td><td>Not what the resource fundamentally is</td></tr>
+          <tr><td>Certificate ecosystem</td><td>Proves domain ownership</td><td>Identity without purpose or constraints</td></tr>
+          <tr><td>WebMCP</td><td>Declares capabilities</td><td>Not what must never happen</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Every adjacent standard addresses a corner of the problem. None answers the foundational question. <strong>The gap sits beneath all of them.</strong> It is not a niche gap — it is the single missing layer that all intelligent interaction depends on.</p>
+  </section>
+
+  <hr class="rule">
+
+  <!-- THE STANDARD -->
+  <section class="section">
+    <p class="section-label">The Solution</p>
+    <h2>A Universal Declaration Standard — and the Infrastructure On Top of It</h2>
+
+    <h3>Layer 1 — The Introduction Layer Standard (Open, W3C)</h3>
+    <p>A universal standard for how any entity — a web resource, an AI system, a device, a robot, a physical object — declares its identity, purpose, constraints, and responsible party before any interaction begins. Machine-native. Discoverable. Verifiable. The same schema in every direction.</p>
+    <p>A website introduces itself to AI systems. An AI system introduces itself to the platforms it interacts with. A robot introduces itself to the infrastructure it operates within. Everything speaks the same language, bidirectionally.</p>
+    <p>The standard is open. Deliberately — because a standard that captures a tax at the point of adoption never becomes universal. Open standards become infrastructure.</p>
+    <div class="pullquote">W3C Introduction Layer Community Group — officially announced August 10, 2026. Proposed with the backing of W3C leadership. Bryan Horsfield chairs the group.</div>
+
+    <h3>Layer 2 — AILattice (The Business)</h3>
+    <p>AILattice is the certification, registry, verification, and ranking infrastructure built on top of the open standard.</p>
+    <p><strong>The DigiCert model applied to AI trust:</strong> SSL certificates are free to understand and implement. Verified, trusted SSL certificates — the ones systems actually trust — come from certificate authorities. DigiCert and Let's Encrypt built billion-dollar businesses on trust verification for a free open standard. AILattice is the certificate authority for the Introduction Layer.</p>
+    <p><strong>The Google model applied to the AI web:</strong> Google built a $200B+ annual revenue business by being the index for human web navigation — ranking based on backlinks, keywords, and human behaviour signals. None of that works for AI agents. They don't follow links. They navigate by understanding what resources are and what they're allowed to do. AILattice is the ranking and index system for AI web navigation. Every AI agent that needs to navigate the web autonomously queries AILattice — not Google.</p>
+  </section>
+
+  <hr class="rule">
+
+  <!-- MARKET SIZE -->
+  <section class="section">
+    <p class="section-label">Market Size</p>
+    <h2>The Entire Internet</h2>
+    <p>The TAM is not a segment of the internet. It is the entire internet.</p>
+    <p>Every website, API, service, device, and physical object that will ever interact with an AI system needs an Introduction Layer declaration. That is every resource that exists today and every resource that will be built from this point forward.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Resource type</th><th>Approximate scale</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Websites</td><td>~1.1 billion</td></tr>
+          <tr><td>APIs</td><td>Hundreds of millions</td></tr>
+          <tr><td>IoT devices</td><td>Billions</td></tr>
+          <tr><td>Physical objects (supply chain, infrastructure)</td><td>Trillions</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Every one of them will need to introduce itself as AI becomes the primary consumer of the digital and physical world. This is not a market. This is infrastructure for everything.</p>
+  </section>
+
+  <hr class="rule">
+
+  <!-- REVENUE -->
+  <section class="section">
+    <p class="section-label">Revenue Model</p>
+    <h2>Trust Verification at Every Layer</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Stream</th><th>Model</th><th>Analogy</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Basic certification</td><td>Free (drives adoption)</td><td>Let's Encrypt</td></tr>
+          <tr><td>Verified certification</td><td>Annual fee per resource</td><td>DigiCert SSL</td></tr>
+          <tr><td>Enterprise verification</td><td>Volume licensing</td><td>Enterprise SSL</td></tr>
+          <tr><td>Registry API access</td><td>Per-query at scale</td><td>Data API licensing</td></tr>
+          <tr><td>Enhanced registry listings</td><td>Premium visibility</td><td>Google Business Profile</td></tr>
+          <tr><td>B2B managed compliance</td><td>SaaS for enterprises</td><td>Cloudflare for AI trust</td></tr>
+          <tr><td>Physical world extension</td><td>Constitutional RFDs for IoT</td><td>New category entirely</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The model compounds: more certified resources → richer registry → more valuable to AI systems → more AI systems querying → more resources certifying. Classic platform flywheel. Network effects on both sides.</p>
+    <div class="license-callout">
+      <p>The web becomes constitutional. Every resource that introduces itself correctly creates a web that AI systems can navigate with trust. For AI companies — Anthropic, OpenAI, xAI, Google — to build agents that are genuinely reciprocal with that web, they need to be accredited to read and honour constitutional declarations. The Introduction Layer standard is open. Constitutional accreditation for AI systems is the business. AI companies licence accreditation to ensure their systems are constitutional-layer compliant. The web mandates it by existing. The AI companies pay to be trusted by it.</p>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- EXTERNAL VALIDATION -->
+  <section class="section">
+    <p class="section-label">External Validation — August 2026</p>
+    <h2>Three Independent Research Teams. Same Gap.</h2>
+    <p>Three independent research teams published work this month that independently arrives at the same architectural gap the Introduction Layer fills. None of them proposes a universal declaration standard. All three confirm the gap exists.</p>
+
+    <div class="validation-block">
+      <div class="validation-header">Academic Confirmations — August 2026</div>
+      <div class="validation-items">
+        <div class="validation-item">
+          <div class="validation-source">EvoHarness-RL<br>Meta AI + UIUC<br>arXiv:2608.05446<br>COLM 2026</div>
+          <div class="validation-text">Proposes a runtime "harness" layer that persists context for AI agents across long-horizon tasks. Their solution is model-specific fine-tuning and session-scoped markdown. <strong>The Introduction Layer solves this at the standard level, model-agnostically, before any agent begins reasoning.</strong></div>
+        </div>
+        <div class="validation-item">
+          <div class="validation-source">Eywa<br>UIUC<br>arXiv:2604.27351</div>
+          <div class="validation-text">Proposes heterogeneous model collaboration via MCP bridges. Identifies the need for context coherence across model boundaries. <strong>The Introduction Layer is the declaration standard that makes such collaboration safe and coherent without bespoke bridging code.</strong></div>
+        </div>
+        <div class="validation-item">
+          <div class="validation-source">Wang et al.<br>2026</div>
+          <div class="validation-text">Formal academic framing of the human-to-agent interface paradigm shift. Identifies the need for explicit interface contracts as agents replace humans as primary digital consumers. <strong>The Introduction Layer is that contract, standardised.</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grok-callout">
+      <div class="marker">Live Market Confirmation — August 11, 2026</div>
+      <p><strong>xAI launched Grok Bot</strong> — always-on AI agents with dedicated cloud computers that sign into user tools and run multi-step jobs. Multiple bots share context by "passing messages in group chats." $120/month per agent.</p>
+      <p style="margin-top: 12px;">This is the highest-profile demonstration yet of the gap: a $120/month AI coworker product with no way to know who it is working for. No identity layer. No constraint declaration. No persistent constitutional context. The agents are totally separate — no manual copy/paste, but no standard either. <strong>The Introduction Layer is the missing piece in every major agent product shipping today.</strong></p>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- TRACTION -->
+  <section class="section">
+    <p class="section-label">Traction</p>
+    <h2>What Has Already Been Built</h2>
+    <p>The work has been done quietly, in the right order, before anyone was watching.</p>
+    <div class="traction">
+      <div class="traction-item">
+        <span class="traction-marker"></span>
+        <span><strong>W3C Community Group — announced August 10, 2026.</strong> Permanent URL at w3.org. Proposed with the backing of W3C leadership. Bryan Horsfield as chair. Three members within 48 hours of announcement, including Sebastian Zimmeck (Associate Professor, Wesleyan University — co-creator of Global Privacy Control, W3C PING co-chair).</span>
+      </div>
+      <div class="traction-item">
+        <span class="traction-marker"></span>
+        <span><strong>AILattice — live reference implementation.</strong> Registry, verification, ranking, and certification pipeline operational. The commercial layer on top of the open standard is already running.</span>
+      </div>
+      <div class="traction-item">
+        <span class="traction-marker"></span>
+        <span><strong>The Specification — Introduction Layer v0.2.</strong> RFC-style, 15 sections, 8 design principles, formal falsifiability conditions. The technical document that defines what the standard is, authored and versioned.</span>
+      </div>
+      <div class="traction-item">
+        <span class="traction-marker"></span>
+        <span><strong>Prior art trail — 19 published and timestamped filings on GitHub.</strong> Covering all adjacent architectural areas. Publicly discoverable before any competitor named the problem.</span>
+      </div>
+      <div class="traction-item">
+        <span class="traction-marker"></span>
+        <span><strong>Academic publication — submitted to arXiv cs.AI.</strong> The citation record that places the Introduction Layer in the academic literature and establishes scholarly priority.</span>
+      </div>
+      <div class="traction-item">
+        <span class="traction-marker"></span>
+        <span><strong>YC RFS #11 — direct match.</strong> Y Combinator Fall 2026 explicitly lists "Human Verification and Trust Infrastructure — rebuilding the trust layer of the internet" as a problem they want funded right now.</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- DEFENSIBILITY -->
+  <section class="section">
+    <p class="section-label">Defensibility</p>
+    <h2>Why This Position Is Hard to Take</h2>
+    <p>Anyone can implement an open standard. The standard itself is not the moat. The moat is the combination of layers that establish who defined it, who chairs it, and who has the institutional, academic, technical, and commercial record to prove origination — across all of them simultaneously.</p>
+    <div class="defense-grid">
+      <div class="defense-card">
+        <div class="defense-type">Institutional</div>
+        <div>
+          <div class="defense-title">W3C chair — official, permanent, documented</div>
+          <div class="defense-desc">Backed by W3C leadership. The most credible standards body on the web. The announcement exists at a permanent W3C URL.</div>
+        </div>
+      </div>
+      <div class="defense-card">
+        <div class="defense-type">Timestamped</div>
+        <div>
+          <div class="defense-title">Prior art trail — 19 filings, public, indexed, dated</div>
+          <div class="defense-desc">GitHub publications across every adjacent concept. Publicly discoverable before any competitor named the gap.</div>
+        </div>
+      </div>
+      <div class="defense-card">
+        <div class="defense-type">Academic</div>
+        <div>
+          <div class="defense-title">arXiv cs.AI publication</div>
+          <div class="defense-desc">The citation record researchers will reference. Scholarly priority established in the academic literature.</div>
+        </div>
+      </div>
+      <div class="defense-card">
+        <div class="defense-type">Technical</div>
+        <div>
+          <div class="defense-title">RFC-style specification v0.2 — versioned, authored</div>
+          <div class="defense-desc">The document that defines the standard. 15 sections, 8 design principles, formal falsifiability conditions. Exists and is authored.</div>
+        </div>
+      </div>
+      <div class="defense-card">
+        <div class="defense-type">Commercial</div>
+        <div>
+          <div class="defense-title">AILattice — live, trademarked, operational</div>
+          <div class="defense-desc">The reference implementation and commercial infrastructure layer is running. The name people will associate with the standard is already the name of the product that works.</div>
+        </div>
+      </div>
+      <div class="defense-card">
+        <div class="defense-type">Structural</div>
+        <div>
+          <div class="defense-title">Joining is easier than competing</div>
+          <div class="defense-desc">Any serious player can fight an active W3C process with institutional backing — or join the group and build within a framework Bryan chairs. Most serious players will join. A structural moat that compounds.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- WHY NOW -->
+  <section class="section">
+    <p class="section-label">Timing</p>
+    <h2>Why This Window Is Open Now</h2>
+    <p>AI agent deployment is accelerating across every industry simultaneously. Right now — in the next 12 to 24 months — every major AI company, every major platform, every enterprise deploying AI at scale will make infrastructure decisions about how their systems interact with the world.</p>
+    <p>Those decisions will be made against whatever standard exists. The standard that wins will be the one already in W3C process, with institutional backing, a live reference implementation, and the people who built it in the chair.</p>
+    <p>Three independent research teams confirmed the gap this month. The highest-profile AI product launch of August demonstrated it live. The W3C group is active. The position is set.</p>
+    <p><strong>Six months from now this conversation is harder. Twelve months from now the position may already be fragmented.</strong></p>
+  </section>
+
+  <hr class="rule">
+
+  <!-- FOUNDER -->
+  <section class="section">
+    <p class="section-label">The Founder</p>
+    <h2>Bryan Horsfield</h2>
+    <p>Chair, W3C Introduction Layer Community Group.</p>
+    <p>Builder of Intelli-Stasis (B2B intelligence infrastructure serving 24 global markets), AILattice (Introduction Layer reference implementation and commercial registry), and AIWarlock (AI council deliberation platform). Identified the Introduction Layer gap independently, built the reference implementation, and secured W3C institutional backing — before any competitor had named the problem.</p>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ASK -->
+  <section class="section">
+    <p class="section-label">The Ask</p>
+    <h2>A Seat at the Table While It Is Still Early</h2>
+    <p>The commercial entity is pre-incorporation. This is intentional. The right partner comes in now — before the structure is set, before the first major partnerships are signed, before the position is obvious to everyone watching.</p>
+    <p>We are not looking for someone to fund a feature. We are looking for a partner who understands that the person who chairs the universal standard for AI interaction is in a position that will not exist twice.</p>
+    <p>We are proceeding regardless. The W3C group is active. The standard is in motion. The reference implementation exists. Three independent research confirmations landed this month. The highest-profile agent launch of 2026 demonstrated the gap on day one of shipping. <strong>What we are offering is a seat at the ground floor of something that will be fundamental infrastructure for the intelligent web — while it is still possible to be at the ground floor.</strong></p>
+  </section>
+
+  <div class="closing">
+    <h2>The standard is being set right now.<br>We are setting it.</h2>
+    <p class="sub">The question is whether you want to be part of that from the beginning — while it is still possible to be part of the beginning.</p>
+    <div class="contact">
+      <a href="mailto:madazz01@gmail.com">Bryan Horsfield — madazz01@gmail.com</a>
+      <a href="https://www.w3.org/community/blog/2026/08/10/proposed-group-introduction-layer-community-group/">W3C Community Group Announcement</a>
+      <a href="https://intellistasis.com">intellistasis.com</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

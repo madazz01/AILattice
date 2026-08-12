@@ -3,4 +3,11 @@ plugin-check/
 .env
 certs.json
 registry.json
+api_keys.json
+emails.json
+sessions.json
+users.json
+contacts.json
+constitutions.json
 *.log
+*.bak

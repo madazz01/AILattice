@@ -1,29 +1,89 @@
-MIT License
-
-Copyright (c) 2026 Intelli-Stasis
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+The AILattice repository contains two distinct components, each under a separate licence.
 
 ---
 
+## 1. The Introduction Layer Specification
+
+Files: `drafts/specification.md`, `paper.html`, and all documents describing
+the Introduction Layer standard, its architecture, and its conformance requirements.
+
+Licensed under the Creative Commons Attribution 4.0 International Licence (CC BY 4.0).
+
+You are free to:
+  - Share — copy and redistribute the specification in any medium or format
+  - Adapt — build upon, extend, and implement the specification for any purpose,
+    including commercially
+
+Under the following terms:
+  - Attribution — You must give appropriate credit to Bryan Horsfield and
+    Intelli-Stasis as originators of the Introduction Layer specification,
+    provide a link to the licence, and indicate if changes were made.
+  - No additional restrictions — You may not apply legal terms or technological
+    measures that legally restrict others from doing anything the licence permits.
+
+Full licence text: https://creativecommons.org/licenses/by/4.0/
+
+The Introduction Layer specification is an open standard. Conforming implementations
+are encouraged across all entity classes and consuming system types. No entity may
+claim exclusive ownership of the standard or restrict conformant implementation by others.
+
+---
+
+## 2. The AILattice Reference Implementation
+
+All software in this repository not covered by Section 1 above — including server.js,
+all .js files, scripts, and application code.
+
+Licensed under the Apache License, Version 2.0.
+
+You may not use this software except in compliance with the Apache 2.0 Licence.
+You may obtain a copy of the Licence at:
+
+  https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed
+under the Licence is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the Licence for the specific
+language governing permissions and limitations under the Licence.
+
+Copyright 2026 Intelli-Stasis (Bryan Horsfield)
+
+---
+
+## Trademarks
+
 AILattice™ and AILattice Certified™ are trademarks of Intelli-Stasis.
-The MIT license grants rights to the software and specification in this
-repository. It does not grant rights to use the AILattice™ trademark or
-to represent that a site or service is "AILattice Certified™" without
-obtaining official certification at https://ailattice.io.
+
+The licences above grant rights to use, implement, and build upon the software
+and specification in this repository. They do not grant rights to:
+  - Use the AILattice™ trademark in any way that implies official affiliation
+  - Represent that a resource is "AILattice Certified™" without obtaining
+    certification through the official process at https://ailattice.io
+  - Claim to be an official AILattice registry without authorisation
+
+Third-party implementations of the Introduction Layer standard are welcome and
+encouraged. They must not represent themselves as AILattice or as AILattice-certified
+without authorisation.
+
+---
+
+## Patent Grant (Apache 2.0 — reference implementation)
+
+Subject to the terms and conditions of the Apache 2.0 Licence, each contributor
+hereby grants to you a perpetual, worldwide, non-exclusive, no-charge, royalty-free,
+irrevocable patent licence to make, have made, use, offer to sell, sell, import,
+and otherwise transfer the software, where such licence applies only to those patent
+claims licensable by such contributor that are necessarily infringed by their
+contribution(s) alone or by combination of their contribution(s) with the software.
+
+---
+
+## The Standard is a Commons
+
+The Introduction Layer standard exists to serve the open web, AI systems, and the
+entities that use them. Its governance is through the W3C Introduction Layer
+Community Group. No commercial entity — including Intelli-Stasis — may unilaterally
+modify the standard or restrict conformant implementation by others.
+
+Contributions to the specification are welcomed through the W3C community group process.
+Contributions to the reference implementation are welcomed through this repository.
