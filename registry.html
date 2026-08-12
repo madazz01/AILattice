@@ -1,10 +1,20 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TX81TZ2GQ6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TX81TZ2GQ6');
+</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="canonical" href="https://ailattice.io/registry">
   <title>AILattice Registry — The AI-Ready Web</title>
-  <meta name="description" content="A structured catalog of AI-ready websites, organised by topic and location. Organic ranking only — no paid placement. Queryable by AI agents directly.">
+  <meta name="description" content="A structured catalog of AI ready websites, organised by topic and location. Organic ranking only — no paid placement. Queryable by AI agents directly.">
   <link rel="alternate" type="text/markdown" href="/ai/">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -15,8 +25,8 @@
       --bg3:          #f1f5f9;
       --border:       #e2e8f0;
       --border-hi:    #cbd5e1;
-      --text:         #475569;
-      --text-dim:     #94a3b8;
+      --text:         #1e293b;
+      --text-dim:     #475569;
       --heading:      #0f172a;
       --green:        #16a34a;
       --green-glow:   rgba(22, 163, 74, 0.08);
@@ -31,8 +41,8 @@
     a:hover { text-decoration: underline; }
 
     /* Nav */
-    nav { display:flex; align-items:center; justify-content:space-between; padding:18px 40px; border-bottom:1px solid var(--border); position:sticky; top:0; background:rgba(255,255,255,0.95); backdrop-filter:blur(8px); z-index:100; box-shadow:0 1px 0 var(--border); }
-    .logo { display:flex; align-items:center; gap:9px; font-family:var(--mono); font-size:15px; font-weight:700; color:var(--heading); letter-spacing:-.3px; text-decoration:none; }
+    nav { display:flex; align-items:center; justify-content:space-between; padding: 10px 40px; border-bottom:1px solid var(--border); position:sticky; top:0; background:rgba(255,255,255,0.95); backdrop-filter:blur(8px); z-index:100; box-shadow:0 1px 0 var(--border); }
+    .logo { display:flex; align-items:center; gap:9px; font-family:var(--mono); font-size: 22px; font-weight: 800; color:var(--heading); letter-spacing:-.3px; text-decoration:none; }
     .logo:hover { opacity:.88; text-decoration:none; }
     .logo em { color:var(--green); font-style:normal; }
     .nav-links { display:flex; align-items:center; gap:24px; }
@@ -42,9 +52,15 @@
 
     /* Page header */
     .page-header {
-      background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%);
+      background: url('/bg-lattice.png') center center / cover no-repeat;
       border-bottom: 1px solid var(--border);
       padding: 64px 40px 52px;
+      position: relative; overflow: hidden;
+      text-align: center;
+    }
+    .page-header::before { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.58); z-index: 0; pointer-events: none; }
+    .page-header > * { position: relative; z-index: 1; }
+    .page-header-x {
       text-align: center;
     }
     .page-eyebrow {
@@ -294,7 +310,7 @@
     }
     .empty-state h3 { font-size: 18px; color: var(--heading); margin-bottom: 8px; }
 
-    /* AI endpoint note */
+    /* artificial intelligence endpoint note */
     .api-note {
       background: var(--bg2);
       border: 1px solid var(--border);
@@ -327,22 +343,21 @@
 <body>
 
 <nav>
-  <a href="/" class="logo">
-    <img src="/icon.svg" width="28" height="22" alt="AILattice" style="display:block">
-    AI<em>Lattice</em>™
-  </a>
+  <a href="/" class="logo"><em>AI</em> Lattice&trade;</a>
   <div class="nav-links">
-    <a href="/">Home</a>
-    <a href="/search">Search</a>
+    <a href="/how-it-works">How it works</a>
     <a href="/registry" class="active">Registry</a>
-    <a href="/convert">Get certified</a>
+    <a href="/manifesto">Why</a>
+    <a href="/developers">Developers</a>
+    <a href="/login" id="navSignIn">Sign in</a>
+    <a href="/signup" id="navSignUp" style="background:var(--green);color:#fff;padding:7px 18px;border-radius:7px;font-weight:700">Sign up free</a>
   </div>
 </nav>
 
 <div class="page-header">
   <div class="page-eyebrow">The Invisible Web</div>
   <h1>The <em>AI-Ready</em> Web Catalog</h1>
-  <p class="page-sub">A structured library of websites that speak AI. Organised by topic and location. Organic ranking only — no paid placement, no algorithm bias.</p>
+  <p class="page-sub">A structured library of websites that speak artificial intelligence. Organised by topic and location. Organic ranking only — no paid placement, no algorithm bias.</p>
 
   <div class="header-stats">
     <div class="stat">
@@ -363,7 +378,7 @@
 
   <div><span class="organic-note">
     <svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="currentColor" opacity="0.3"/><circle cx="5" cy="5" r="2" fill="currentColor"/></svg>
-    Ranked by compliance score &amp; registration date · Zero paid placement
+    AI Ranked · no paid placement · no human bias
   </span></div>
 </div>
 
@@ -397,7 +412,7 @@
       </select>
     </div>
 
-    <div id="siteGrid"></div>
+    <div id="siteGrid"><div style="text-align:center;padding:60px 20px;color:var(--text-dim);font-size:14px">Loading registry…</div></div>
 
     <div class="api-note">
       <strong>For AI agents:</strong> this catalog is queryable directly.
@@ -412,10 +427,12 @@
 <footer>
   <div class="footer-links">
     <a href="/">Home</a>
-    <a href="/validate">Validator</a>
-    <a href="/convert">Get certified</a>
+    <a href="/convert">Make AI ready</a>
+    <a href="/submit">Check your site</a>
     <a href="/api/registry" target="_blank">API</a>
+    <a href="/reach-out">Contact</a>
     <a href="https://intellistasis.com" target="_blank" rel="noopener">Intelli-Stasis</a>
+    <a href="https://www.paypal.com/donate?hosted_button_id=4FU5LYQTJZTVU" target="_blank" rel="noopener" style="display:flex;align-items:center;"><img src="https://www.paypalobjects.com/en_AU/i/btn/btn_donate_SM.gif" alt="Donate with PayPal" style="height:20px;display:block;border:none;"></a>
   </div>
   <div class="footer-copy">AILattice™ Registry · Open catalog · Organic ranking · No paid placement</div>
 </footer>
@@ -428,11 +445,20 @@
   const searchInput = document.getElementById('searchInput');
   searchInput.addEventListener('input', render);
 
+  const _newCertId = new URLSearchParams(location.search).get('new') || '';
+
   async function load() {
     try {
-      const res  = await fetch('/api/registry');
+      const res  = await fetch('/api/registry?_=' + Date.now());
       const data = await res.json();
       allSites  = data.sites || [];
+
+      // Pin newly listed site to top
+      if (_newCertId) {
+        const idx = allSites.findIndex(s => s.cert_id === _newCertId);
+        if (idx > 0) { const [s] = allSites.splice(idx, 1); allSites.unshift(s); }
+      }
+
       allTopics = {};
       for (const s of allSites) {
         for (const t of (s.topics || [])) {
@@ -452,6 +478,12 @@
       // Build topic sidebar
       buildTopicList();
       render();
+
+      // Scroll to new entry after render
+      if (_newCertId) {
+        const el = document.querySelector(`[data-cert="${_newCertId}"]`);
+        if (el) { el.style.outline = '2px solid var(--green)'; el.style.borderRadius = '12px'; el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+      }
     } catch(e) {
       document.getElementById('siteGrid').innerHTML = '<div class="empty-state"><h3>Could not load registry</h3><p>Please refresh to try again.</p></div>';
     }
@@ -517,8 +549,9 @@
     const date      = s.registered ? `<span class="site-date">${s.registered}</span>` : '';
     const domain    = (s.url || '').replace(/^https?:\/\//, '').replace(/\/$/, '');
 
+    const isNew = _newCertId && s.cert_id === _newCertId;
     return `
-      <div class="site-card">
+      <div class="site-card" data-cert="${escHtml(s.cert_id || '')}"${isNew ? ' style="outline:2px solid #16a34a;border-radius:12px"' : ''}>
         <div class="site-card-top">
           <div>
             <div class="site-name"><a href="${escHtml(s.url)}" target="_blank" rel="noopener">${escHtml(s.name || domain)}</a></div>
@@ -555,5 +588,15 @@
 
   load();
 </script>
+<script>
+fetch('/api/auth/me').then(r=>r.ok?r.json():null).then(d=>{
+  if(!d)return;
+  const si=document.getElementById('navSignIn');
+  const su=document.getElementById('navSignUp');
+  if(si)si.style.display='none';
+  if(su){su.textContent='Dashboard';su.href='/dashboard';}
+}).catch(()=>{});
+</script>
 </body>
 </html>
+

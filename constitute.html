@@ -1,0 +1,625 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TX81TZ2GQ6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TX81TZ2GQ6');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get your introduction — AILattice</title>
+<link rel="canonical" href="https://ailattice.io/constitute">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8f9fa; color: #1a1a2e; min-height: 100vh; }
+  header { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .header-left { display: flex; align-items: center; gap: 20px; }
+  header a { text-decoration: none; color: inherit; }
+  .logo { font-weight: 700; font-size: 1.05rem; letter-spacing: -0.02em; }
+  nav { display: flex; gap: 4px; }
+  nav a { font-size: 0.84rem; color: #6b7280; padding: 5px 10px; border-radius: 6px; text-decoration: none; transition: background 0.12s, color 0.12s; }
+  nav a:hover { background: #f3f4f6; color: #1a1a2e; }
+  nav a.active { color: #4f46e5; font-weight: 600; }
+  .header-right a { font-size: 0.84rem; color: #6b7280; }
+  main { max-width: 760px; margin: 0 auto; padding: 40px 24px 80px; }
+  h1 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 8px; }
+  .subtitle { color: #6b7280; line-height: 1.6; margin-bottom: 36px; }
+
+  /* Tier cards */
+  .tiers { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 40px; }
+  @media (max-width: 560px) { .tiers { grid-template-columns: 1fr; } }
+  .tier { border: 1px solid #e5e7eb; border-radius: 12px; padding: 22px; background: #fff; }
+  .tier.highlight { border-color: #c7d2fe; background: #fafafe; }
+  .tier-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: #9ca3af; margin-bottom: 10px; }
+  .tier.highlight .tier-label { color: #6366f1; }
+  .tier h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 10px; }
+  .tier ul { list-style: none; }
+  .tier ul li { font-size: 0.82rem; color: #4b5563; padding: 3px 0; }
+  .tier ul li::before { content: '✓ '; color: #10b981; font-size: 0.75rem; }
+  .tier.highlight ul li::before { color: #6366f1; }
+
+  .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 28px; margin-bottom: 24px; }
+  .card h2 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+  .card .hint { font-size: 0.8rem; color: #9ca3af; margin-bottom: 16px; }
+  input[type="url"], input[type="text"], textarea {
+    width: 100%; padding: 10px 14px; border: 1px solid #d1d5db; border-radius: 8px;
+    font-size: 0.9rem; font-family: inherit; outline: none; transition: border-color 0.15s;
+  }
+  input[type="url"]:focus, input[type="text"]:focus, textarea:focus { border-color: #6366f1; }
+  textarea { resize: vertical; min-height: 72px; }
+  button { padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; font-size: 0.875rem; font-weight: 600; transition: all 0.15s; }
+  .btn-primary { background: #6366f1; color: #fff; }
+  .btn-primary:hover { background: #4f46e5; }
+  .btn-primary:disabled { background: #c7d2fe; cursor: not-allowed; }
+  .btn-secondary { background: #f3f4f6; color: #374151; }
+  .btn-secondary:hover { background: #e5e7eb; }
+
+  .bar-track { height: 8px; background: #f3f4f6; border-radius: 4px; overflow: hidden; margin: 6px 0; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+  .bar-fill.high   { background: #10b981; }
+  .bar-fill.medium { background: #f59e0b; }
+  .bar-fill.low    { background: #ef4444; }
+
+  /* Sample */
+  .sample-section { margin-bottom: 36px; }
+  .sample-kicker { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #9ca3af; margin-bottom: 8px; }
+  .sample-heading { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+  .sample-sub { font-size: 0.83rem; color: #6b7280; margin-bottom: 16px; }
+  .sample-wrap { border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; }
+  .sample-header { background: #f9fafb; border-bottom: 1px solid #e5e7eb; padding: 11px 20px; display: flex; align-items: center; gap: 10px; }
+  .sample-badge { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; background: #e0e7ff; color: #4338ca; padding: 3px 8px; border-radius: 4px; }
+  .sample-url { font-size: 0.81rem; color: #6b7280; font-family: monospace; }
+  .sample-body { padding: 22px; }
+  .s-label { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: #9ca3af; margin-bottom: 10px; }
+  .s-row { display: flex; gap: 12px; margin-bottom: 7px; font-size: 0.83rem; }
+  .s-key { color: #9ca3af; min-width: 88px; flex-shrink: 0; }
+  .s-divider { height: 1px; background: #f3f4f6; margin: 13px 0; }
+  .s-pill { background: #f3f4f6; border-radius: 20px; padding: 3px 10px; font-size: 0.75rem; color: #374151; display: inline-block; margin: 2px; }
+  .s-ungrounded { background: #fef9f0; border: 1px solid #fde68a; border-radius: 8px; padding: 12px 16px; margin-top: 12px; }
+  .s-q { background: #f9fafb; border-radius: 8px; padding: 9px 13px; font-size: 0.78rem; color: #374151; margin-bottom: 6px; }
+
+  /* Generate heading */
+  .generate-head { text-align: center; margin: 0 0 28px; }
+  .generate-head h2 { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px; }
+  .generate-head p { font-size: 0.84rem; color: #6b7280; }
+
+  .hidden { display: none; }
+  .spinner { width: 16px; height: 16px; border: 2px solid #c7d2fe; border-top-color: #6366f1; border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block; vertical-align: middle; margin-right: 6px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .status-msg { font-size: 0.82rem; color: #6b7280; margin-top: 10px; min-height: 16px; }
+  .status-msg.error { color: #ef4444; }
+
+  .coverage-bar { margin: 14px 0; }
+  .coverage-label { display: flex; justify-content: space-between; margin-bottom: 4px; font-size: 0.85rem; font-weight: 500; }
+  .coverage-note { font-size: 0.78rem; color: #6b7280; margin-top: 6px; }
+  .ungrounded { background: #fef9f0; border: 1px solid #fde68a; border-radius: 8px; padding: 14px 16px; margin-top: 14px; }
+  .ungrounded h3 { font-size: 0.79rem; font-weight: 600; color: #92400e; margin-bottom: 8px; }
+  .ungrounded li { font-size: 0.78rem; color: #78350f; margin-left: 16px; margin-bottom: 4px; }
+  .section { margin-bottom: 20px; }
+  .section-label { font-size: 0.69rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #9ca3af; margin-bottom: 8px; }
+  .field-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
+  .field-key { font-size: 0.78rem; color: #6b7280; min-width: 100px; padding-top: 10px; flex-shrink: 0; }
+  .field-val { flex: 1; }
+  .divider { height: 1px; background: #f3f4f6; margin: 18px 0; }
+  .proceed-bar { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .proceed-note { font-size: 0.78rem; color: #9ca3af; }
+  .question-item label { font-size: 0.83rem; font-weight: 500; color: #374151; display: block; margin-bottom: 4px; }
+  .questions-list { display: flex; flex-direction: column; gap: 12px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <a href="/" class="logo">AILattice</a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/registry">Registry</a>
+      <a href="/manifesto">Why</a>
+      <a href="/faq">FAQ</a>
+      <a href="/api-access">Developers</a>
+      <a href="/developers">Developers</a>
+    <a href="/login" id="navSignIn">Sign in</a>
+      <a href="/signup" id="navSignUp" style="background:#16a34a;color:#fff;padding:6px 16px;border-radius:7px;font-weight:700">Sign up free</a>
+    </nav>
+  </div>
+  <div class="header-right">
+    <a href="/submit">Already certified? Submit →</a>
+  </div>
+</header>
+
+<main>
+  <h1>Get your introduction</h1>
+  <p class="subtitle">We read your site and produce a structured introduction — who you are, what you stand for, and what you'll never do — in a form any AI inherits before it begins reasoning about you.</p>
+
+  <!-- Sample -->
+  <div class="sample-section">
+    <div class="sample-kicker">What the full report looks like</div>
+    <div class="sample-heading">Sample introduction</div>
+    <p class="sample-sub">Generated for <code>www.mysite.com</code> — fictional data. Yours will be built from your actual site content.</p>
+    <div class="sample-wrap">
+      <div class="sample-header">
+        <span class="sample-badge">Sample</span>
+        <span class="sample-url">www.mysite.com</span>
+      </div>
+      <div class="sample-body">
+        <div class="s-label">Evidence Coverage</div>
+        <div style="display:flex;justify-content:space-between;font-size:0.83rem;font-weight:500;">
+          <span style="color:#f59e0b;">Moderate — review suggested edits</span>
+          <span>58%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill medium" style="width:58%"></div></div>
+        <p style="font-size:0.77rem;color:#6b7280;margin-top:6px;">42% required inference — improve your expressed intent to raise this score.</p>
+
+        <div class="s-ungrounded">
+          <div style="font-size:0.77rem;font-weight:600;color:#92400e;margin-bottom:7px;">Claims without observable support</div>
+          <ul style="font-size:0.77rem;color:#78350f;margin-left:16px;">
+            <li style="margin-bottom:4px;">Described as "award-winning" — no evidence found on public site</li>
+            <li style="margin-bottom:4px;">Claims to serve 10,000+ teams — no supporting data found</li>
+            <li>Promises "industry-leading response times" — no SLA or benchmark published</li>
+          </ul>
+        </div>
+
+        <div class="s-divider"></div>
+        <div class="s-label">Your introduction</div>
+
+        <div class="s-row"><span class="s-key">Name</span><span style="font-weight:600;">MySite</span></div>
+        <div class="s-row"><span class="s-key">Tagline</span><span>Tools for people who build things</span></div>
+        <div class="s-row" style="align-items:flex-start;"><span class="s-key">Mission</span><span>Project management software for small teams who value clarity over complexity. Remove friction from the work that matters.</span></div>
+        <div class="s-row"><span class="s-key">Category</span><span>B2B productivity software</span></div>
+        <div class="s-divider"></div>
+        <div class="s-row" style="align-items:flex-start;"><span class="s-key">Core belief</span><span>Simple tools used consistently outperform complex tools used reluctantly.</span></div>
+        <div class="s-row" style="align-items:flex-start;"><span class="s-key">Principles</span>
+          <div>
+            <span class="s-pill">Build for the person, not the process</span>
+            <span class="s-pill">Fewer features, better defaults</span>
+            <span class="s-pill">Honest about what we can't do</span>
+          </div>
+        </div>
+        <div class="s-row" style="align-items:flex-start;"><span class="s-key">Never</span>
+          <div>
+            <span class="s-pill">Sell user data</span>
+            <span class="s-pill">Add a feature that makes simple things complex</span>
+          </div>
+        </div>
+
+        <div class="s-divider"></div>
+        <div class="s-label" style="margin-bottom:8px;">We need your input</div>
+        <div class="s-q">What is your primary differentiator from tools like Trello or Notion? Your homepage doesn't make this clear.</div>
+        <div class="s-q">Do you have published case studies, customer counts, or measurable outcomes we can reference?</div>
+        <div class="s-q" style="margin-bottom:0;">What does "award-winning" refer to? Adding a verifiable source to your site would raise your evidence score.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Generate form -->
+  <div class="generate-head">
+    <h2>Get your introduction</h2>
+    <p>Enter your site URL — we'll have your introduction ready in 15–30 seconds.</p>
+  </div>
+
+  <div class="card" id="step-url">
+    <h2>Your site URL</h2>
+    <p class="hint">We fetch your homepage, about page, and any existing artificial intelligence readable files.</p>
+    <div style="margin-bottom:12px;">
+      <input type="url" id="url-input" placeholder="https://yoursite.com">
+    </div>
+    <div style="margin-bottom:20px;">
+      <label style="font-size:0.78rem;color:#6b7280;display:block;margin-bottom:6px;">Anything we should know? <span style="color:#d1d5db;">(optional — helps us fill gaps your site doesn't express)</span></label>
+      <textarea id="context-input" placeholder="e.g. We're B2B SaaS for supply chain teams. Our differentiator is real-time risk scoring, not just alerts."></textarea>
+    </div>
+
+    <button class="btn-primary" id="generate-btn" onclick="generate()" style="width:100%;padding:13px;">Get my introduction →</button>
+    <p class="status-msg" id="status-msg"></p>
+  </div>
+
+  <!-- Review section (hidden until generated) -->
+  <div id="step-review" class="hidden">
+
+    <div class="card">
+      <h2>Evidence Coverage</h2>
+      <p class="hint">How much of your introduction can be justified from observable content on your site.</p>
+      <div class="coverage-bar">
+        <div class="coverage-label">
+          <span id="cov-label">—</span>
+          <span id="cov-score">—</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" id="cov-bar" style="width:0%"></div></div>
+        <p class="coverage-note" id="cov-note"></p>
+      </div>
+      <div id="ungrounded-section" class="hidden">
+        <div class="ungrounded">
+          <h3>Claims without observable support</h3>
+          <ul id="ungrounded-list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Your introduction</h2>
+      <p class="hint">Review and refine. This becomes your permanent introduction once certified.</p>
+
+      <div class="section">
+        <div class="section-label">Platform</div>
+        <div class="field-row"><span class="field-key">Name</span><div class="field-val"><input type="text" id="f-name"></div></div>
+        <div class="field-row"><span class="field-key">Tagline</span><div class="field-val"><input type="text" id="f-tagline"></div></div>
+        <div class="field-row"><span class="field-key">Mission</span><div class="field-val"><textarea id="f-mission" style="min-height:52px;"></textarea></div></div>
+        <div class="field-row"><span class="field-key">Category</span><div class="field-val"><input type="text" id="f-category"></div></div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="section">
+        <div class="section-label">Philosophy</div>
+        <div class="field-row"><span class="field-key">Core belief</span><div class="field-val"><textarea id="f-core" style="min-height:52px;"></textarea></div></div>
+        <div class="field-row"><span class="field-key">Principles</span>
+          <div class="field-val">
+            <div id="principles-list"></div>
+            <button class="btn-secondary" style="margin-top:6px;font-size:0.78rem;padding:6px 12px;" onclick="addPrinciple()">+ Add principle</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="section">
+        <div class="section-label">Constraints — what you will never do</div>
+        <div id="constraints-list"></div>
+        <button class="btn-secondary" style="margin-top:6px;font-size:0.78rem;padding:6px 12px;" onclick="addConstraint()">+ Add constraint</button>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="section">
+        <div class="section-label">This is not</div>
+        <div id="notnot-list"></div>
+        <button class="btn-secondary" style="margin-top:6px;font-size:0.78rem;padding:6px 12px;" onclick="addNotNot()">+ Add statement</button>
+      </div>
+    </div>
+
+    <div class="card hidden" id="questions-card">
+      <h2>We need your input</h2>
+      <p class="hint" style="margin-bottom:16px;">These gaps couldn't be determined from your site. Fill them in to improve your evidence score.</p>
+      <div class="questions-list" id="questions-list"></div>
+    </div>
+
+    <div class="card">
+      <div class="proceed-bar">
+        <button class="btn-primary" id="certify-btn" onclick="proceedToCertify()">Approve and certify</button>
+        <button class="btn-secondary" onclick="regenerate()">Regenerate with my answers</button>
+        <span class="proceed-note" id="proceed-note"></span>
+      </div>
+    </div>
+
+    <!-- Published state — shown after successful save -->
+    <div class="card hidden" id="published-card" style="border-color:#a7f3d0;background:#f0fdf4;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+        <div style="width:32px;height:32px;background:#16a34a;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;flex-shrink:0;">✓</div>
+        <div>
+          <div style="font-weight:700;font-size:1rem;color:#14532d;">Introduction published</div>
+          <div style="font-size:0.8rem;color:#16a34a;" id="pub-url-line"></div>
+        </div>
+      </div>
+
+      <div style="background:#fff;border:1px solid #d1fae5;border-radius:8px;padding:16px;margin-bottom:16px;">
+        <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#6b7280;margin-bottom:10px;">Self-host at your domain</div>
+        <p style="font-size:0.82rem;color:#374151;line-height:1.6;margin-bottom:12px;">Download your <code style="background:#f3f4f6;padding:2px 6px;border-radius:4px;">.intro</code> file and serve it at <code style="background:#f3f4f6;padding:2px 6px;border-radius:4px;">/.intro</code> on your own server. Any AI agent will find it there automatically — no configuration required.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn-primary" onclick="downloadIc()" style="background:#16a34a;font-size:0.85rem;padding:8px 16px;">↓ Download .intro</button>
+          <button class="btn-secondary" onclick="downloadJson()" style="font-size:0.85rem;padding:8px 16px;">↓ Download intro.json</button>
+        </div>
+        <p style="font-size:0.75rem;color:#6b7280;margin-top:10px;">Place the file at the root of your web server so it's accessible at <code style="background:#f3f4f6;padding:1px 5px;border-radius:3px;">yourdomain.com/.intro</code></p>
+      </div>
+
+      <a id="pub-continue-btn" href="/submit" class="btn-primary" style="display:inline-block;text-align:center;width:100%;padding:12px;text-decoration:none;box-sizing:border-box;">Continue to certification →</a>
+    </div>
+  </div>
+</main>
+
+<script>
+let _draft = null;
+let _url   = '';
+
+// Pre-fill URL from query string (arriving from listing page)
+(function() {
+  const u = new URLSearchParams(location.search).get('url');
+  if (u) {
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('url-input').value = u;
+    });
+  }
+})();
+
+function setStatus(msg, isError) {
+  const el = document.getElementById('status-msg');
+  el.textContent = msg;
+  el.className = 'status-msg' + (isError ? ' error' : '');
+}
+
+async function generate() {
+  const url     = document.getElementById('url-input').value.trim();
+  const context = document.getElementById('context-input').value.trim();
+  if (!url) { setStatus('Please enter a URL.', true); return; }
+
+  _url = url;
+  const btn = document.getElementById('generate-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Analysing your site…';
+  setStatus('Fetching content and building your constitution. This takes 15–30 seconds.');
+
+  try {
+    const res  = await fetch('/api/constitute', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url, context: context || undefined }),
+    });
+    const data = await res.json();
+    if (!res.ok || !data.ok) throw new Error(data.error || 'Generation failed.');
+    _draft = data.draft;
+    renderDraft(_draft);
+    document.getElementById('step-review').classList.remove('hidden');
+    document.getElementById('step-review').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setStatus('');
+  } catch (e) {
+    setStatus(e.message, true);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Generate my constitution';
+  }
+}
+
+async function regenerate() {
+  const context = buildOwnerAnswers();
+  const btn = document.querySelector('[onclick="regenerate()"]');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Regenerating…';
+  try {
+    const res  = await fetch('/api/constitute', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url: _url, context }),
+    });
+    const data = await res.json();
+    if (!res.ok || !data.ok) throw new Error(data.error || 'Regeneration failed.');
+    _draft = data.draft;
+    renderDraft(_draft);
+  } catch (e) {
+    setStatus(e.message, true);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Regenerate with my answers';
+  }
+}
+
+function buildOwnerAnswers() {
+  const lines = [];
+  document.querySelectorAll('.q-answer').forEach((el, i) => {
+    const label = document.querySelectorAll('.q-label')[i];
+    if (el.value.trim()) lines.push(`${label?.textContent}: ${el.value.trim()}`);
+  });
+  return lines.join('\n') || undefined;
+}
+
+function renderDraft(draft) {
+  const ev  = draft.evidence || {};
+  const cov = ev.evidence_coverage ?? draft.confidence ?? 0;
+  const bar = document.getElementById('cov-bar');
+  const cls = cov >= 75 ? 'high' : cov >= 45 ? 'medium' : 'low';
+  bar.style.width  = `${cov}%`;
+  bar.className    = `bar-fill ${cls}`;
+  document.getElementById('cov-score').textContent = `${cov}%`;
+  document.getElementById('cov-label').textContent =
+    cov >= 75 ? 'Strong — ready to certify' :
+    cov >= 45 ? 'Moderate — review suggested edits' :
+                'Low — your site needs to express its intent more clearly';
+  document.getElementById('cov-note').textContent =
+    `${100 - cov}% required inference — express your intent more explicitly on your site to raise this score.`;
+
+  const uc = ev.ungrounded_claims || [];
+  if (uc.length) {
+    document.getElementById('ungrounded-list').innerHTML = uc.map(c => `<li>${c}</li>`).join('');
+    document.getElementById('ungrounded-section').classList.remove('hidden');
+  } else {
+    document.getElementById('ungrounded-section').classList.add('hidden');
+  }
+
+  const p = draft.platform || {};
+  document.getElementById('f-name').value     = p.name     || '';
+  document.getElementById('f-tagline').value  = p.tagline  || '';
+  document.getElementById('f-mission').value  = p.mission  || '';
+  document.getElementById('f-category').value = p.category || '';
+  const ph = draft.philosophy || {};
+  document.getElementById('f-core').value = ph.core || '';
+
+  renderList('principles-list', ph.principles || [], 'principle');
+  renderList('constraints-list', (draft.constraints?.rules) || [], 'constraint');
+  renderList('notnot-list', draft.what_this_is_not || [], 'notnot');
+
+  const qs = draft.owner_questions || [];
+  const qCard = document.getElementById('questions-card');
+  if (qs.length) {
+    document.getElementById('questions-list').innerHTML = qs.map(q => `
+      <div class="question-item">
+        <label class="q-label">${q}</label>
+        <textarea class="q-answer" placeholder="Your answer…" style="min-height:52px;width:100%;padding:10px 14px;border:1px solid #d1d5db;border-radius:8px;font-size:0.875rem;font-family:inherit;"></textarea>
+      </div>`).join('');
+    qCard.classList.remove('hidden');
+  } else {
+    qCard.classList.add('hidden');
+  }
+
+  const note = document.getElementById('proceed-note');
+  note.textContent = cov < 50
+    ? 'Answer the questions above and regenerate to improve coverage before certifying.'
+    : 'Looks good — approve to proceed to certification.';
+  document.getElementById('certify-btn').disabled = cov < 30;
+}
+
+function renderList(containerId, items, type) {
+  document.getElementById(containerId).innerHTML = items.map((item, i) => `
+    <div style="display:flex;gap:8px;margin-bottom:6px;">
+      <input type="text" value="${escHtml(item)}" data-type="${type}" data-idx="${i}"
+        style="flex:1;padding:8px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:0.875rem;font-family:inherit;">
+      <button class="btn-secondary" style="padding:6px 10px;font-size:0.78rem;" onclick="removeItem(this)">✕</button>
+    </div>`).join('');
+}
+
+function escHtml(s) { return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
+function addPrinciple()  { addItem('principles-list', 'principle'); }
+function addConstraint() { addItem('constraints-list', 'constraint'); }
+function addNotNot()     { addItem('notnot-list', 'notnot'); }
+
+function addItem(containerId, type) {
+  const el  = document.getElementById(containerId);
+  const div = document.createElement('div');
+  div.style.cssText = 'display:flex;gap:8px;margin-bottom:6px;';
+  div.innerHTML = `<input type="text" data-type="${type}" style="flex:1;padding:8px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:0.875rem;font-family:inherit;" placeholder="Add…"><button class="btn-secondary" style="padding:6px 10px;font-size:0.78rem;" onclick="removeItem(this)">✕</button>`;
+  el.appendChild(div);
+  div.querySelector('input').focus();
+}
+
+function removeItem(btn) { btn.parentElement.remove(); }
+
+let _publishedPayload = null;
+let _publishedUrl = '';
+
+async function proceedToCertify() {
+  const btn = document.getElementById('certify-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Publishing…';
+
+  _publishedPayload = {
+    url:              _url,
+    name:             document.getElementById('f-name').value.trim(),
+    tagline:          document.getElementById('f-tagline').value.trim(),
+    mission:          document.getElementById('f-mission').value.trim(),
+    category:         document.getElementById('f-category').value.trim(),
+    core_belief:      document.getElementById('f-core').value.trim(),
+    principles:       [...document.querySelectorAll('[data-type="principle"]')].map(i => i.value.trim()).filter(Boolean),
+    constraints:      [...document.querySelectorAll('[data-type="constraint"]')].map(i => i.value.trim()).filter(Boolean),
+    what_this_is_not: [...document.querySelectorAll('[data-type="not"]')].map(i => i.value.trim()).filter(Boolean),
+    evidence_coverage: _draft?.evidence?.evidence_coverage ?? 0,
+  };
+
+  try {
+    const res  = await fetch('/api/constitution/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(_publishedPayload),
+    });
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'Save failed');
+
+    _publishedUrl = data.constitution_url;
+    sessionStorage.setItem('ail_constitution', JSON.stringify({ ..._publishedPayload, constitution_url: _publishedUrl }));
+    sessionStorage.setItem('ail_constitution_url', _publishedUrl);
+
+    // Show published card
+    btn.innerHTML = '✓ Published';
+    btn.style.background = '#16a34a';
+    document.getElementById('proceed-note').textContent = '';
+    document.getElementById('pub-url-line').innerHTML =
+      `<a href="${_publishedUrl}" target="_blank" style="color:#16a34a;">${_publishedUrl}</a>`;
+    document.getElementById('pub-continue-btn').href =
+      `/submit?url=${encodeURIComponent(_url)}&from=constitution`;
+    document.getElementById('published-card').classList.remove('hidden');
+    document.getElementById('published-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = 'Approve and certify';
+    document.getElementById('proceed-note').textContent = 'Error: ' + e.message;
+  }
+}
+
+function buildIcContent() {
+  const p = _publishedPayload;
+  const domain = _url ? new URL(_url.startsWith('http') ? _url : 'https://' + _url).hostname : '';
+  const lines = [
+    `# .intro`,
+    `# AILattice Introduction Layer v1`,
+    `# Spec: https://ailattice.io/spec`,
+    `# Generated: ${new Date().toISOString().slice(0, 10)}`,
+    ``,
+    `[identity]`,
+    `name: ${p.name || ''}`,
+    `url: ${p.url || ''}`,
+    `category: ${p.category || ''}`,
+    `tagline: ${p.tagline || ''}`,
+    ``,
+    `[mission]`,
+    p.mission || '',
+    ``,
+    `[core_belief]`,
+    p.core_belief || '',
+    ``,
+    `[principles]`,
+    ...(p.principles || []).map(x => `- ${x}`),
+    ``,
+    `[constraints]`,
+    ...(p.constraints || []).map(x => `- ${x}`),
+    ``,
+    `[what_this_is_not]`,
+    ...(p.what_this_is_not || []).map(x => `- ${x}`),
+    ``,
+    `[meta]`,
+    `issued: ${new Date().toISOString().slice(0, 10)}`,
+    `issuer: ailattice`,
+    `evidence_coverage: ${p.evidence_coverage ?? ''}`,
+    `registry: ${_publishedUrl || ''}`,
+  ];
+  return lines.join('\n');
+}
+
+function downloadIc() {
+  if (!_publishedPayload) return;
+  const blob = new Blob([buildIcContent()], { type: 'text/plain' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = '.intro';
+  a.click();
+}
+
+function downloadJson() {
+  if (!_publishedPayload) return;
+  const p = _publishedPayload;
+  const canon = {
+    spec: 'ailattice/constitution/v1',
+    version: '1.0.0',
+    issued: new Date().toISOString().slice(0, 10),
+    identity: { name: p.name, url: p.url, category: p.category, tagline: p.tagline },
+    mission: p.mission,
+    core_belief: p.core_belief,
+    principles: p.principles,
+    constraints: p.constraints,
+    what_this_is_not: p.what_this_is_not,
+    evaluation_criteria: [],
+    evidence_coverage: p.evidence_coverage,
+    meta: {
+      issued: new Date().toISOString().slice(0, 10),
+      issuer: 'ailattice',
+      registry: _publishedUrl,
+    }
+  };
+  const blob = new Blob([JSON.stringify(canon, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'intro.json';
+  a.click();
+}
+</script>
+<script>
+fetch('/api/auth/me').then(r=>r.ok?r.json():null).then(d=>{
+  if(!d)return;
+  const si=document.getElementById('navSignIn');
+  const su=document.getElementById('navSignUp');
+  if(si)si.style.display='none';
+  if(su){su.textContent='Dashboard';su.href='/dashboard';}
+}).catch(()=>{});
+</script>
+</body>
+</html>

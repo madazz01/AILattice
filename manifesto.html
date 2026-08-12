@@ -1,0 +1,255 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TX81TZ2GQ6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TX81TZ2GQ6');
+</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="canonical" href="https://ailattice.io/manifesto">
+  <title>Why — AILattice</title>
+  <meta name="description" content="The introduction layer for the AI web. Why we're building it and what we believe.">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #ffffff; --bg2: #f8fafc; --border: #e2e8f0; --border-hi: #cbd5e1;
+      --text: #1e293b; --text-dim: #475569; --heading: #0f172a;
+      --green: #16a34a; --green-glow: rgba(22,163,74,0.08); --green-border: rgba(22,163,74,0.28);
+      --mono: 'JetBrains Mono','Fira Code','SF Mono',Consolas,monospace;
+      --sans: -apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--green); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav { display:flex; align-items:center; justify-content:space-between; padding: 10px 40px; border-bottom:1px solid var(--border); position:sticky; top:0; background:rgba(255,255,255,0.95); backdrop-filter:blur(8px); z-index:100; box-shadow:0 1px 0 var(--border); }
+    .logo { display:flex; align-items:center; gap:9px; font-family:var(--mono); font-size:22px; font-weight:800; color:var(--heading); letter-spacing:-.3px; text-decoration:none; }
+    .logo:hover { opacity:.88; text-decoration:none; }
+    .logo em { color:var(--green); font-style:normal; }
+    .nav-links { display:flex; align-items:center; gap:24px; }
+    .nav-links a { color:var(--text-dim); font-size:14px; transition:color .15s; }
+    .nav-links a:hover { color:var(--heading); text-decoration:none; }
+
+    .page-header {
+      background: url('/bg-lattice.png') center center / cover no-repeat;
+      border-bottom: 1px solid var(--border);
+      padding: 88px 40px 72px;
+      position: relative; overflow: hidden; text-align: center;
+    }
+    .page-header::before { content:''; position:absolute; inset:0; background:rgba(255,255,255,0.58); z-index:0; pointer-events:none; }
+    .page-header > * { position:relative; z-index:1; }
+    .page-eyebrow { font-family:var(--mono); font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--green); margin-bottom:20px; }
+    .page-header h1 { font-size:clamp(36px,6vw,64px); font-weight:800; color:var(--heading); letter-spacing:-2px; line-height:1.05; margin-bottom:24px; }
+    .mission-statement { font-size:clamp(16px,2vw,20px); color:var(--text); max-width:680px; margin:0 auto; line-height:1.65; font-style:italic; }
+
+    .content { max-width:680px; margin:0 auto; padding:80px 40px 100px; }
+
+    .section { margin-bottom:80px; }
+    .section-label {
+      font-family:var(--mono); font-size:11px; letter-spacing:3px; text-transform:uppercase;
+      color:var(--green); margin-bottom:40px; display:flex; align-items:center; gap:12px;
+    }
+    .section-label::after { content:''; flex:1; height:1px; background:var(--border); }
+
+    .story-body { display:flex; flex-direction:column; }
+    .p-line { font-size:clamp(16px,2.2vw,20px); color:var(--heading); font-weight:500; line-height:1.6; padding:14px 0; border-bottom:1px solid var(--border); }
+    .p-line:first-child { border-top:1px solid var(--border); }
+    .p-line.p-soft { color:var(--text-dim); font-weight:400; font-style:italic; font-size:clamp(14px,1.8vw,17px); }
+    .p-line.p-bold { font-size:clamp(20px,3vw,30px); font-weight:800; color:var(--heading); letter-spacing:-0.8px; }
+    .p-every { padding:18px 0 18px 24px; border-bottom:1px solid var(--border); display:flex; flex-direction:column; gap:6px; border-left:3px solid var(--green-border); margin-left:0; }
+    .p-every div { font-size:clamp(15px,2vw,18px); color:var(--text-dim); font-style:italic; }
+    .p-line.p-end { border-bottom:none; padding-bottom:0; }
+
+    .centerpiece { text-align:center; padding:72px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); margin:0 0 80px; }
+    .centerpiece-q { font-size:clamp(20px,4vw,40px); font-weight:800; color:var(--heading); letter-spacing:-1px; line-height:1.2; }
+    .centerpiece-accent { color:var(--green); margin-top:10px; }
+    .centerpiece-inv { font-family:var(--mono); font-size:clamp(13px,1.8vw,16px); color:var(--text-dim); margin-top:28px; letter-spacing:0.02em; }
+
+    .manifesto-body { display:flex; flex-direction:column; }
+    .m-line { font-size:clamp(16px,2.2vw,20px); color:var(--heading); font-weight:500; line-height:1.6; padding:16px 0; border-bottom:1px solid var(--border); }
+    .m-line:first-child { border-top:1px solid var(--border); }
+    .m-line.m-dim { color:var(--text-dim); font-weight:400; font-style:italic; font-size:clamp(14px,1.8vw,17px); }
+    .m-line.m-bold { font-size:clamp(18px,2.8vw,26px); font-weight:800; color:var(--heading); letter-spacing:-0.5px; }
+    .m-line.m-close { border-bottom:none; padding-bottom:0; font-size:clamp(15px,2vw,18px); font-weight:400; color:var(--text); }
+
+    .the-question { font-size:clamp(20px,3.5vw,34px); font-weight:800; color:var(--heading); letter-spacing:-0.8px; text-align:center; padding:56px 20px; border-top:1px solid var(--border); border-bottom:1px solid var(--border); margin:0 0 80px; line-height:1.3; }
+    .invite-body { display:flex; flex-direction:column; border-top:1px solid var(--border); }
+    .invite-p { font-size:clamp(17px,2.5vw,22px); color:var(--text); line-height:1.6; padding:18px 0; border-bottom:1px solid var(--border); }
+    .invite-p.invite-strong { font-weight:700; color:var(--heading); border-bottom:none; padding-bottom:0; }
+    .belief-list { display:flex; flex-direction:column; }
+    .belief { display:flex; align-items:flex-start; gap:18px; padding:18px 0; border-bottom:1px solid var(--border); font-size:16px; color:var(--heading); line-height:1.6; }
+    .belief:first-child { border-top:1px solid var(--border); }
+    .belief-n { font-family:var(--mono); font-size:11px; color:var(--green); font-weight:700; width:24px; flex-shrink:0; padding-top:4px; }
+    .final-note { font-size:clamp(15px,2vw,18px); color:var(--text-dim); font-style:italic; text-align:center; padding:40px 0 0; border-top:1px solid var(--border); margin-top:24px; line-height:1.7; }
+
+    .opening-quote { border-left:3px solid var(--green); padding:28px 32px; margin:0 0 72px; background:var(--bg2); border-radius:0 8px 8px 0; }
+    .opening-quote blockquote { font-size:clamp(17px,2.4vw,22px); color:var(--heading); font-style:italic; font-weight:500; line-height:1.65; margin:0 0 16px; }
+    .opening-quote cite { font-family:var(--mono); font-size:12px; color:var(--text-dim); letter-spacing:0.04em; font-style:normal; }
+
+    .page-footer { border-top:1px solid var(--border); padding:32px 40px; text-align:center; font-size:13px; color:var(--text-dim); }
+    .page-footer a { color:var(--green); }
+
+    @media (max-width: 600px) {
+      nav { padding: 10px 20px; }
+      .page-header { padding: 60px 24px 48px; }
+      .content { padding: 48px 24px 80px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo"><em>AI</em> Lattice&trade;</a>
+  <div class="nav-links">
+    <a href="/how-it-works">How it works</a>
+    <a href="/registry">Registry</a>
+    <a href="/manifesto" style="color:var(--green)">Why</a>
+    <a href="/developers">Developers</a>
+    <a href="/login" id="navSignIn">Sign in</a>
+    <a href="/signup" id="navSignUp" style="background:var(--green);color:#fff;padding:7px 18px;border-radius:7px;font-weight:700">Sign up free</a>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="page-eyebrow">The Manifesto</div>
+  <h1>Why.</h1>
+  <p class="mission-statement">The introduction layer. Every website, device, and system — introduced before AI begins.</p>
+</header>
+
+<main class="content">
+
+  <!-- Opening quote -->
+  <div class="opening-quote">
+    <blockquote>"I didn't set out to build a universal foundation. I just kept removing the roadblocks to creating my ideas, until I realised the roadblocks weren't unique to me."</blockquote>
+    <cite>— Bryan, Founder</cite>
+  </div>
+
+  <!-- Observations -->
+  <section class="section" style="margin-bottom:0">
+    <div class="story-body">
+      <div class="p-line">Every system that acts on information first has to reconstruct what it means.</div>
+      <div class="p-line">Artificial intelligence agents. Robots. Autonomous machines. APIs. Future systems we haven't built yet.</div>
+      <div class="p-line">All of them start from fragments and infer the rest.</div>
+      <div class="p-line p-end">Most of that inference is unnecessary. The information already exists.</div>
+    </div>
+  </section>
+
+  <div class="the-question">
+    What if the information could declare itself?
+  </div>
+
+  <!-- The problem -->
+  <section class="section">
+    <div class="section-label">The problem</div>
+    <div class="story-body">
+      <div class="p-line">The web was designed for storage, retrieval, and presentation.</div>
+      <div class="p-line">Not for interpretation.</div>
+      <div class="p-line p-bold">Every boundary in the current stack loses context.</div>
+      <div class="p-every">
+        <div>Human → software.</div>
+        <div>Sensor → API.</div>
+        <div>Data → decision.</div>
+        <div>Website → agent.</div>
+      </div>
+      <div class="p-line">At every crossing, meaning bleeds out.</div>
+      <div class="p-line">We spend enormous effort translating across boundaries that should never have existed.</div>
+      <div class="p-line p-bold">The missing layer isn't bigger models.</div>
+      <div class="p-line p-bold p-end">It's a shared interpretive frame.</div>
+    </div>
+  </section>
+
+  <!-- Centerpiece -->
+  <div class="centerpiece">
+    <div class="centerpiece-q">We're not building another artificial intelligence tool.</div>
+    <div class="centerpiece-q centerpiece-accent">We're building what AI — and everything else — reads first.</div>
+    <div class="centerpiece-inv">The foundational interpretation layer, that allows universal forward integration.</div>
+  </div>
+
+  <!-- The architecture -->
+  <section class="section">
+    <div class="section-label">The architecture</div>
+    <div class="story-body">
+      <div class="p-line">An interpretation layer sits between information and action.</div>
+      <div class="p-line">It doesn't process. It doesn't decide. It doesn't act.</div>
+      <div class="p-line p-bold">It preserves intent across every boundary it crosses.</div>
+      <div class="p-line">The mechanism is declaration.</div>
+      <div class="p-line">Before any system reasons about you or acts on information from you — you declare exactly who you are, what you stand for, and what must never be violated.</div>
+      <div class="p-line p-bold">That declaration is your introduction.</div>
+      <div class="p-line">Not a document. Not metadata. A permanent introduction that any AI system inherits before it begins reasoning about you.</div>
+      <div class="p-line">A website inheriting to an artificial intelligence agent. A sensor inheriting to an autonomous vehicle. A machine inheriting to a logistics system. A service inheriting to a future platform we haven't imagined yet.</div>
+      <div class="p-line p-bold p-end">Same layer. Same mechanism. Universal.</div>
+    </div>
+  </section>
+
+  <!-- Forward integration -->
+  <section class="section">
+    <div class="section-label">What forward integration means</div>
+    <div class="story-body">
+      <div class="p-line">Backward integration connects what already exists.</div>
+      <div class="p-line p-bold">Forward integration prepares for what doesn't exist yet.</div>
+      <div class="p-line">A declaration made today is inherited by systems built in five years.</div>
+      <div class="p-line">An introduction filed now governs how an autonomous agent — not yet written — reasons about you when it first encounters you.</div>
+      <div class="p-line">This is why the interpretation layer has to be foundational.</div>
+      <div class="p-line p-soft">Standards are rarely obvious when they're first proposed.</div>
+      <div class="p-every">
+        <div>SSL existed before browsers expected it.</div>
+        <div>Sitemaps existed before search engines depended on them.</div>
+        <div>Schema.org existed before structured data became commonplace.</div>
+      </div>
+      <div class="p-line p-bold p-end">We'd rather help build the layer early than wish it existed later.</div>
+    </div>
+  </section>
+
+  <!-- What we believe -->
+  <section class="section">
+    <div class="section-label">What we believe</div>
+    <div class="belief-list">
+      <div class="belief"><span class="belief-n">01</span><span>Interpretation is more foundational than intelligence.</span></div>
+      <div class="belief"><span class="belief-n">02</span><span>Context is not metadata. It's what makes action safe.</span></div>
+      <div class="belief"><span class="belief-n">03</span><span>Every boundary between systems is a translation cost. The interpretation layer eliminates it.</span></div>
+      <div class="belief"><span class="belief-n">04</span><span>A declaration made today is inherited by systems that don't exist yet.</span></div>
+      <div class="belief"><span class="belief-n">05</span><span>Constraints are not limitations. They are the safety envelope inside which action is trusted.</span></div>
+      <div class="belief"><span class="belief-n">06</span><span>The best infrastructure becomes invisible.</span></div>
+      <div class="belief"><span class="belief-n">07</span><span>Open foundations create stronger ecosystems than proprietary ones.</span></div>
+    </div>
+    <p class="final-note">Every generation inherits infrastructure.<br>We're trying to build one worth inheriting.</p>
+  </section>
+
+  <!-- From the builder -->
+  <section class="section">
+    <div class="section-label">From the builder</div>
+    <div class="invite-body">
+      <div class="invite-p">I didn't start with artificial intelligence. I started with a question about boundaries.</div>
+      <div class="invite-p">Every time information crosses a boundary — from sensor to system, from site to agent, from human to machine — something is lost. Context. Intent. Constraint. Meaning.</div>
+      <div class="invite-p">The web gave us a way to store and retrieve. We never built the layer that tells systems what the information means before they act on it.</div>
+      <div class="invite-p">That layer is what I've been trying to build. AI Lattice is the first visible proof of it — websites declaring their intent for AI agents to inherit. But the architecture was never just for websites, and it was never just for AI.</div>
+      <div class="invite-p invite-strong">Whether AILattice becomes the standard isn't the point. Building the layer is.</div>
+      <div class="invite-p">You're welcome to watch.<br>You're welcome to challenge it.<br>You're welcome to improve it.<br>You're welcome to support it.<br><br>And if you believe in it too — you're welcome to help build it.</div>
+      <div class="invite-p" style="font-style:italic; color:var(--text-dim); border-bottom:none; padding-bottom:0;">— Bryan</div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="page-footer">
+  <a href="https://ailattice.io">AILattice</a> &nbsp;·&nbsp; <a href="https://intellistasis.com">Intelli-Stasis</a> &nbsp;·&nbsp; The foundational interpretation layer.
+</footer>
+
+<script>
+fetch('/api/auth/me').then(r=>r.ok?r.json():null).then(d=>{
+  if(!d)return;
+  const si=document.getElementById('navSignIn');
+  const su=document.getElementById('navSignUp');
+  if(si)si.style.display='none';
+  if(su){su.textContent='Dashboard';su.href='/dashboard';}
+}).catch(()=>{});
+</script>
+</body>
+</html>

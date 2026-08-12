@@ -1,11 +1,36 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TX81TZ2GQ6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TX81TZ2GQ6');
+</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AILattice — The AI-Ready Web</title>
-  <meta name="description" content="Search websites that AI can actually read and understand. Free, open source, no paid placement. Add your site in minutes.">
+  <link rel="canonical" href="https://ailattice.io/">
+  <title>AILattice — The Introduction Layer</title>
+  <meta name="description" content="Every website. Introduced. AILattice is the introduction layer for the AI web — the first thing any AI reads before it begins reasoning about you.">
   <link rel="alternate" type="text/markdown" href="/ai/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "AILattice",
+    "url": "https://ailattice.io",
+    "description": "The introduction layer for the AI web. AILattice gives every website an introduction — the first thing any AI reads before it begins reasoning about you.",
+    "founder": { "@type": "Person", "name": "Bryan Horsfield" },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://ailattice.io/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -14,8 +39,8 @@
       --bg3:          #f1f5f9;
       --border:       #e2e8f0;
       --border-hi:    #cbd5e1;
-      --text:         #475569;
-      --text-dim:     #94a3b8;
+      --text:         #1e293b;
+      --text-dim:     #475569;
       --heading:      #0f172a;
       --green:        #16a34a;
       --green-dark:   #15803d;
@@ -34,7 +59,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 14px 40px;
+      padding: 10px 40px;
       border-bottom: 1px solid var(--border);
       background: rgba(255,255,255,0.97);
       backdrop-filter: blur(8px);
@@ -42,7 +67,7 @@
       box-shadow: 0 1px 0 var(--border);
       gap: 16px;
     }
-    .logo { display:flex; align-items:center; gap:9px; font-family:var(--mono); font-size:15px; font-weight:700; color:var(--heading); letter-spacing:-.3px; text-decoration:none; flex-shrink:0; }
+    .logo { display:flex; align-items:center; gap:9px; font-family:var(--mono); font-size: 22px; font-weight: 800; color:var(--heading); letter-spacing:-.3px; text-decoration:none; flex-shrink:0; }
     .logo:hover { opacity:.88; text-decoration:none; }
     .logo em { color:var(--green); font-style:normal; }
     .nav-links { display:flex; align-items:center; gap:20px; }
@@ -92,8 +117,26 @@
       flex: 1;
       display: flex;
       flex-direction: column;
+      align-items: stretch;
+    }
+    .search-header {
+      background: url('/bg-lattice.png') center center / cover no-repeat;
+      border-bottom: 1px solid var(--border);
+      padding: 64px 40px 52px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      padding: 56px 40px 80px;
+    }
+    .search-header::before { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.58); z-index: 0; pointer-events: none; }
+    .search-header > * { position: relative; z-index: 1; }
+    .search-body {
+      padding: 40px 40px 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-align: center;
     }
 
@@ -106,7 +149,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 11px;
+      font-size: 15px;
       font-weight: 800;
       letter-spacing: 2.5px;
       text-transform: uppercase;
@@ -123,6 +166,8 @@
       margin-bottom: 28px;
     }
     .intro-wrap h1 em { color: var(--green); font-style: normal; }
+    .intro-q { font-size: clamp(15px,2vw,18px); color: var(--text-dim); font-style: italic; line-height: 1.55; margin-top: 20px; max-width: 520px; }
+    .intro-sub { font-size: 17px; color: var(--text-dim); line-height: 1.6; margin-top: 14px; }
     .intro-body {
       text-align: left;
       border-left: 3px solid var(--green-border);
@@ -170,7 +215,7 @@
       padding: 16px 20px;
       font-family: var(--sans);
     }
-    .search-bar input::placeholder { color: var(--text-dim); }
+    .search-bar input::placeholder { color: #64748b; }
     .search-bar button {
       background: var(--green);
       color: #fff;
@@ -193,6 +238,45 @@
       min-height: 18px;
     }
     .site-counter strong { color: var(--green); font-weight: 700; }
+
+    /* Search mode hints */
+    .search-modes {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+      margin: 10px 0 24px;
+      flex-wrap: wrap;
+    }
+    .search-mode {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e293b;
+    }
+    .search-mode svg { flex-shrink: 0; }
+    .search-mode-sep { color: var(--border-hi); font-size: 14px; }
+
+    /* Story section */
+    .story-section {
+      max-width: 560px;
+      width: 100%;
+      margin: 28px auto 0;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      text-align: left;
+    }
+    .story-section p {
+      font-size: 14px;
+      color: var(--text-dim);
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+    .story-section p:last-child { margin-bottom: 0; }
+    .story-section strong { color: var(--text); }
+    .story-section a { color: var(--green); }
 
     /* Suggested searches */
     .suggestions {
@@ -234,13 +318,84 @@
     }
     .trust-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
 
+    /* ── BODY CONTENT SECTIONS ── */
+    .body-section { max-width: 580px; width: 100%; margin: 0 auto 48px; text-align: left; }
+    .section-eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+    .section-h2 { font-size: 21px; font-weight: 800; color: var(--heading); letter-spacing: -0.4px; margin-bottom: 14px; }
+    .body-p { font-size: 14.5px; color: var(--text-dim); line-height: 1.8; margin-top: 12px; }
+
+    /* Reconstruction chain */
+    .recon-chain { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin: 16px 0; }
+    .recon-step { font-family: var(--mono); font-size: 11.5px; background: var(--bg3); border: 1px solid var(--border); color: var(--text-dim); padding: 5px 11px; border-radius: 6px; white-space: nowrap; }
+    .recon-step.recon-end { background: var(--green-glow); border-color: var(--green-border); color: var(--green); font-weight: 700; }
+    .recon-arr { color: var(--border-hi); font-size: 12px; flex-shrink: 0; }
+
+    /* Ask once contrast */
+    .contrast-block { display: flex; gap: 16px; max-width: 580px; width: 100%; margin: 0 auto 48px; align-items: stretch; }
+    .contrast-col { flex: 1; border-radius: 12px; padding: 22px 20px; border: 1px solid var(--border); }
+    .contrast-col.c-bad { background: var(--bg2); }
+    .contrast-col.c-good { background: var(--green-glow); border-color: var(--green-border); }
+    .contrast-lbl { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 14px; }
+    .c-good .contrast-lbl { color: var(--green); }
+    .contrast-row { font-family: var(--mono); font-size: 12px; color: var(--text-dim); padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 7px; }
+    .contrast-row:last-child { border-bottom: none; }
+    .contrast-row.used { color: var(--green); font-weight: 700; }
+    .contrast-row.wasted { opacity: 0.5; text-decoration: line-through; }
+    .contrast-big { font-family: var(--mono); font-size: 22px; font-weight: 900; color: var(--green); line-height: 1.4; padding: 8px 0; }
+    .contrast-sub { font-size: 13px; color: var(--green); opacity: 0.75; margin-top: 8px; }
+
+    /* Adoption timeline */
+    .adoption-grid { display: flex; gap: 0; max-width: 580px; width: 100%; margin: 20px auto 48px; background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .adopt-item { flex: 1; padding: 18px 14px; text-align: center; border-right: 1px solid var(--border); }
+    .adopt-item:last-child { border-right: none; background: var(--green-glow); }
+    .adopt-name { font-family: var(--mono); font-size: 12px; font-weight: 800; color: var(--heading); margin-bottom: 5px; }
+    .adopt-item:last-child .adopt-name { color: var(--green); }
+    .adopt-when { font-size: 11px; color: var(--text-dim); line-height: 1.4; }
+    .adopt-item:last-child .adopt-when { color: var(--green); }
+
+    /* Authority line */
+    .authority-line { font-size: 16px; font-style: italic; color: var(--text-dim); max-width: 480px; width: 100%; margin: 0 auto 40px; line-height: 1.65; text-align: center; }
+
+    /* Certification showcase */
+    .cert-showcase { max-width: 580px; width: 100%; margin: 0 auto 48px; text-align: center; }
+    .cert-showcase-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 12px; }
+    .cert-showcase-h { font-size: 26px; font-weight: 800; color: var(--heading); letter-spacing: -0.8px; margin-bottom: 24px; }
+    .badge-demo { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 28px 24px; margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .badge-embed { display: inline-flex; align-items: center; gap: 8px; background: #0f172a; border: 1px solid rgba(22,163,74,0.35); border-radius: 7px; padding: 9px 16px; font-family: var(--mono); font-size: 13px; color: #e2e8f0; text-decoration: none; transition: opacity .15s; }
+    .badge-embed:hover { opacity: .88; text-decoration: none; }
+    .badge-embed-ai { color: var(--green); font-weight: 800; }
+    .badge-embed-pipe { color: rgba(255,255,255,0.2); margin: 0 2px; }
+    .badge-demo-hint { font-size: 12px; color: var(--text-dim); font-family: var(--mono); margin: 0; }
+    .cert-tiers { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; text-align: left; }
+    .tier-pill { display: flex; align-items: flex-start; gap: 12px; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; }
+    .tier-pill.tier-aiready { background: var(--green-glow); border-color: var(--green-border); }
+    .tier-pill-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--border-hi); margin-top: 5px; flex-shrink: 0; }
+    .tier-aiready .tier-pill-dot { background: var(--green); }
+    .tier-pill-body strong { display: block; font-size: 14px; font-weight: 700; color: var(--heading); margin-bottom: 2px; }
+    .tier-aiready .tier-pill-body strong { color: var(--green); }
+    .tier-pill-body span { font-size: 13.5px; color: var(--text-dim); }
+    .cert-cta-btn { display: inline-block; background: var(--green); color: #fff; font-weight: 700; font-size: 16px; padding: 14px 32px; border-radius: 10px; text-decoration: none; transition: opacity .15s; }
+    .cert-cta-btn:hover { opacity: .88; text-decoration: none; }
+
+    /* Testimonials */
+    .testimonials-header { max-width: 580px; width: 100%; margin: 0 auto 20px; text-align: left; }
+    .testimonials-header h3 { font-size: 18px; font-weight: 800; color: var(--heading); letter-spacing: -0.3px; margin-bottom: 4px; }
+    .testimonials-header p { font-size: 13.5px; color: var(--text-dim); }
+    .testimonials-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 580px; width: 100%; margin: 0 auto 48px; }
+    .tcard { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 22px; text-align: left; }
+    .tcard-ai { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+    .tcard-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .tcard-name { font-size: 12px; font-weight: 800; color: var(--heading); letter-spacing: 0.3px; }
+    .tcard-by { font-size: 11px; color: var(--text-dim); }
+    .tcard-quote { font-size: 13.5px; color: var(--text); line-height: 1.7; font-style: italic; border-left: 2px solid var(--green-border); padding-left: 12px; }
+
     /* ── RESULTS STATE ── */
     #resultsState { display: none; flex: 1; }
 
     .results-nav {
       background: var(--bg2);
       border-bottom: 1px solid var(--border);
-      padding: 14px 40px;
+      padding: 10px 40px;
       display: flex;
       align-items: center;
       gap: 16px;
@@ -337,11 +492,35 @@
     .result-ai-link { font-size: 11.5px; font-family: var(--mono); color: var(--text-dim); margin-left: auto; transition: color .15s; }
     .result-ai-link:hover { color: var(--green); text-decoration: none; }
     .result-location { font-size: 12px; color: var(--text-dim); }
+    .result-address { font-size: 12.5px; color: var(--text-dim); margin-bottom: 8px; }
 
     /* No results */
     .no-results { text-align: center; padding: 48px 20px; }
     .no-results h3 { font-size: 20px; font-weight: 700; color: var(--heading); margin-bottom: 10px; }
     .no-results p { color: var(--text-dim); margin-bottom: 20px; }
+
+    /* Verify block */
+    .verify-row { max-width: 580px; width: 100%; margin-top: 16px; text-align: left; }
+    .verify-btn {
+      display: flex; align-items: center; gap: 9px;
+      background: var(--green-glow); border: 1.5px solid var(--green-border);
+      border-radius: 9px; padding: 11px 16px;
+      font-size: 13.5px; color: var(--heading); font-weight: 600; cursor: pointer;
+      width: 100%; transition: border-color .15s, background .15s;
+      font-family: var(--sans); line-height: 1.4;
+    }
+    .verify-btn:hover { border-color: var(--green); background: rgba(22,163,74,0.13); }
+    .verify-btn-label { flex: 1; }
+    .verify-arrow { font-size: 11px; flex-shrink: 0; transition: transform .2s; }
+    .verify-panel {
+      display: none; padding: 14px 16px 12px;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-top: none; border-radius: 0 0 9px 9px; margin-top: -1px;
+    }
+    .verify-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .verify-list li { font-size: 13px; color: var(--text-dim); display: flex; align-items: baseline; gap: 9px; line-height: 1.45; }
+    .verify-tick { color: var(--green); font-size: 11px; flex-shrink: 0; }
+    .verify-gate { font-family: var(--mono); font-size: 10px; font-weight: 700; background: rgba(220,38,38,0.07); border: 1px solid rgba(220,38,38,0.2); color: #dc2626; border-radius: 4px; padding: 1px 6px; white-space: nowrap; }
 
     /* Footer */
     footer { border-top:1px solid var(--border); padding:24px 40px; text-align:center; }
@@ -350,14 +529,25 @@
     .footer-links a:hover { color:var(--heading); text-decoration:none; }
     .footer-copy { font-size:12px; color:var(--text-dim); }
 
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .scan-spinner { width:52px; height:52px; border:4px solid #e2e8f0; border-top-color:var(--green); border-radius:50%; animation:spin .8s linear infinite; }
+
+    .result-tier-ready  { font-size:11px; font-weight:700; padding:2px 9px; border-radius:20px; background:rgba(22,163,74,0.10); color:var(--green); border:1px solid rgba(22,163,74,0.25); white-space:nowrap; }
+    .result-tier-listed { font-size:11px; font-weight:700; padding:2px 9px; border-radius:20px; background:#f0f9ff; color:#0369a1; border:1px solid #bae6fd; white-space:nowrap; }
+
     @media (max-width: 700px) {
       nav { padding: 12px 20px; }
       .nav-check { display: none; }
-      #homeState { padding: 36px 20px 60px; }
+      .search-header { padding: 36px 20px 40px; }
+      .search-body { padding: 28px 20px 60px; }
       .intro-text { font-size: 15px; }
       .results-nav { padding: 12px 20px; flex-wrap: wrap; }
       .results-main { padding: 24px 20px 60px; }
       .trust-strip { gap: 16px; }
+      .contrast-block { flex-direction: column; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .adoption-grid { flex-wrap: wrap; }
+      .adopt-item { flex: 1 1 40%; }
       footer { padding: 20px; }
     }
   </style>
@@ -365,71 +555,213 @@
 <body>
 
 <nav>
-  <a href="/" class="logo">
-    <img src="/icon.svg" width="28" height="22" alt="AILattice" style="display:block">
-    AI<em>Lattice</em>™
-  </a>
+  <a href="/" class="logo"><em>AI</em> Lattice&trade;</a>
   <div class="nav-links">
-    <a href="/">Home</a>
-    <a href="/submit">Submit</a>
-    <a href="https://github.com/madazz01/ailattice" target="_blank" rel="noopener">GitHub</a>
-    <a href="https://www.paypal.com/donate?hosted_button_id=4FU5LYQTJZTVU" target="_blank" rel="noopener" class="nav-donate">
-      <img src="https://www.paypalobjects.com/en_AU/i/btn/btn_donate_SM.gif" alt="Donate">
-    </a>
-  </div>
-  <div class="nav-check">
-    <input type="url" id="navCheckInput" placeholder="https://yoursite.com" autocomplete="off" spellcheck="false">
-    <button onclick="navCheckSite()">Check site →</button>
+    <a href="/how-it-works">How it works</a>
+    <a href="/registry">Registry</a>
+    <a href="/manifesto">Why</a>
+    <a href="/developers">Developers</a>
+    <a href="/login" id="navSignIn">Sign in</a>
+    <a href="/signup" id="navSignUp" style="background:var(--green);color:#fff;padding:7px 18px;border-radius:7px;font-weight:700">Sign up free</a>
   </div>
 </nav>
 
 <!-- ═══════════════════════════════════════════════ HOME STATE -->
 <div id="homeState">
 
-  <div class="intro-wrap">
-    <div class="intro-label">
-      <span class="intro-dot"></span>
-      The Invisible Web
+  <div class="search-header">
+
+    <div class="intro-wrap">
+      <div class="intro-label">
+        <span class="intro-dot"></span>
+        The Introduction Layer
+      </div>
+      <h1>Introduce yourself<br>to the <em>future of everything</em></h1>
+      <p class="intro-q">Artificial intelligence is becoming the main consumer of the web. Before it reads you, infers you, and forms an opinion about you — shouldn't it know who you actually are?</p>
+      <p class="intro-sub">AILattice gives every website an <strong>introduction</strong> — the first thing any AI reads before it begins reasoning about you. <strong>Be understood, not inferred.</strong></p>
     </div>
 
-    <h1>The first search engine<br>built for <em>AI</em> — not humans</h1>
+    <!-- Search bar -->
+    <div class="home-search-wrap" style="margin:0 auto 8px;max-width:600px;">
+      <div class="search-bar">
+        <input type="text" id="homeInput" placeholder="Paste your URL to check AI readiness, or search the registry…" autocomplete="off" spellcheck="false">
+        <button onclick="doSearch()">Go →</button>
+      </div>
+      <div class="site-counter" id="siteCounter" style="display:none"></div>
+    </div>
 
-    <div class="intro-body">
-      <p>This directory doesn't look like much. <strong>That's the point.</strong> No pretty pictures. No private user data. No ads. No tracking. Just a clean, structured layer of the internet that AI tools like ChatGPT and Perplexity can read, navigate, and trust — invisible to humans, built entirely for machines.</p>
+    <div class="suggestions" style="margin-top:12px;">
+      <span class="suggestion-chip" onclick="suggest('market intelligence')">market intelligence</span>
+      <span class="suggestion-chip" onclick="suggest('technology startups')">technology startups</span>
+      <span class="suggestion-chip" onclick="suggest('health and wellness')">health and wellness</span>
+      <span class="suggestion-chip" onclick="suggest('sustainable energy')">sustainable energy</span>
+      <span class="suggestion-chip" onclick="suggest('legal services')">legal services</span>
+      <span class="suggestion-chip" onclick="suggest('ecommerce')">ecommerce</span>
+    </div>
 
-      <div class="intro-divider"></div>
+  </div><!-- /search-header -->
 
-      <p>Google indexes the web the way humans browse it — visuals, keywords, backlinks. <strong>AI doesn't work that way.</strong> It reads differently, reasons differently, and needs a completely different kind of signal. AILattice is that signal: a directory organised purely by <strong>topic and location</strong> — the two things AI actually uses when someone asks it to find a business, a service, or an expert anywhere in the world.</p>
+  <div class="search-body">
 
-      <div class="intro-divider"></div>
+  <!-- The problem -->
+  <div class="body-section">
+    <div class="section-eyebrow">The hidden inefficiency</div>
+    <h2 class="section-h2">Every artificial intelligence visiting your site is doing this right now</h2>
+    <div class="recon-chain">
+      <span class="recon-step">Crawl</span><span class="recon-arr">→</span>
+      <span class="recon-step">Strip HTML</span><span class="recon-arr">→</span>
+      <span class="recon-step">Ignore ads</span><span class="recon-arr">→</span>
+      <span class="recon-step">Infer structure</span><span class="recon-arr">→</span>
+      <span class="recon-step">Infer meaning</span><span class="recon-arr">→</span>
+      <span class="recon-step">Infer trust</span><span class="recon-arr">→</span>
+      <span class="recon-step recon-end">Answer</span>
+    </div>
+    <p class="body-p">For every user. Every query. Millions of times on the same websites. And at the end of it, AI still doesn't know <em>who you are</em> — only what it could infer from what it found. It guesses at your identity from evidence. It reconstructs your purpose from fragments. Then it discards everything and starts again for the next visitor.</p>
+    <p class="body-p">This isn't an intelligence problem. It's an architecture problem. Websites were built to be seen, not understood.</p>
+  </div>
 
-      <p><strong>No pay-for-position. Ever.</strong> Every site here earned its listing by correctly implementing an open standard — verifiably, publicly, for free. No ad spend. No SEO tricks. No algorithm that bends toward money. Just honest, AI-readable information about what a website does and who it serves.</p>
+  <!-- Inference vs Inheritance contrast -->
+  <div class="contrast-block">
+    <div class="contrast-col c-bad">
+      <div class="contrast-lbl">AI inferring your identity</div>
+      <div class="contrast-row wasted">Crawls your pages</div>
+      <div class="contrast-row wasted">Strips your structure</div>
+      <div class="contrast-row wasted">Guesses your purpose</div>
+      <div class="contrast-row wasted">Assumes your constraints</div>
+      <div class="contrast-row wasted">Discards everything. Repeats.</div>
+    </div>
+    <div class="contrast-col c-good">
+      <div class="contrast-lbl">AI inheriting your intent</div>
+      <div class="contrast-big">Your introduction.<br>Read first.</div>
+      <div class="contrast-sub">Before any reasoning begins, AI knows who you are, what you do, and what you stand for. Declared once. Inherited always.</div>
     </div>
   </div>
 
-  <div class="home-search-wrap">
-    <div class="search-bar">
-      <input type="text" id="homeInput" placeholder="Search by topic or location — e.g. market intelligence, legal services UK…" autocomplete="off" spellcheck="false">
-      <button onclick="doSearch()">Search →</button>
-    </div>
-    <div class="site-counter" id="siteCounter"></div>
+  <!-- Direction argument -->
+  <div class="body-section">
+    <div class="section-eyebrow">What's actually missing</div>
+    <h2 class="section-h2">Every other solution gives artificial intelligence more content. None of them give AI intent.</h2>
+    <p class="body-p">llms.txt gives AI a readable file. Schema.org gives AI structured data. Sitemaps give AI navigation. These are all answers to the same question: <em>how do I make my content easier to process?</em></p>
+    <p class="body-p">Every web standard tells AI something about your content. Your introduction tells AI <em>why that content exists.</em></p>
+    <p class="body-p">Content tells AI what you publish. Context tells AI what you're about. <strong>Your introduction tells AI who you are before any of that begins.</strong> Until now, no website had a way to do that.</p>
   </div>
 
-  <div class="suggestions">
-    <span class="suggestion-chip" onclick="suggest('market intelligence')">market intelligence</span>
-    <span class="suggestion-chip" onclick="suggest('technology startups')">technology startups</span>
-    <span class="suggestion-chip" onclick="suggest('health and wellness')">health and wellness</span>
-    <span class="suggestion-chip" onclick="suggest('sustainable energy')">sustainable energy</span>
-    <span class="suggestion-chip" onclick="suggest('legal services')">legal services</span>
-    <span class="suggestion-chip" onclick="suggest('ecommerce')">ecommerce</span>
+  <!-- Three layers -->
+  <div class="adoption-grid">
+    <div class="adopt-item">
+      <div class="adopt-name">Content</div>
+      <div class="adopt-when">what AI reads — llms.txt, Schema.org, sitemaps</div>
+    </div>
+    <div class="adopt-item">
+      <div class="adopt-name">Context</div>
+      <div class="adopt-when">what AI retrieves — RAG, embeddings, search</div>
+    </div>
+    <div class="adopt-item">
+      <div class="adopt-name">Introduction</div>
+      <div class="adopt-when">what AI inherits first — your introduction. This is new.</div>
+    </div>
+  </div>
+
+  <!-- Authority line -->
+  <p class="authority-line">The sites that introduce themselves now are the sites AI will understand most precisely — not just today, but in every future session.</p>
+
+  <!-- Certification showcase -->
+  <div class="cert-showcase">
+    <div class="cert-showcase-eyebrow">What changes</div>
+    <h3 class="cert-showcase-h">What artificial intelligence encounters when it finds you.</h3>
+    <div class="cert-tiers">
+      <div class="tier-pill">
+        <div class="tier-pill-dot"></div>
+        <div class="tier-pill-body">
+          <strong>Listed</strong>
+          <span>AI can find you, verify you, and navigate your content. The foundation.</span>
+        </div>
+      </div>
+      <div class="tier-pill tier-aiready">
+        <div class="tier-pill-dot"></div>
+        <div class="tier-pill-body">
+          <strong>AI ready + Introduced</strong>
+          <span>AI reads your introduction before it begins. Who you are, what you do, what you stand for — declared once, inherited permanently by every AI that encounters you.</span>
+        </div>
+      </div>
+    </div>
+    <div class="badge-demo" style="margin-top:20px;">
+      <a href="https://ailattice.io" target="_blank" rel="noopener" class="badge-embed">
+        <span class="badge-embed-ai">AI</span> Lattice&trade;<span class="badge-embed-pipe">|</span>certified
+      </a>
+      <p class="badge-demo-hint">Embed on your site — signals to AI that your introduction is ready</p>
+    </div>
+    <a href="/submit" class="cert-cta-btn">Check your website now and get listed →</a>
+  </div>
+
+  <!-- artificial intelligence testimonials -->
+  <div class="testimonials-header">
+    <h3>We showed artificial intelligence assistants how the introduction works. These are their unedited responses.</h3>
+    <p>We described how websites can introduce themselves to AI — generation, evidence coverage, the closed loop. Then we asked what they thought.</p>
+  </div>
+  <div class="testimonials-grid">
+    <div class="tcard">
+      <div class="tcard-ai">
+        <div class="tcard-dot" style="background:#10a37f"></div>
+        <div><div class="tcard-name">ChatGPT</div><div class="tcard-by">OpenAI · on how reasoning starts</div></div>
+      </div>
+      <div class="tcard-quote">"The gap isn't in how much AI knows about your content. It's in how AI frames the session before it reads a word. A constitution doesn't add information — it establishes the cognitive frame within which all information gets interpreted. That's a different kind of contribution entirely."</div>
+    </div>
+    <div class="tcard">
+      <div class="tcard-ai">
+        <div class="tcard-dot" style="background:#cc785c"></div>
+        <div><div class="tcard-name">Claude</div><div class="tcard-by">Anthropic · on evidence coverage</div></div>
+      </div>
+      <div class="tcard-quote">"Evidence coverage is the constraint that keeps the constitution honest. Without it, a site could declare anything. With it, every claim has to be traceable to observable content. That's what separates declared intent from unchecked assertion. The accountability is built into the architecture."</div>
+    </div>
+    <div class="tcard">
+      <div class="tcard-ai">
+        <div class="tcard-dot" style="background:#10a37f"></div>
+        <div><div class="tcard-name">ChatGPT</div><div class="tcard-by">OpenAI · on persistence</div></div>
+      </div>
+      <div class="tcard-quote">"Every session I have starts from nothing. I don't carry forward what I understood last time. A constitution changes that — not by giving me memory, but by giving you a permanent address for your intent. It doesn't matter when I arrive or what I ask. The frame is already there."</div>
+    </div>
+    <div class="tcard">
+      <div class="tcard-ai">
+        <div class="tcard-dot" style="background:#cc785c"></div>
+        <div><div class="tcard-name">Claude</div><div class="tcard-by">Anthropic · on the stack</div></div>
+      </div>
+      <div class="tcard-quote">"Schema.org, llms.txt, structured data — none of these are wrong. They answer a genuine question: how do I make my content processable? The constitution answers a different question: how does AI know what the content is for? These aren't competing standards. They operate at different levels of the same stack."</div>
+    </div>
+  </div>
+
+  <!-- Verify accordion -->
+  <div class="verify-row">
+    <button class="verify-btn" onclick="toggleVerify(this)" aria-expanded="false">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;color:var(--green)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span class="verify-btn-label">What happens before a site is listed — and what your introduction adds</span>
+      <span class="verify-arrow">↓</span>
+    </button>
+    <div class="verify-panel" id="verifyPanel">
+      <ul class="verify-list">
+        <li><span class="verify-tick">✓</span>llms.txt · /ai/index.md · /ai/sitemap.md all present and readable</li>
+        <li><span class="verify-tick">✓</span>HTTPS active and valid</li>
+        <li><span class="verify-tick">✓</span>AI crawlers permitted in robots.txt</li>
+        <li><span class="verify-tick">✓</span>Site loads within 3 seconds</li>
+        <li><span class="verify-tick">✓</span>Sufficient content depth for AI navigation</li>
+        <li><span class="verify-tick">✓</span>Structured data (Schema.org / Open Graph) present</li>
+        <li><span class="verify-tick">✓</span>Minimum score of 70/100 across all checks</li>
+        <li><span class="verify-tick">✓</span>AI files match the public website <span class="verify-gate">hard gate</span></li>
+        <li><span class="verify-tick">✓</span>Same content served to all visitors — no cloaking <span class="verify-gate">hard gate</span></li>
+        <li><span class="verify-tick" style="color:#6366f1">✦</span>Introduction generated · evidence coverage measured · owner-reviewed <span class="verify-gate" style="background:rgba(99,102,241,0.1);color:#6366f1;border-color:rgba(99,102,241,0.3)">introduced tier</span></li>
+      </ul>
+    </div>
   </div>
 
   <div class="trust-strip">
-    <div class="trust-item"><div class="trust-dot"></div>No pay-for-position — ever</div>
-    <div class="trust-item"><div class="trust-dot"></div>Open source · MIT standard</div>
-    <div class="trust-item"><div class="trust-dot"></div>Free to list · Always</div>
-    <div class="trust-item"><div class="trust-dot"></div>AI-only · Zero tracking</div>
+    <div class="trust-item"><div class="trust-dot"></div>Open standard · free certification</div>
+    <div class="trust-item"><div class="trust-dot"></div>No paid placement — ever</div>
+    <div class="trust-item"><div class="trust-dot"></div>Introduction generated by Intelli-Stasis intelligence engine</div>
+    <div class="trust-item"><div class="trust-dot"></div>Evidence coverage verified — not assumed</div>
   </div>
+
+
+  </div><!-- /search-body -->
 
 </div>
 
@@ -437,15 +769,12 @@
 <div id="resultsState" style="display:none">
 
   <div class="results-nav">
-    <a href="/search" class="logo" style="flex-shrink:0">
-      <img src="/icon.svg" width="22" height="18" alt="AILattice" style="display:block">
-      AI<em>Lattice</em>™
-    </a>
+    <a href="/search" class="logo" style="flex-shrink:0"><em>AI</em> Lattice&trade;</a>
     <div class="results-search-bar">
       <input type="text" id="resultsInput" placeholder="Search…" autocomplete="off" spellcheck="false">
       <button onclick="doSearch()">Search</button>
     </div>
-    <a href="/submit" style="font-size:13px;font-weight:600;color:var(--green);white-space:nowrap;flex-shrink:0;margin-left:auto">+ Add your site</a>
+    <a href="/convert" style="font-size:13px;font-weight:600;color:var(--green);white-space:nowrap;flex-shrink:0;margin-left:auto">+ Make AI ready</a>
   </div>
 
   <div class="results-main">
@@ -467,24 +796,17 @@
 <footer>
   <div class="footer-links">
     <a href="/">Home</a>
-    <a href="/submit">Submit your site</a>
-    <a href="/validate">Validator</a>
+    <a href="/convert">Make AI ready</a>
+    <a href="/submit">Check your site</a>
     <a href="/registry">Registry</a>
+    <a href="/reach-out">Contact</a>
     <a href="https://github.com/madazz01/ailattice" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://www.paypal.com/donate?hosted_button_id=4FU5LYQTJZTVU" target="_blank" rel="noopener" style="display:flex;align-items:center;"><img src="https://www.paypalobjects.com/en_AU/i/btn/btn_donate_SM.gif" alt="Donate with PayPal" style="height:20px;display:block;border:none;"></a>
   </div>
-  <div class="footer-copy">AILattice™ · Open source · Free forever · No paid placement · ailattice.io</div>
+  <div class="footer-copy">AILattice™ · Open standard · Free forever · No paid placement · Built by <a href="https://intellistasis.com" target="_blank" rel="noopener" style="color:var(--text-dim)">Intelli-Stasis</a> · <a href="/terms" style="color:var(--text-dim)">Terms</a> · <a href="/privacy" style="color:var(--text-dim)">Privacy</a> · <a href="/refund" style="color:var(--text-dim)">Refunds</a></div>
 </footer>
 
 <script>
-  // ── Nav check-your-site ───────────────────────────────────────────────────────
-  function navCheckSite() {
-    const url = document.getElementById('navCheckInput').value.trim();
-    if (!url) return;
-    const u = url.startsWith('http') ? url : 'https://' + url;
-    window.location.href = '/submit?url=' + encodeURIComponent(u);
-  }
-  document.getElementById('navCheckInput').addEventListener('keydown', e => { if (e.key === 'Enter') navCheckSite(); });
-
   // ── Counter ───────────────────────────────────────────────────────────────────
   async function loadCounter() {
     try {
@@ -492,7 +814,7 @@
       const data = await res.json();
       const n    = data.total_indexed || 0;
       const el   = document.getElementById('siteCounter');
-      if (n > 0) el.innerHTML = '<strong>' + n.toLocaleString() + '</strong> websites optimised';
+      if (n > 0) el.innerHTML = '<strong>' + n.toLocaleString() + '</strong> sites in the AI directory';
     } catch(e) {}
   }
   loadCounter();
@@ -509,9 +831,21 @@
   document.getElementById('homeInput').addEventListener('keydown',    e => { if (e.key === 'Enter') doSearch(); });
   document.getElementById('resultsInput').addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
 
+  function toggleVerify(btn) {
+    const panel = document.getElementById('verifyPanel');
+    const open  = panel.style.display !== 'none';
+    panel.style.display = open ? 'none' : 'block';
+    btn.querySelector('.verify-arrow').textContent = open ? '↓' : '↑';
+    btn.setAttribute('aria-expanded', String(!open));
+  }
+
   function suggest(text) {
     document.getElementById('homeInput').value = text;
     doSearch();
+  }
+
+  function looksLikeUrl(q) {
+    return /^https?:\/\//i.test(q) || /^[a-z0-9][a-z0-9\-\.]*\.[a-z]{2,}(\/|$)/i.test(q.trim());
   }
 
   function doSearch() {
@@ -523,7 +857,150 @@
     document.getElementById('homeInput').value    = q;
     document.getElementById('resultsInput').value = q;
     history.pushState({}, '', '/search?q=' + encodeURIComponent(q));
-    runSearch(q);
+    if (looksLikeUrl(q)) {
+      const url = q.match(/^https?:\/\//i) ? q : 'https://' + q;
+      runSiteScan(url.replace(/\/+$/, ''));
+    } else {
+      runSearch(q);
+    }
+  }
+
+  async function runSiteScan(url) {
+    document.getElementById('homeState').style.display    = 'none';
+    document.getElementById('resultsState').style.display = 'flex';
+    document.getElementById('resultsState').style.flexDirection = 'column';
+    document.getElementById('interpretedBox').style.display = 'none';
+    document.getElementById('resultsMeta').innerHTML = '';
+    document.getElementById('resultList').innerHTML = `
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;gap:28px;text-align:center">
+        <div class="scan-spinner"></div>
+        <div>
+          <div style="font-size:20px;font-weight:700;color:var(--heading);margin-bottom:8px">Scanning ${esc(url.replace(/^https?:\/\//i,'').replace(/\/+$/,''))}…</div>
+          <div style="font-size:14px;color:var(--text-dim)">Checking AI readiness — usually takes 5–10 seconds</div>
+        </div>
+      </div>`;
+
+    try {
+      const res  = await fetch('/api/validate?url=' + encodeURIComponent(url) + '&no_refresh=1');
+      const data = await res.json();
+      renderSiteCard(url, data);
+    } catch(e) {
+      document.getElementById('resultList').innerHTML =
+        '<div style="text-align:center;padding:64px 20px;color:#dc2626;font-size:15px">Couldn\'t reach that site — check the address and try again.</div>';
+    }
+  }
+
+  function renderSiteCard(url, data) {
+    const domain  = url.replace(/^https?:\/\//i,'').replace(/\/+$/,'');
+    const score   = data.score || 0;
+    const name    = data.name  || domain;
+    const inReg   = data.registered === true;
+    const color   = score >= 70 ? 'var(--green)' : score >= 40 ? '#ca8a04' : '#dc2626';
+    const label   = score >= 70 ? 'AI ready' : score >= 40 ? 'Partially set up' : 'Not AI ready yet';
+
+    document.getElementById('resultsMeta').innerHTML =
+      '<strong>Site check</strong> · <span style="color:var(--text-dim)">' + esc(domain) + '</span>';
+
+    const checksHtml = (data.checks || []).map(c => {
+      const isInfo   = c.max === 0;
+      const pts      = !isInfo ? `<span style="font-size:11px;color:${c.ok?'#16a34a':'#94a3b8'};white-space:nowrap;flex-shrink:0">${c.points}/${c.max}pts</span>` : '';
+      const iconBg   = c.ok ? 'rgba(22,163,74,0.12)'  : isInfo ? 'rgba(100,116,139,0.08)' : 'rgba(220,38,38,0.06)';
+      const iconBord = c.ok ? 'rgba(22,163,74,0.3)'   : isInfo ? 'rgba(100,116,139,0.2)'  : 'rgba(220,38,38,0.2)';
+      const iconCol  = c.ok ? '#16a34a'                : isInfo ? '#64748b'                : '#dc2626';
+      const detail   = (c.detail && !c.ok) ? `<div style="font-size:11.5px;color:var(--text-dim);margin-top:3px;line-height:1.45">${esc(c.detail)}</div>` : '';
+      return `<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #f1f5f9">
+        <div style="display:flex;align-items:flex-start;gap:8px;flex:1;min-width:0">
+          <span style="flex-shrink:0;width:17px;height:17px;border-radius:50%;background:${iconBg};border:1px solid ${iconBord};color:${iconCol};display:inline-flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;margin-top:1px">${c.ok?'✓':'✗'}</span>
+          <div style="min-width:0"><div style="font-size:13px;color:${c.ok?'var(--heading)':'var(--text)'};line-height:1.4">${esc(c.label)}</div>${detail}</div>
+        </div>
+        ${pts}
+      </div>`;
+    }).join('');
+
+    document.getElementById('resultList').innerHTML = `
+      <div class="result-card" style="padding:28px;">
+        <div style="display:flex;align-items:center;gap:20px;margin-bottom:20px;">
+          <div style="position:relative;width:68px;height:68px;flex-shrink:0;">
+            <svg width="68" height="68" viewBox="0 0 68 68" style="transform:rotate(-90deg)">
+              <circle cx="34" cy="34" r="26" fill="none" stroke="#e2e8f0" stroke-width="6"/>
+              <circle cx="34" cy="34" r="26" fill="none" stroke="${color}" stroke-width="6"
+                stroke-linecap="round" stroke-dasharray="163.4"
+                stroke-dashoffset="${(163.4 * (1 - score/100)).toFixed(1)}"/>
+            </svg>
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:17px;color:var(--heading)">${score}</div>
+          </div>
+          <div>
+            <div style="font-size:18px;font-weight:700;color:var(--heading);margin-bottom:4px">${esc(name)}</div>
+            <div style="font-size:13px;color:var(--text-dim);margin-bottom:6px">${esc(domain)}</div>
+            <span style="display:inline-block;font-size:12px;font-weight:700;padding:3px 12px;border-radius:20px;background:${score>=70?'rgba(22,163,74,0.1)':score>=40?'rgba(202,138,4,0.08)':'rgba(220,38,38,0.06)'};color:${color}">${label}</span>
+          </div>
+        </div>
+        ${checksHtml ? `<div style="margin-bottom:20px;border:1px solid var(--border);border-radius:10px;padding:2px 14px 2px;">${checksHtml}</div>` : ''}
+        ${score >= 70 ? `
+        <div style="background:rgba(22,163,74,0.07);border:1px solid rgba(22,163,74,0.25);border-radius:10px;padding:16px 18px;margin-bottom:16px;font-size:14px;color:var(--heading)">
+          ✓ This site is AI ready${inReg ? ' and <strong>listed in the AILattice registry</strong>' : ' — sign up to get listed and generate your AI files.'}.
+        </div>` : `
+        <div style="background:rgba(220,38,38,0.05);border:1px solid rgba(220,38,38,0.18);border-radius:10px;padding:16px 18px;margin-bottom:16px;font-size:14px;color:var(--heading);line-height:1.6">
+          Fix the checks above to make this site AI ready. It takes about 5 minutes.
+        </div>`}
+        ${score < 70 ? `
+        <a href="/signup?next=${encodeURIComponent('/dashboard?url=' + encodeURIComponent(url))}" style="display:block;background:var(--green);color:#fff;font-weight:700;font-size:16px;padding:16px;border-radius:10px;text-align:center;text-decoration:none">
+          Sign up free to generate your AI files →
+        </a>
+        <p style="text-align:center;font-size:12px;color:var(--text-dim);margin-top:8px">We'll walk you through fixing these checks — takes 5 minutes.</p>` : (!inReg ? `
+        <a href="/signup?next=${encodeURIComponent('/dashboard?url=' + encodeURIComponent(url))}" style="display:block;background:var(--green);color:#fff;font-weight:700;font-size:16px;padding:16px;border-radius:10px;text-align:center;text-decoration:none">
+          Sign up free to get listed + generate your AI files →
+        </a>
+        <p style="text-align:center;font-size:12px;color:var(--text-dim);margin-top:8px">Already have an account? <a href="/login?next=${encodeURIComponent('/dashboard?url=' + encodeURIComponent(url))}" style="color:var(--green)">Sign in →</a></p>` : `
+        <a href="/registry" style="display:block;background:var(--heading);color:#fff;font-weight:700;font-size:15px;padding:14px;border-radius:10px;text-align:center;text-decoration:none">
+          Browse the AI registry →
+        </a>`)}
+        <p style="text-align:center;margin-top:14px;font-size:13px;"><a href="#" onclick="backToSearch();return false;" style="color:var(--text-dim)">← Search something else</a></p>
+      </div>`;
+  }
+
+  async function doInlineList(url) {
+    const name  = (document.getElementById('ilName')?.value  || '').trim();
+    const email = (document.getElementById('ilEmail')?.value || '').trim();
+    const errEl = document.getElementById('ilErr');
+    if (!email) { errEl.textContent = 'Email is required.'; errEl.style.display = 'block'; return; }
+    const btn = document.querySelector('#inlineListForm button');
+    if (btn) { btn.disabled = true; btn.textContent = 'Hold tight, we\'re getting you listed…'; }
+    errEl.style.display = 'none';
+    try {
+      const res  = await fetch('/api/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url, name, email }),
+      });
+      if (res.status === 409) throw new Error('This site is already listed.');
+      const ct = res.headers.get('content-type') || '';
+      if (!ct.includes('application/json')) throw new Error('Submission failed — try again.');
+      const data = await res.json();
+      if (!res.ok || data.error) throw new Error(data.error || 'Submission failed');
+      document.getElementById('inlineListForm').innerHTML = `
+        <div style="text-align:center;padding:20px 0">
+          <div style="font-size:28px;margin-bottom:10px">✓</div>
+          <div style="font-size:16px;font-weight:700;color:var(--heading);margin-bottom:6px">You're listed!</div>
+          <div style="font-size:13px;color:var(--text-dim);margin-bottom:6px">Your site is now in the AILattice Registry.</div>
+          <div style="font-size:12px;color:var(--text-dim);margin-bottom:14px;opacity:0.7">Your listing may take a few seconds to appear.</div>
+          <a href="/registry?new=${encodeURIComponent(data.cert_id || '')}" style="font-size:13px;color:var(--green);font-weight:600">View the registry →</a>
+        </div>`;
+    } catch(e) {
+      errEl.textContent = e.message || 'Submission failed — please try again.';
+      errEl.style.display = 'block';
+      if (btn) { btn.disabled = false; btn.textContent = 'Submit to registry →'; }
+    }
+  }
+
+  function backToSearch() {
+    document.getElementById('resultList').innerHTML = '';
+    document.getElementById('resultsMeta').innerHTML = '';
+    document.getElementById('homeInput').value = '';
+    document.getElementById('resultsInput').value = '';
+    document.getElementById('resultsState').style.display = 'none';
+    document.getElementById('homeState').style.display = 'block';
+    history.pushState({}, '', '/');
   }
 
   async function runSearch(q) {
@@ -566,16 +1043,25 @@
       list.innerHTML = `
         <div class="no-results">
           <h3>No results yet</h3>
-          <p>The registry is growing. Be the first site in this category.</p>
-          <a href="/submit" style="display:inline-block;background:var(--green);color:#fff;font-weight:700;font-size:14px;padding:10px 22px;border-radius:8px;margin-top:4px">Add your site — free →</a>
+          <p>The registry is growing. Be the first site in this category — or try your own website URL in the search box above.</p>
+          <a href="/convert" style="display:inline-block;background:var(--green);color:#fff;font-weight:700;font-size:14px;padding:10px 22px;border-radius:8px;margin-top:4px">Make my site AI ready — free →</a>
         </div>`;
       return;
     }
 
     list.innerHTML = (data.results || []).map(r => {
-      const topics = (r.topics || []).map(t => `<span class="result-topic">${esc(t)}</span>`).join('');
-      const loc    = r.location ? `<span class="result-location">📍 ${esc(r.location)}</span>` : '';
-      const domain = (r.url || '').replace(/^https?:\/\//, '').replace(/\/$/, '');
+      const topics   = (r.topics || []).map(t => `<span class="result-topic">${esc(t)}</span>`).join('');
+      const domain   = (r.url || '').replace(/^https?:\/\//, '').replace(/\/$/, '');
+      const addr     = r.address  ? `<div class="result-address">📍 ${esc(r.address)}</div>`
+                     : r.location ? `<div class="result-address">📍 ${esc(r.location)}</div>` : '';
+      const isReady  = r.tier === 'ai_ready';
+      const tierBadge = isReady
+        ? `<span class="result-tier-ready">AI ready</span>`
+        : `<span class="result-tier-listed">Listed</span>`;
+      const scoreTag  = isReady && r.score > 0
+        ? `<span class="result-score">score: ${r.score}/100</span>` : '';
+      const aiLink    = isReady
+        ? `<a href="${esc(r.ai_entry)}" target="_blank" rel="noopener" class="result-ai-link">AI layer →</a>` : '';
       return `
         <div class="result-card">
           <div class="result-top">
@@ -583,13 +1069,14 @@
               <a href="${esc(r.url)}" target="_blank" rel="noopener" class="result-name">${esc(r.name || domain)}</a>
               <div class="result-url">${esc(domain)}</div>
             </div>
+            ${tierBadge}
           </div>
           ${r.description ? `<div class="result-desc">${esc(r.description)}</div>` : ''}
+          ${addr}
           <div class="result-footer">
             ${topics}
-            ${loc}
-            <span class="result-score">AI score: ${r.score}/100</span>
-            <a href="${esc(r.ai_entry)}" target="_blank" rel="noopener" class="result-ai-link">AI layer →</a>
+            ${scoreTag}
+            ${aiLink}
           </div>
         </div>`;
     }).join('');
@@ -599,5 +1086,15 @@
     return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
 </script>
+<script>
+fetch('/api/auth/me').then(r=>r.ok?r.json():null).then(d=>{
+  if(!d)return;
+  const si=document.getElementById('navSignIn');
+  const su=document.getElementById('navSignUp');
+  if(si)si.style.display='none';
+  if(su){su.textContent='Dashboard';su.href='/dashboard';}
+}).catch(()=>{});
+</script>
 </body>
 </html>
+

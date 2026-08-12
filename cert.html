@@ -1,7 +1,16 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TX81TZ2GQ6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TX81TZ2GQ6');
+</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AILattice™ Certificate</title>
   <meta name="description" content="Official AILattice Certified™ certificate of AI compliance.">
@@ -44,7 +53,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 18px 40px;
+      padding: 10px 40px;
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
@@ -374,7 +383,7 @@
 
     @media (max-width: 600px) {
       nav { padding: 16px 20px; }
-      .nav-links a:not(.nav-pill) { display: none; }
+      .nav-links a:not(.nav-cta) { display: none; }
       #certMain { padding: 32px 20px 60px; }
       .cert-topbar { padding: 20px 22px; }
       .cert-body { padding: 28px 22px 24px; }
@@ -388,15 +397,14 @@
 <body>
 
 <nav>
-  <a href="/" class="logo">
-    <img src="/icon.svg" width="28" height="22" alt="AILattice icon" style="display:block;">
-    AI<em>Lattice</em>™
-  </a>
+  <a href="/" class="logo"><em>AI</em> Lattice&trade;</a>
   <div class="nav-links">
-    <a href="/">Home</a>
-    <a href="/validate">Validator</a>
-    <a href="https://github.com/madazz01/ailattice" target="_blank" rel="noopener">GitHub</a>
-    <span class="nav-pill">v1 · MIT</span>
+    <a href="/how-it-works">How it works</a>
+    <a href="/registry">Registry</a>
+    <a href="/manifesto">Why</a>
+    <a href="/developers">Developers</a>
+    <a href="/login" id="navSignIn">Sign in</a>
+    <a href="/signup" id="navSignUp" class="nav-cta" style="background:var(--green);color:#fff;padding:7px 18px;border-radius:7px;font-weight:700">Sign up free</a>
   </div>
 </nav>
 
@@ -410,7 +418,7 @@
 <div id="notFoundState">
   <h2>Certificate not found</h2>
   <p>This certificate ID doesn't exist or may have expired.</p>
-  <p style="margin-top:16px;"><a href="/validate">Validate your site →</a></p>
+  <p style="margin-top:16px;"><a href="/convert">Make your site AI ready →</a></p>
 </div>
 
 <!-- Certificate -->
@@ -421,8 +429,7 @@
     <!-- Top bar -->
     <div class="cert-topbar">
       <div class="cert-logo">
-        <img src="/icon.svg" width="28" height="22" alt="AILattice" style="display:block;">
-        AI<em>Lattice</em>™
+        
         <span>Official Certificate</span>
       </div>
       <div class="cert-stamp">
@@ -434,12 +441,12 @@
 
     <!-- Body -->
     <div class="cert-body">
-      <div class="cert-subtitle">Certificate of AI Compliance</div>
+      <div class="cert-subtitle">Certificate of artificial intelligence Compliance</div>
       <div class="cert-certifies">This is to certify that</div>
       <div class="cert-domain" id="certDomain">—</div>
       <div class="cert-statement">
         has demonstrated full compliance with the AILattice™<br>
-        standard for AI-navigable web content
+        standard for AI navigable web content
       </div>
 
       <div class="cert-score-wrap">
@@ -479,7 +486,7 @@
         </div>
       </div>
       <div class="cert-seal">
-        <img src="/icon.svg" width="44" height="35" alt="AILattice seal">
+        <img src="/logo.svg" height="56" alt="AILattice seal">
         <div class="seal-name">Intelli-Stasis</div>
         <div class="seal-sub">AILattice Authority</div>
       </div>
@@ -516,12 +523,14 @@
 <footer>
   <div class="footer-links">
     <a href="/">Home</a>
-    <a href="/validate">Validator</a>
+    <a href="/convert">Make AI ready</a>
     <a href="/registry">Registry</a>
     <a href="/ai/">For AI</a>
+    <a href="/reach-out">Contact</a>
     <a href="https://intellistasis.com" target="_blank" rel="noopener">Intelli-Stasis</a>
+    <a href="https://www.paypal.com/donate?hosted_button_id=4FU5LYQTJZTVU" target="_blank" rel="noopener" style="display:flex;align-items:center;"><img src="https://www.paypalobjects.com/en_AU/i/btn/btn_donate_SM.gif" alt="Donate with PayPal" style="height:20px;display:block;border:none;"></a>
   </div>
-  <div class="footer-copy">AILattice™ v1.0 · AILattice™ is a trademark of Intelli-Stasis</div>
+  <div class="footer-copy">AILattice™ · Free forever · Open standard · Intelli-Stasis</div>
 </footer>
 
 <script>
@@ -567,7 +576,7 @@
 
     // Badge embed code (links to this cert page)
     const certUrl = 'https://ailattice.io/cert/' + cert.cert_id;
-    const code = `<a href="${certUrl}" target="_blank" rel="noopener"\n   style="display:inline-flex;align-items:center;gap:9px;background:#131313;\n          border:1px solid rgba(34,197,94,0.3);border-radius:6px;\n          padding:8px 14px;font-family:monospace;font-size:12px;\n          color:#f0f0f0;text-decoration:none;">\n  <img src="https://ailattice.io/icon.svg" width="22" height="18" alt="AILattice">\n  <strong style="color:#22c55e">AILattice</strong> certified\n</a>`;
+    const code = `<a href="${certUrl}" target="_blank" rel="noopener"\n   style="display:inline-flex;align-items:center;gap:9px;background:#131313;\n          border:1px solid rgba(34,197,94,0.3);border-radius:6px;\n          padding:8px 14px;font-family:monospace;font-size:12px;\n          color:#f0f0f0;text-decoration:none;">\n  <img src="https://ailattice.io/logo.svg" height="22" alt="AILattice">\n  <strong style="color:#22c55e">AILattice</strong> certified\n</a>`;
     document.getElementById('badgeCode').textContent = code;
 
     loading.style.display  = 'none';
@@ -584,7 +593,7 @@
 
   function shareX() {
     const domain = document.getElementById('certDomain').textContent;
-    const text   = encodeURIComponent(`${domain} is AILattice Certified™ — officially AI-ready. Check your site at ailattice.io`);
+    const text   = encodeURIComponent(`${domain} is AILattice Certified™ — officially AI ready. Check your site at ailattice.io`);
     const url    = encodeURIComponent(location.href);
     window.open(`https://x.com/intent/tweet?text=${text}&url=${url}`, '_blank');
   }
@@ -605,10 +614,11 @@
 
   function revalidate() {
     const url = document.getElementById('verifyUrl').textContent;
-    window.location.href = '/validate?url=' + encodeURIComponent(url);
+    window.location.href = '/convert?url=' + encodeURIComponent(url);
   }
 
   loadCert();
 </script>
 </body>
 </html>
+

@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TX81TZ2GQ6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TX81TZ2GQ6');
+</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="canonical" href="https://ailattice.io/contact">
+  <title>Contact — AILattice™</title>
+  <meta name="description" content="Get in touch with the AILattice team. Questions, feedback, collaboration — we're happy to hear from you.">
+  <link rel="alternate" type="text/markdown" href="/ai/">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #ffffff; --bg2: #f8fafc; --bg3: #f1f5f9;
+      --border: #e2e8f0; --border-hi: #cbd5e1;
+      --text: #1e293b; --text-dim: #475569; --heading: #0f172a;
+      --green: #16a34a; --green-glow: rgba(22,163,74,0.08); --green-border: rgba(22,163,74,0.28);
+      --red: #dc2626; --red-glow: rgba(220,38,38,0.06); --red-border: rgba(220,38,38,0.22);
+      --mono: 'JetBrains Mono','Fira Code','Cascadia Code','SF Mono',Consolas,monospace;
+      --sans: -apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--green); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 40px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); box-shadow: 0 1px 0 var(--border); z-index: 100; }
+    .logo { display: flex; align-items: center; gap: 9px; font-family: var(--mono); font-size: 15px; font-weight: 700; color: var(--heading); letter-spacing: -0.3px; text-decoration: none; }
+    .logo:hover { text-decoration: none; opacity: 0.88; }
+    .logo em { color: var(--green); font-style: normal; }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { color: var(--text-dim); font-size: 14px; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+    .nav-links a.active { color: var(--green); }
+
+    .page-hero { background: url('/bg-lattice.png') center center / cover no-repeat; padding: 64px 40px 56px; text-align: center; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.58); z-index: 0; pointer-events: none; }
+    .page-hero > * { position: relative; z-index: 1; }
+    .hero-label { position: relative; font-family: var(--mono); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 16px; }
+    .page-hero h1 { position: relative; font-size: clamp(32px, 5vw, 52px); font-weight: 800; color: var(--heading); letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 16px; }
+    .page-hero h1 em { color: var(--green); font-style: normal; }
+    .page-hero p { position: relative; font-size: 18px; color: var(--text); max-width: 520px; margin: 0 auto; line-height: 1.65; }
+
+    .page-body { max-width: 640px; margin: 0 auto; padding: 56px 40px 80px; }
+
+    .contact-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 36px; }
+
+    .field { margin-bottom: 22px; }
+    .field:last-child { margin-bottom: 0; }
+    .field label { display: block; font-size: 14px; font-weight: 600; color: var(--heading); margin-bottom: 7px; }
+    .field label .req { color: var(--green); }
+    .field input, .field textarea, .field select {
+      width: 100%;
+      background: #fff;
+      border: 1.5px solid var(--border-hi);
+      border-radius: 10px;
+      color: var(--heading);
+      font-family: var(--sans);
+      font-size: 15px;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--green); }
+    .field input::placeholder, .field textarea::placeholder { color: var(--text-dim); }
+    .field textarea { resize: vertical; min-height: 140px; line-height: 1.6; }
+
+    .honeypot { display: none !important; }
+
+    .btn-submit {
+      display: block;
+      width: 100%;
+      background: var(--green);
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 15px 28px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      font-family: var(--sans);
+      margin-top: 28px;
+    }
+    .btn-submit:hover { opacity: 0.88; }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .err-msg { display: none; background: var(--red-glow); border: 1px solid var(--red-border); color: var(--red); border-radius: 8px; padding: 14px 16px; font-size: 14px; margin-top: 16px; }
+    .success-msg { display: none; background: var(--green-glow); border: 1px solid var(--green-border); border-radius: 12px; padding: 28px 32px; text-align: center; margin-top: 24px; }
+    .success-msg .check { font-size: 36px; margin-bottom: 12px; }
+    .success-msg h3 { font-size: 20px; font-weight: 700; color: var(--heading); margin-bottom: 8px; }
+    .success-msg p { font-size: 15px; color: var(--text); }
+
+    .alt-contact { margin-top: 32px; padding: 20px 24px; border: 1px solid var(--border); border-radius: 12px; font-size: 14px; color: var(--text-dim); display: flex; align-items: center; gap: 12px; }
+    .alt-contact a { color: var(--green); font-weight: 600; }
+
+    footer { border-top: 1px solid var(--border); padding: 32px 40px; text-align: center; }
+    .footer-links { display: flex; gap: 24px; justify-content: center; margin-bottom: 12px; flex-wrap: wrap; }
+    .footer-links a { color: var(--text-dim); font-size: 14px; transition: color 0.15s; }
+    .footer-links a:hover { color: var(--text); text-decoration: none; }
+    .footer-copy { font-size: 13px; color: var(--text-dim); }
+
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .nav-links a:not(.active) { display: none; }
+      .page-hero { padding: 48px 20px 40px; }
+      .page-body { padding: 32px 20px 60px; }
+      .contact-card { padding: 24px 20px; }
+      footer { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo"><em>AI</em> Lattice&trade;</a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/registry">Registry</a>
+    <a href="/manifesto">Why</a>
+    <a href="/faq">FAQ</a>
+    <a href="/api-access">Developers</a>
+    <a href="/reach-out" class="active">Contact</a>
+    <a href="/developers">Developers</a>
+    <a href="/login" id="navSignIn">Sign in</a>
+    <a href="/signup" id="navSignUp" style="background:var(--green);color:#fff;padding:7px 18px;border-radius:7px;font-weight:700">Sign up free</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="hero-label">Community project · Always free</div>
+  <h1>Get in <em>touch</em></h1>
+  <p>Questions, feedback, ideas, or just want to say hi — we'd love to hear from you.</p>
+</div>
+
+<div class="page-body">
+  <div class="contact-card" id="formWrap">
+    <form id="contactForm" novalidate>
+      <!-- Honeypot -->
+      <div class="honeypot">
+        <input type="text" name="website" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div class="field">
+        <label for="cName">Your name <span class="req">*</span></label>
+        <input type="text" id="cName" name="name" placeholder="Jane Smith" autocomplete="name" required>
+      </div>
+
+      <div class="field">
+        <label for="cEmail">Email address <span class="req">*</span></label>
+        <input type="email" id="cEmail" name="email" placeholder="you@example.com" autocomplete="email" required>
+      </div>
+
+      <div class="field">
+        <label for="cSubject">Subject</label>
+        <input type="text" id="cSubject" name="subject" placeholder="What's this about?">
+      </div>
+
+      <div class="field">
+        <label for="cMessage">Message <span class="req">*</span></label>
+        <textarea id="cMessage" name="message" placeholder="Tell us what's on your mind..." required></textarea>
+      </div>
+
+      <div class="err-msg" id="errMsg"></div>
+      <button type="submit" class="btn-submit" id="submitBtn">Send message</button>
+    </form>
+
+    <div class="success-msg" id="successMsg">
+      <div class="check">✓</div>
+      <h3>Message sent!</h3>
+      <p>Thanks for reaching out. We'll get back to you at the email you provided.</p>
+    </div>
+  </div>
+
+  <div class="alt-contact">
+    <span>📧</span>
+    <span>Or email us directly at <a href="mailto:intellistasis@gmail.com">intellistasis@gmail.com</a></span>
+  </div>
+  <p style="margin-top:20px;font-size:13px;color:var(--text-dim);line-height:1.65">Your email address is strictly private — never sold, never used for marketing or newsletters. If you receive an email from us, it's because something needs your attention.</p>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/convert">Make AI ready</a>
+    <a href="/submit">Check your site</a>
+    <a href="/registry">Registry</a>
+    <a href="/reach-out">Contact</a>
+    <a href="https://github.com/madazz01/ailattice" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://www.paypal.com/donate?hosted_button_id=4FU5LYQTJZTVU" target="_blank" rel="noopener" style="display:flex;align-items:center;"><img src="https://www.paypalobjects.com/en_AU/i/btn/btn_donate_SM.gif" alt="Donate with PayPal" style="height:20px;display:block;border:none;"></a>
+  </div>
+  <div class="footer-copy">AILattice™ · Open standard · Free forever · Built by <a href="https://intellistasis.com" target="_blank" rel="noopener" style="color:var(--text-dim);">Intelli-Stasis</a></div>
+</footer>
+
+<script>
+  const form      = document.getElementById('contactForm');
+  const errMsg    = document.getElementById('errMsg');
+  const submitBtn = document.getElementById('submitBtn');
+  const successMsg= document.getElementById('successMsg');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errMsg.style.display = 'none';
+
+    const name    = document.getElementById('cName').value.trim();
+    const email   = document.getElementById('cEmail').value.trim();
+    const subject = document.getElementById('cSubject').value.trim();
+    const message = document.getElementById('cMessage').value.trim();
+    const website = form.elements['website'].value; // honeypot
+
+    if (!name)    return showErr('Please enter your name.');
+    if (!email || !email.includes('@')) return showErr('Please enter a valid email address.');
+    if (!message) return showErr('Please write a message.');
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, subject, message, website }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Something went wrong');
+      form.style.display = 'none';
+      successMsg.style.display = 'block';
+    } catch(err) {
+      showErr(err.message);
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send message';
+    }
+  });
+
+  function showErr(msg) {
+    errMsg.textContent = msg;
+    errMsg.style.display = 'block';
+    errMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+</script>
+</body>
+</html>
+

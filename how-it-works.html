@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How it works — AILattice</title>
+  <meta name="description" content="A step-by-step walkthrough of the AILattice listing process — from checking your site to uploading your AI files.">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #ffffff;
+      --bg2:          #f8fafc;
+      --bg3:          #f1f5f9;
+      --border:       #e2e8f0;
+      --border-hi:    #cbd5e1;
+      --text:         #1e293b;
+      --text-dim:     #475569;
+      --heading:      #0f172a;
+      --green:        #16a34a;
+      --green-glow:   rgba(22, 163, 74, 0.08);
+      --green-border: rgba(22, 163, 74, 0.28);
+      --mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', Consolas, monospace;
+      --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--green); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Nav ── */
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 40px;
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+    }
+    .logo { font-family: var(--mono); font-size: 15px; font-weight: 700; color: var(--heading); letter-spacing: -0.3px; text-decoration: none; }
+    .logo em { color: var(--green); font-style: normal; }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { color: var(--text-dim); font-size: 14px; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+    .nav-links a.active { color: var(--green); }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 80px 24px 64px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(30px, 5vw, 48px);
+      font-weight: 800;
+      color: var(--heading);
+      letter-spacing: -1.8px;
+      line-height: 1.1;
+      text-wrap: balance;
+      margin-bottom: 18px;
+    }
+    .hero p {
+      font-size: 17px;
+      color: var(--text-dim);
+      max-width: 460px;
+      margin: 0 auto 28px;
+      line-height: 1.65;
+    }
+    .hero-meta {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13px; color: var(--text-dim);
+      background: var(--bg2); border: 1px solid var(--border);
+      padding: 6px 18px; border-radius: 24px;
+    }
+    .hero-meta em { color: var(--green); font-style: normal; font-weight: 700; }
+
+    /* ── Steps layout ── */
+    .steps { max-width: 980px; margin: 0 auto; padding: 0 40px; }
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 64px;
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .step:last-child { border-bottom: none; }
+    .step.flip { flex-direction: row-reverse; }
+
+    /* Big atmospheric step number — structural texture, not decoration */
+    .step-n {
+      position: absolute;
+      font-family: var(--mono);
+      font-size: 200px;
+      font-weight: 900;
+      line-height: 1;
+      color: var(--bg3);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+      white-space: nowrap;
+    }
+
+    /* Step text */
+    .step-text { flex: 1; position: relative; z-index: 1; }
+    .step-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 12px;
+    }
+    .step-text h2 {
+      font-size: 21px;
+      font-weight: 800;
+      color: var(--heading);
+      letter-spacing: -0.4px;
+      line-height: 1.3;
+      text-wrap: balance;
+      margin-bottom: 12px;
+    }
+    .step-text p {
+      font-size: 14.5px;
+      color: var(--text-dim);
+      line-height: 1.75;
+    }
+    .step-text ul {
+      margin-top: 14px;
+      padding-left: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .step-text li {
+      font-size: 13.5px;
+      color: var(--text-dim);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .step-text li::before { content: '→'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+    .step-text li code {
+      font-family: var(--mono);
+      font-size: 12px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      padding: 1px 6px;
+      border-radius: 4px;
+      color: var(--heading);
+    }
+
+    /* Illustration box */
+    .step-vis {
+      flex: 0 0 400px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 26px;
+      min-height: 210px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    /* ════════════════════════════════════════
+       STEP 1 — URL check
+       ════════════════════════════════════════ */
+    .url-vis { width: 100%; display: flex; flex-direction: column; gap: 14px; }
+
+    .url-bar {
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; gap: 9px;
+      background: #fff;
+      border: 1.5px solid var(--border-hi);
+      border-radius: 8px;
+      padding: 11px 14px;
+      font-family: var(--mono); font-size: 13px; color: var(--heading);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      opacity: 0; transform: translateY(-8px);
+    }
+    .url-bar::after {
+      content: '';
+      position: absolute; top: 0; left: -60%; height: 100%; width: 60%;
+      background: linear-gradient(90deg, transparent, rgba(22,163,74,0.13), transparent);
+    }
+    .url-lock { font-size: 12px; color: var(--green); }
+    .url-domain { flex: 1; }
+    .url-spinner {
+      width: 14px; height: 14px;
+      border: 2px solid var(--border); border-top-color: var(--green);
+      border-radius: 50%; flex-shrink: 0;
+      opacity: 0;
+    }
+
+    .score-row { display: flex; align-items: center; gap: 10px; opacity: 0; transform: translateY(6px); }
+    .score-pill {
+      background: var(--green-glow); border: 1px solid var(--green-border);
+      color: var(--green); font-family: var(--mono); font-size: 12px;
+      font-weight: 700; padding: 4px 14px; border-radius: 20px;
+    }
+    .score-label { font-size: 13px; font-weight: 700; color: var(--green); }
+
+    .checks { display: flex; flex-direction: column; gap: 4px; }
+    .check-row {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 12px; color: var(--text-dim);
+      opacity: 0; transform: translateY(4px);
+    }
+    .check-row::before { content: '✓'; color: var(--green); font-weight: 700; font-size: 11px; }
+
+    /* ════════════════════════════════════════
+       STEP 2 — Site reader
+       ════════════════════════════════════════ */
+    .reader-wrap { width: 100%; position: relative; }
+    .browser {
+      background: #fff; border: 1.5px solid var(--border-hi);
+      border-radius: 10px; overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      opacity: 0;
+    }
+    .browser-bar {
+      background: var(--bg3); border-bottom: 1px solid var(--border);
+      padding: 9px 12px; display: flex; align-items: center; gap: 5px;
+    }
+    .b-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border-hi); }
+    .b-url { flex: 1; height: 13px; background: var(--border); border-radius: 4px; margin-left: 6px; }
+    .browser-body { padding: 14px 14px 18px; display: flex; flex-direction: column; gap: 8px; }
+    .b-line { height: 7px; background: var(--border); border-radius: 3px; }
+
+    .scan-beam {
+      position: absolute; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent 0%, var(--green) 50%, transparent 100%);
+      top: 30px; opacity: 0; pointer-events: none;
+    }
+
+    /* ════════════════════════════════════════
+       STEP 3 — Form fill
+       ════════════════════════════════════════ */
+    .form-vis { width: 100%; display: flex; flex-direction: column; gap: 12px; }
+    .f-row { opacity: 0; transform: translateY(8px); }
+    .f-label { font-size: 10.5px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
+    .f-label em { color: var(--green); font-style: normal; }
+    .f-field {
+      background: #fff; border: 1.5px solid var(--border); border-radius: 7px;
+      padding: 9px 12px; font-size: 13px; color: var(--heading); line-height: 1.5;
+    }
+    .f-field.active { border-color: rgba(22,163,74,0.5); }
+    .f-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+    .f-tag {
+      background: var(--green-glow); border: 1px solid var(--green-border);
+      color: var(--green); font-size: 11px; font-weight: 600;
+      padding: 2px 9px; border-radius: 12px;
+    }
+
+    /* ════════════════════════════════════════
+       STEP 4 — Preview card
+       ════════════════════════════════════════ */
+    .card-vis {
+      width: 100%; background: #fff;
+      border: 1.5px solid var(--border); border-radius: 11px; padding: 18px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      opacity: 0; transform: translateY(20px);
+    }
+    .cv-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 4px; }
+    .cv-name { font-size: 15px; font-weight: 700; color: var(--heading); }
+    .cv-url { font-size: 11px; font-family: var(--mono); color: var(--text-dim); margin-bottom: 9px; }
+    .cv-desc { font-size: 12px; color: var(--text); line-height: 1.55; margin-bottom: 10px; }
+    .cv-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+    .cv-tag {
+      background: var(--green-glow); border: 1px solid var(--green-border);
+      color: var(--green); font-size: 11px; font-weight: 600;
+      padding: 2px 8px; border-radius: 12px;
+    }
+
+    /* ════════════════════════════════════════
+       STEP 5 — Registry
+       ════════════════════════════════════════ */
+    .reg-vis { width: 100%; display: flex; flex-direction: column; gap: 5px; }
+    .reg-head { font-family: var(--mono); font-size: 9.5px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 6px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+    .reg-row {
+      background: #fff; border: 1.5px solid var(--border); border-radius: 8px;
+      padding: 10px 14px; display: flex; align-items: center; justify-content: space-between;
+      opacity: 0;
+    }
+    .reg-row.is-new { border-color: var(--green-border); background: var(--green-glow); transform: translateX(-14px); }
+    .rr-name { font-size: 13px; font-weight: 700; color: var(--heading); display: flex; align-items: center; gap: 6px; }
+    .rr-url  { font-size: 11px; font-family: var(--mono); color: var(--text-dim); }
+    .new-badge { font-size: 9px; font-weight: 800; background: var(--green); color: #fff; padding: 2px 6px; border-radius: 8px; letter-spacing: 0.5px; text-transform: uppercase; }
+    .rr-score { font-family: var(--mono); font-size: 12px; color: var(--green); font-weight: 700; }
+
+    /* ════════════════════════════════════════
+       STEP 6 — File upload (the important one)
+       ════════════════════════════════════════ */
+    .upload-vis { width: 100%; display: flex; flex-direction: column; gap: 11px; }
+
+    .dl-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green); color: #fff;
+      font-size: 13px; font-weight: 700;
+      padding: 10px 16px; border-radius: 8px;
+      opacity: 0; transform: translateY(-6px);
+      align-self: flex-start;
+    }
+    .dl-btn .dl-ico { font-size: 15px; }
+    .dl-btn .dl-file { font-family: var(--mono); font-size: 10.5px; opacity: 0.75; font-weight: 400; }
+
+    .down-arrow {
+      text-align: center; font-size: 17px; color: var(--green);
+      opacity: 0;
+    }
+
+    /* Dark terminal block for the file tree */
+    .file-tree {
+      background: #0f172a;
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.7;
+      color: #64748b;
+      opacity: 0;
+    }
+    .ft-root { color: #e2e8f0; font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+    .ft-row { display: flex; align-items: center; gap: 6px; padding: 1px 0; opacity: 0; }
+    .ft-tree { color: #334155; white-space: pre; }
+    .ft-fname { color: #e2e8f0; }
+    .ft-fname.dim { color: #475569; }
+    .ft-exist { font-size: 10.5px; color: #475569; }
+    .ft-dest { margin-left: auto; color: #4ade80; font-size: 10.5px; font-weight: 700; white-space: nowrap; }
+    .ft-sub { padding-left: 14px; }
+
+    .upload-note {
+      font-size: 11.5px; color: var(--text-dim); text-align: center;
+      opacity: 0;
+      line-height: 1.6;
+    }
+    .upload-note strong { color: var(--text); }
+
+    /* ════════════════════════════════════════
+       Animations — all triggered by .on class
+       ════════════════════════════════════════ */
+    @keyframes slideDown  { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideUp    { from { opacity: 0; transform: translateY(6px);  } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideLeft  { from { opacity: 0; transform: translateX(-14px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes fadeIn     { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes spin       { to { transform: rotate(360deg); } }
+    @keyframes scanBeam   { 0% { top: 30px; opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { top: calc(100% - 4px); opacity: 0; } }
+    @keyframes shimmer    { from { left: -60%; } to { left: 120%; } }
+    @keyframes cardRise   { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse      { 0%, 100% { transform: translateY(0); opacity: 1; } 50% { transform: translateY(5px); opacity: 0.6; } }
+    @keyframes lineGlow   { 0%, 100% { background: #e2e8f0; } 50% { background: rgba(22,163,74,0.25); } }
+    @keyframes ftRow      { from { opacity: 0; transform: translateX(-5px); } to { opacity: 1; transform: translateX(0); } }
+
+    /* Step 1 */
+    .step-vis.on .url-bar                  { animation: slideDown 0.4s ease-out 0.1s forwards; }
+    .step-vis.on .url-bar::after           { animation: shimmer 0.85s ease-in-out 0.65s 2; }
+    .step-vis.on .url-spinner              { animation: fadeIn 0.2s ease-out 0.5s forwards, spin 0.65s linear 0.5s 2; }
+    .step-vis.on .score-row                { animation: slideUp 0.35s ease-out 2.1s forwards; }
+    .step-vis.on .check-row:nth-child(1)   { animation: slideUp 0.3s ease-out 2.35s forwards; }
+    .step-vis.on .check-row:nth-child(2)   { animation: slideUp 0.3s ease-out 2.55s forwards; }
+    .step-vis.on .check-row:nth-child(3)   { animation: slideUp 0.3s ease-out 2.75s forwards; }
+
+    /* Step 2 */
+    .step-vis.on .browser                  { animation: fadeIn 0.4s ease-out 0.15s forwards; }
+    .step-vis.on .scan-beam                { animation: scanBeam 1.9s ease-in-out 0.6s infinite; }
+    .step-vis.on .b-line:nth-child(1)      { animation: lineGlow 1.9s 0.8s infinite; }
+    .step-vis.on .b-line:nth-child(2)      { animation: lineGlow 1.9s 1.0s infinite; }
+    .step-vis.on .b-line:nth-child(3)      { animation: lineGlow 1.9s 1.2s infinite; }
+    .step-vis.on .b-line:nth-child(4)      { animation: lineGlow 1.9s 1.4s infinite; }
+    .step-vis.on .b-line:nth-child(5)      { animation: lineGlow 1.9s 1.6s infinite; }
+
+    /* Step 3 */
+    .step-vis.on .f-row:nth-child(1)       { animation: slideUp 0.35s ease-out 0.2s forwards; }
+    .step-vis.on .f-row:nth-child(2)       { animation: slideUp 0.35s ease-out 0.75s forwards; }
+    .step-vis.on .f-row:nth-child(3)       { animation: slideUp 0.35s ease-out 1.3s forwards; }
+
+    /* Step 4 */
+    .step-vis.on .card-vis                 { animation: cardRise 0.5s cubic-bezier(0.34, 1.2, 0.64, 1) 0.25s forwards; }
+
+    /* Step 5 */
+    .step-vis.on .reg-row:nth-child(3)     { animation: fadeIn 0.3s ease-out 0.1s forwards; }
+    .step-vis.on .reg-row:nth-child(4)     { animation: fadeIn 0.3s ease-out 0.25s forwards; }
+    .step-vis.on .reg-row.is-new           { animation: slideLeft 0.45s cubic-bezier(0.34, 1.2, 0.64, 1) 0.7s forwards; }
+
+    /* Step 6 */
+    .step-vis.on .dl-btn                   { animation: slideDown 0.4s ease-out 0.1s forwards; }
+    .step-vis.on .down-arrow               { animation: fadeIn 0.3s ease-out 0.6s forwards, pulse 1.2s ease-in-out 0.9s infinite; }
+    .step-vis.on .file-tree                { animation: fadeIn 0.4s ease-out 0.9s forwards; }
+    .step-vis.on .ft-row:nth-child(2)      { animation: ftRow 0.3s ease-out 1.2s forwards; }
+    .step-vis.on .ft-row:nth-child(3)      { animation: ftRow 0.3s ease-out 1.5s forwards; }
+    .step-vis.on .ft-row:nth-child(4)      { animation: ftRow 0.3s ease-out 1.7s forwards; }
+    .step-vis.on .ft-row.ft-sub:nth-of-type(4) { animation: ftRow 0.3s ease-out 1.9s forwards; }
+    .step-vis.on .ft-row.ft-sub:nth-of-type(5) { animation: ftRow 0.3s ease-out 2.1s forwards; }
+    .step-vis.on .upload-note              { animation: fadeIn 0.4s ease-out 2.5s forwards; }
+
+    /* ── CTA band ── */
+    .cta-band {
+      background: var(--heading);
+      padding: 72px 24px 88px;
+      text-align: center;
+    }
+    .cta-band h2 { font-size: 28px; font-weight: 800; color: #f1f5f9; letter-spacing: -0.8px; margin-bottom: 8px; }
+    .cta-band p  { font-size: 15px; color: #64748b; margin-bottom: 28px; }
+    .btn-cta {
+      display: inline-block;
+      background: var(--green); color: #fff;
+      font-weight: 700; font-size: 15px;
+      padding: 14px 30px; border-radius: 8px;
+      transition: opacity 0.15s;
+    }
+    .btn-cta:hover { opacity: 0.9; text-decoration: none; }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links a:not(.active) { display: none; }
+      .steps { padding: 0 20px; }
+      .step, .step.flip { flex-direction: column; gap: 28px; padding: 52px 0; }
+      .step-vis { flex: none; width: 100%; min-height: 180px; }
+      .step-n { display: none; }
+      .hero { padding: 56px 20px 48px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo"><em>AI</em> Lattice&trade;</a>
+  <div class="nav-links">
+    <a href="/how-it-works" class="active">How it works</a>
+    <a href="/registry">Registry</a>
+    <a href="/manifesto">Why</a>
+    <a href="/developers">Developers</a>
+    <a href="/login" id="navSignIn">Sign in</a>
+    <a href="/signup" id="navSignUp" style="background:var(--green);color:#fff;padding:7px 18px;border-radius:7px;font-weight:700">Sign up free</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Step by step</div>
+  <h1>From unknown to AI-ready<br>in under 3 minutes</h1>
+  <p>Here's exactly what happens when you list your site on AILattice — and what to do once you are.</p>
+  <div class="hero-meta"><em>~3 minutes</em> &nbsp;·&nbsp; free &nbsp;·&nbsp; no credit card</div>
+</div>
+
+<!-- STEPS -->
+<div class="steps">
+
+  <!-- ─── 1 ─── -->
+  <div class="step">
+    <div class="step-n">1</div>
+    <div class="step-text">
+      <div class="step-label">Step 01</div>
+      <h2>Enter your URL — we check it in seconds</h2>
+      <p>No account needed yet. Paste your site address and we run an instant AI readiness check — testing whether your site is reachable, whether AI files are already in place, and scoring you out of 100.</p>
+    </div>
+    <div class="step-vis" id="vis1">
+      <div class="url-vis">
+        <div class="url-bar">
+          <span class="url-lock">🔒</span>
+          <span class="url-domain">mycompany.com</span>
+          <div class="url-spinner"></div>
+        </div>
+        <div class="score-row">
+          <span class="score-pill">87 / 100</span>
+          <span class="score-label">AI ready</span>
+        </div>
+        <div class="checks">
+          <div class="check-row">Site is reachable</div>
+          <div class="check-row">llms.txt present</div>
+          <div class="check-row">AI files detected</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 2 ─── -->
+  <div class="step flip">
+    <div class="step-n">2</div>
+    <div class="step-text">
+      <div class="step-label">Step 02</div>
+      <h2>We read your site directly — no third parties</h2>
+      <p>Our crawler visits your homepage, reads your content, looks for existing AI files, and extracts what it can — your name, description, and physical address if you have Schema.org markup. We never pass your data to any external service.</p>
+    </div>
+    <div class="step-vis" id="vis2">
+      <div class="reader-wrap">
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="b-dot"></div>
+            <div class="b-dot"></div>
+            <div class="b-dot"></div>
+            <div class="b-url"></div>
+          </div>
+          <div class="browser-body">
+            <div class="b-line" style="width:78%"></div>
+            <div class="b-line" style="width:91%"></div>
+            <div class="b-line" style="width:64%"></div>
+            <div class="b-line" style="width:85%"></div>
+            <div class="b-line" style="width:57%"></div>
+          </div>
+        </div>
+        <div class="scan-beam"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 3 ─── -->
+  <div class="step">
+    <div class="step-n">3</div>
+    <div class="step-text">
+      <div class="step-label">Step 03</div>
+      <h2>Confirm your listing details</h2>
+      <p>We pre-fill what we found. You confirm or edit the name, write a one-sentence description — this is exactly what AI agents will quote about you — and add up to 10 tags so you appear in the right searches. Description and tags are mandatory.</p>
+    </div>
+    <div class="step-vis" id="vis3">
+      <div class="form-vis">
+        <div class="f-row">
+          <div class="f-label">Site name</div>
+          <div class="f-field">My Company</div>
+        </div>
+        <div class="f-row">
+          <div class="f-label">Description <em>*</em></div>
+          <div class="f-field active" style="font-size:12.5px">We help small businesses get found online by AI and their customers.</div>
+        </div>
+        <div class="f-row">
+          <div class="f-label">Tags <em>*</em></div>
+          <div class="f-tags">
+            <span class="f-tag">#ecommerce</span>
+            <span class="f-tag">#retail</span>
+            <span class="f-tag">#AI-ready</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 4 ─── -->
+  <div class="step flip">
+    <div class="step-n">4</div>
+    <div class="step-text">
+      <div class="step-label">Step 04</div>
+      <h2>Preview how you'll appear before going live</h2>
+      <p>Before anything is published you see a preview of your listing card — exactly how it'll appear to visitors and AI agents browsing the registry. Go back and edit anything that looks wrong, or confirm to publish instantly.</p>
+    </div>
+    <div class="step-vis" id="vis4">
+      <div class="card-vis">
+        <div class="cv-header">
+          <div class="cv-name">My Company</div>
+          <span class="score-pill">87/100</span>
+        </div>
+        <div class="cv-url">mycompany.com</div>
+        <div class="cv-desc">We help small businesses get found online by AI and their customers.</div>
+        <div class="cv-tags">
+          <span class="cv-tag">#ecommerce</span>
+          <span class="cv-tag">#retail</span>
+          <span class="cv-tag">#AI-ready</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 5 ─── -->
+  <div class="step">
+    <div class="step-n">5</div>
+    <div class="step-text">
+      <div class="step-label">Step 05</div>
+      <h2>You're live in the AILattice Registry</h2>
+      <p>Confirm, and your listing goes live immediately. You're now in the public registry that AI agents and people search to find AI-ready websites. You get a certificate ID and your entry is searchable at once. You can come back to edit or remove it any time.</p>
+    </div>
+    <div class="step-vis" id="vis5">
+      <div class="reg-vis">
+        <div class="reg-head">AILattice Registry</div>
+        <div class="reg-row is-new">
+          <div>
+            <div class="rr-name">My Company <span class="new-badge">new</span></div>
+            <div class="rr-url">mycompany.com</div>
+          </div>
+          <span class="rr-score">87/100</span>
+        </div>
+        <div class="reg-row" style="opacity:0">
+          <div>
+            <div class="rr-name">Acme Corp</div>
+            <div class="rr-url">acmecorp.com</div>
+          </div>
+          <span class="rr-score">91/100</span>
+        </div>
+        <div class="reg-row" style="opacity:0">
+          <div>
+            <div class="rr-name">TechFlow</div>
+            <div class="rr-url">techflow.io</div>
+          </div>
+          <span class="rr-score">78/100</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 6 ─── -->
+  <div class="step flip">
+    <div class="step-n">6</div>
+    <div class="step-text">
+      <div class="step-label">Step 06</div>
+      <h2>Upload three files to complete AI readiness</h2>
+      <p>After listing, download your personalised AI file pack. It contains three files that make your site directly readable by AI agents — not just listed, but navigable. Your score jumps to 100 once they're in place.</p>
+      <ul>
+        <li><code>llms.txt</code> — AI's entry point to your site. Upload it to your <strong>root folder</strong> so it lives at <code>yoursite.com/llms.txt</code></li>
+        <li><code>ai/index.md</code> — your site in plain AI-readable format. Goes inside an <code>ai/</code> folder at <code>yoursite.com/ai/index.md</code></li>
+        <li><code>ai/sitemap.md</code> — your content map for AI agents. Also in the <code>ai/</code> folder, at <code>yoursite.com/ai/sitemap.md</code></li>
+      </ul>
+    </div>
+    <div class="step-vis" id="vis6" style="align-items:flex-start; flex-direction:column; min-height:300px; padding:22px;">
+      <div class="upload-vis">
+        <div class="dl-btn">
+          <span class="dl-ico">↓</span>
+          Download your files
+          <span class="dl-file">ailattice-mycompany.zip</span>
+        </div>
+        <div class="down-arrow">↓</div>
+        <div class="file-tree">
+          <div class="ft-root">📁 yoursite.com/</div>
+          <div class="ft-row">
+            <span class="ft-tree">├── </span>
+            <span class="ft-fname dim">index.html</span>
+            <span class="ft-exist">(already here)</span>
+          </div>
+          <div class="ft-row">
+            <span class="ft-tree">├── </span>
+            <span class="ft-fname">llms.txt</span>
+            <span class="ft-dest">← root ✓</span>
+          </div>
+          <div class="ft-row">
+            <span class="ft-tree">└── </span>
+            <span class="ft-fname">ai/</span>
+          </div>
+          <div class="ft-row ft-sub">
+            <span class="ft-tree">    ├── </span>
+            <span class="ft-fname">index.md</span>
+            <span class="ft-dest">← /ai/ ✓</span>
+          </div>
+          <div class="ft-row ft-sub">
+            <span class="ft-tree">    └── </span>
+            <span class="ft-fname">sitemap.md</span>
+            <span class="ft-dest">← /ai/ ✓</span>
+          </div>
+        </div>
+        <div class="upload-note">
+          Upload via <strong>FTP</strong> · <strong>cPanel File Manager</strong> · <strong>GitHub</strong> · <strong>Netlify</strong> · <strong>Vercel</strong><br>
+          <span style="color:var(--green);font-weight:600">Hit Refresh on your dashboard after uploading to confirm your score.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /steps -->
+
+<!-- CTA -->
+<div class="cta-band">
+  <h2>Ready? It takes under 3 minutes.</h2>
+  <p>Free account — we check your site, generate your files, and list you in the registry.</p>
+  <a href="/dashboard" class="btn-cta">Get started free →</a>
+</div>
+
+<script>
+  // Fix nth-child for step 6 ft-sub rows — use data index instead
+  const ftRows = document.querySelectorAll('#vis6 .ft-row');
+  ftRows.forEach((row, i) => row.setAttribute('data-fi', i));
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('on');
+      } else {
+        // Reset so animation replays when scrolled back into view
+        e.target.classList.remove('on');
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.step-vis').forEach(el => observer.observe(el));
+
+  // Step 6: ft-rows need data-fi based animation since nth-child is complex with mixed sub-rows
+  const vis6 = document.getElementById('vis6');
+  const ftRowDelays = [1.2, 1.5, 1.7, 1.9, 2.1];
+
+  function applyFtAnims() {
+    const rows = vis6.querySelectorAll('.ft-row');
+    rows.forEach((row, i) => {
+      if (vis6.classList.contains('on')) {
+        row.style.animation = `ftRow 0.3s ease-out ${ftRowDelays[i] || (1.2 + i * 0.2)}s forwards`;
+      } else {
+        row.style.animation = '';
+        row.style.opacity   = '0';
+        row.style.transform = 'translateX(-5px)';
+      }
+    });
+  }
+
+  new MutationObserver(() => applyFtAnims()).observe(vis6, { attributes: true, attributeFilter: ['class'] });
+</script>
+
+</body>
+</html>

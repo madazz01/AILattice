@@ -1,0 +1,452 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TX81TZ2GQ6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TX81TZ2GQ6');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FAQs — AILattice</title>
+<meta name="description" content="Common questions about AILattice — how it works, who it's for, how to deploy your AI files, and what happens if you don't.">
+<link rel="canonical" href="https://ailattice.io/faq">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green: #16a34a; --heading: #0f172a; --text: #334155; --text-dim: #64748b;
+    --bg: #ffffff; --surface: #f8fafc; --border: #e2e8f0; --border-hi: #cbd5e1;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  body { font-family: var(--sans); color: var(--text); background: var(--bg); }
+  a { color: var(--green); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 12px 40px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(255,255,255,0.97); backdrop-filter: blur(8px); z-index: 100; }
+  .logo { font-size: 17px; font-weight: 800; color: var(--heading); text-decoration: none; letter-spacing: -0.5px; }
+  .logo em { font-style: normal; color: var(--green); }
+  .nav-links { display: flex; align-items: center; gap: 24px; }
+  .nav-links a { color: var(--text-dim); font-size: 14px; text-decoration: none; transition: color .15s; }
+  .nav-links a:hover { color: var(--heading); }
+
+  .hero { max-width: 680px; margin: 64px auto 56px; padding: 0 24px; text-align: center; }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); margin-bottom: 14px; }
+  h1 { font-size: clamp(30px, 5vw, 46px); font-weight: 800; color: var(--heading); letter-spacing: -1px; line-height: 1.15; margin-bottom: 16px; }
+  .hero-sub { font-size: 17px; color: var(--text-dim); line-height: 1.6; }
+
+  .faq-shell { max-width: 720px; margin: 0 auto 100px; padding: 0 24px; }
+
+  .transparency-band { max-width: 720px; margin: 0 auto 48px; padding: 0 24px; }
+  .transparency-card { border: 1.5px solid var(--border); border-radius: 14px; padding: 28px 32px; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 20px; }
+  .t-item { display: flex; flex-direction: column; gap: 4px; }
+  .t-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); }
+  .t-value { font-size: 15px; font-weight: 700; color: var(--heading); }
+  .t-value.green { color: var(--green); }
+
+  .faq-group { margin-bottom: 48px; }
+  .group-title { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+  .faq-item { border-bottom: 1px solid var(--border); }
+  .faq-q { width: 100%; background: none; border: none; padding: 20px 0; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; cursor: pointer; font-family: var(--sans); text-align: left; }
+  .faq-q-text { font-size: 16px; font-weight: 600; color: var(--heading); line-height: 1.4; }
+  .faq-icon { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--text-dim); transition: transform 0.2s, background 0.2s; margin-top: 2px; }
+  .faq-item.open .faq-icon { transform: rotate(45deg); background: var(--green); border-color: var(--green); color: #fff; }
+  .faq-a { display: none; padding: 0 0 20px; font-size: 15px; line-height: 1.75; color: var(--text); }
+  .faq-item.open .faq-a { display: block; }
+  .faq-a p { margin-bottom: 12px; }
+  .faq-a p:last-child { margin-bottom: 0; }
+  .faq-a ul { padding-left: 20px; margin: 8px 0 12px; }
+  .faq-a ul li { margin-bottom: 6px; line-height: 1.6; }
+  .faq-a code { font-family: 'SFMono-Regular', Consolas, monospace; font-size: 13px; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px; }
+  .highlight { background: rgba(22,163,74,0.07); border-left: 3px solid var(--green); border-radius: 0 6px 6px 0; padding: 12px 16px; margin: 12px 0; font-size: 14px; color: var(--heading); }
+
+  .cta-band { background: var(--heading); border-radius: 16px; padding: 48px 36px; text-align: center; max-width: 720px; margin: 0 auto 80px; }
+  .cta-band h2 { font-size: 28px; font-weight: 800; color: #fff; letter-spacing: -0.5px; margin-bottom: 12px; }
+  .cta-band p { font-size: 15px; color: rgba(255,255,255,0.6); margin-bottom: 24px; }
+  .btn-cta { display: inline-block; background: var(--green); color: #fff; font-weight: 700; font-size: 15px; padding: 14px 32px; border-radius: 8px; text-decoration: none; }
+  .btn-cta:hover { opacity: 0.88; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo"><em>AI</em> Lattice&trade;</a>
+  <div class="nav-links">
+    <a href="/how-it-works">How it works</a>
+    <a href="/registry">Registry</a>
+    <a href="/manifesto">Why</a>
+    <a href="/faq" style="color:var(--green)">FAQ</a>
+    <a href="/developers">Developers</a>
+    <a href="/login" id="navSignIn">Sign in</a>
+    <a href="/signup" id="navSignUp" style="background:var(--green);color:#fff;padding:7px 18px;border-radius:7px;font-weight:700">Sign up free</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="eyebrow">Frequently asked questions</div>
+  <h1>Everything you need to know</h1>
+  <p class="hero-sub">How AILattice works, why it matters, and what happens when you sign up.</p>
+</div>
+
+<div class="transparency-band">
+  <div class="transparency-card">
+    <div class="t-item">
+      <span class="t-label">Ads</span>
+      <span class="t-value green">None. Ever.</span>
+    </div>
+    <div class="t-item">
+      <span class="t-label">Paid listings</span>
+      <span class="t-value green">No. Everyone is equal.</span>
+    </div>
+    <div class="t-item">
+      <span class="t-label">Trackers</span>
+      <span class="t-value green">Zero.</span>
+    </div>
+    <div class="t-item">
+      <span class="t-label">How it grows</span>
+      <span class="t-value">Organically — more sites, better directory.</span>
+    </div>
+  </div>
+</div>
+
+<div class="faq-shell">
+
+  <div class="faq-group">
+    <div class="group-title">The basics</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">How does AILattice work?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>AILattice gives your website a set of plain text files — <code>/llms.txt</code>, an <code>/ai/</code> layer, and a <code>/.intro</code> file — that AI tools can read directly. Think of it like a business card written specifically for AI, placed where AI tools know to look.</p>
+        <p>When an AI assistant like ChatGPT, Perplexity, or Claude is asked about your industry, topic, or location, it can find your site in the AILattice registry and read your files to understand exactly who you are — rather than guessing from scraped HTML or hallucinating based on outdated training data.</p>
+        <div class="highlight">Your files tell AI your name, what you do, who you serve, what you stand for, and what you won't do. That's your introduction.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Why does this matter? AI already knows about my site.</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>AI tools learn from training data that was frozen at a point in time. If your site has changed since then — new services, new team, new location, rebranded — AI is still describing the old you. And for many smaller or newer sites, AI either has minimal information or fills in the gaps with guesses.</p>
+        <p>More importantly: AI doesn't just scrape facts. It forms an <em>interpretation</em> of who you are based on fragments of HTML, third-party mentions, and whatever else it found. That interpretation may not match how you'd describe yourself.</p>
+        <p>AILattice lets you speak directly to AI in the format it understands best — structured, unambiguous text — so it represents you accurately every time.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Who is AILattice for?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Anyone with a website who cares about how AI represents them:</p>
+        <ul>
+          <li><strong>Small businesses</strong> — make sure AI recommends you when someone nearby asks for what you offer</li>
+          <li><strong>Agencies and consultants</strong> — define your expertise before AI guesses at it</li>
+          <li><strong>SaaS products</strong> — ensure AI describes your product accurately to potential users</li>
+          <li><strong>Content creators and publishers</strong> — get cited as the source, not paraphrased without credit</li>
+          <li><strong>E-commerce</strong> — help AI understand what you sell and who it's for</li>
+          <li><strong>Non-profits and community organisations</strong> — make your mission clear in the language AI reads</li>
+        </ul>
+        <p>If you have a website and you want AI to represent you correctly, AILattice is for you.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Is it really free?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Yes. Creating an account, generating your AI files, and listing in the registry are completely free. No credit card, no trial period, no hidden upgrade required to get the basics done.</p>
+        <p>The standard is MIT licensed and open for anyone to implement without attribution.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">How does AILattice make money? What's the actual model here?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Honestly: right now, it doesn't. There are no ads, no paid listings, no sponsored rankings, no data brokering, no analytics trackers on this site. The registry is a flat list — every site is equal regardless of who runs it or how long they've been listed.</p>
+        <p>The model is community-driven. Every site that deploys its AILattice files adds a plain link back to ailattice.io in those files. That's not hidden — it's in the files you download, and it's disclosed here. As more sites deploy their files, more AI tools and search engines encounter AILattice through those links, which grows the registry's reach, which makes being listed more valuable for everyone. The directory gets better the more people use it, and the more people use it the better it works — for every site in it.</p>
+        <p>No one pays for a better position. No one is excluded for not paying. The standard itself is open — anyone can implement it independently without using AILattice at all.</p>
+        <div class="highlight">If that changes, it will be stated here clearly before it happens.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="faq-group">
+    <div class="group-title">Your AI files</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">What files do I get, and what does each one do?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>You get four files. Each one serves a different purpose in how AI tools read and navigate your site:</p>
+        <ul>
+          <li>
+            <strong><code>llms.txt</code></strong> — goes in your site root at <code>yoursite.com/llms.txt</code>. This is your primary AI introduction: a short, machine-readable summary of who you are, what you do, and where AI tools should look to learn more. It follows the open <a href="https://llmstxt.org" target="_blank">llms.txt standard</a>, which major AI tools already know to check.
+          </li>
+          <li>
+            <strong><code>ai/index.md</code></strong> — goes at <code>yoursite.com/ai/index.md</code>. A richer, structured profile of your business — services, contact details, key facts — written for AI agents that want to understand you in depth rather than just skim a summary.
+          </li>
+          <li>
+            <strong><code>ai/sitemap.md</code></strong> — goes at <code>yoursite.com/ai/sitemap.md</code>. A map of your site's pages, formatted so AI agents can navigate your content autonomously — the same idea as a sitemap.xml but written for AI, not search engine crawlers.
+          </li>
+          <li>
+            <strong><code>.intro</code></strong> — goes at <code>yoursite.com/.intro</code>. This is the AILattice constitutional file — a structured declaration of what your site is, what it does, and what it won't do. It's the format AI agents use when they need to decide whether to trust and act on your site. Think of it as your site introducing itself before any interaction happens.
+          </li>
+        </ul>
+        <div class="highlight">All four files are plain text. No code, no databases, no plugins. Upload them once and they work.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Where exactly do the files go on my server?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Three files go in your site root (the same folder as your homepage), and one goes inside an <code>ai/</code> subfolder:</p>
+        <ul>
+          <li><code>public_html/llms.txt</code></li>
+          <li><code>public_html/.intro</code></li>
+          <li><code>public_html/ai/index.md</code></li>
+          <li><code>public_html/ai/sitemap.md</code></li>
+        </ul>
+        <p>You'll need to create the <code>ai/</code> folder if it doesn't already exist. In cPanel File Manager, that's New Folder inside <code>public_html</code>. Via FTP, just create the folder before uploading.</p>
+        <p>After uploading, verify them by pasting your URL into the checker on the <a href="/">homepage</a> — it'll confirm which files are live and show your updated score.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Will AI tools actually find and read these files?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Yes — and increasingly so. <code>/llms.txt</code> is an emerging standard that AI tools are adopting as a reliable first stop when they want to understand a site. ChatGPT, Claude, Perplexity, and others already browse the web and check these files when they exist.</p>
+        <p>The <code>/ai/</code> layer is navigable by any AI agent that can follow links — which includes all major AI assistants with web access. Once it knows <code>/ai/index.md</code> exists, it can explore <code>/ai/sitemap.md</code> and everything linked from there.</p>
+        <p>The AILattice registry is a separate, direct channel — AI tools that query the registry find you even if they never crawled your site. Being listed there is immediate; deploying the files makes the two channels reinforce each other.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="faq-group">
+    <div class="group-title">Technical questions</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Do I need any technical knowledge?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>No. We read your website and generate all the files for you automatically. You don't write any code and you don't configure anything.</p>
+        <p>The only step that requires any access to your site is uploading the generated files — and that's as simple as uploading an image through your hosting control panel. If you've ever done that, you can do this.</p>
+        <p>If you've never touched your hosting panel at all, the section below on uploading files will walk you through it.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">How do I upload the files to my site?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Download your files from your dashboard, then upload them to your site root — the same folder where your homepage lives. Here's how depending on your setup:</p>
+        <ul>
+          <li><strong>cPanel hosting</strong> — log into cPanel → File Manager → navigate to <code>public_html</code> → upload files there. Create an <code>ai</code> folder inside it and upload the AI files there.</li>
+          <li><strong>FTP (FileZilla etc.)</strong> — connect to your server, navigate to the root folder, drag and drop the files.</li>
+          <li><strong>WordPress</strong> — install a file manager plugin (e.g. "WP File Manager") or ask your host to upload them for you.</li>
+          <li><strong>Webflow / Squarespace / Wix</strong> — these platforms restrict root file access. You can still be listed in the registry (AI finds you there), but full file deployment requires a workaround — <a href="/reach-out">contact us</a> and we'll help.</li>
+          <li><strong>Shopify</strong> — similar to above. Your listing in the registry still gives you AI visibility.</li>
+        </ul>
+        <p>Once uploaded, your files should be reachable at <code>yoursite.com/llms.txt</code> and <code>yoursite.com/ai/index.md</code>. You can verify them using the score checker on the <a href="/">homepage</a>.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">What if I can't access my site files or cPanel?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>You can still sign up, generate your files, and get listed in the AILattice registry — no file access needed for that. AI tools that query the registry directly will find you.</p>
+        <p>For full AI readiness (the files deployed on your site), you have a few options:</p>
+        <ul>
+          <li>Download the files from your dashboard and send them to your developer or web host — they can upload them in under 5 minutes</li>
+          <li>Ask your hosting provider's support team to upload them — most will do this for free</li>
+          <li>If you use a managed WordPress host (WP Engine, Kinsta etc.), their support can usually do it via live chat</li>
+        </ul>
+        <div class="highlight">Your listing in the registry is still valuable without the deployed files. Get listed now and deploy later when you have access.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">If I sign up but don't upload the files, will AI still find me?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Yes — partially. Being listed in the AILattice registry means AI tools that query the registry will find you. That's real visibility, and it's better than nothing.</p>
+        <p>What you miss out on without the deployed files:</p>
+        <ul>
+          <li>AI crawlers that actively look for <code>/llms.txt</code> on your domain won't find the file</li>
+          <li>Your AILattice score will stay below 70 (the AI ready threshold), since the file checks won't pass</li>
+          <li>AI tools that navigate your <code>/ai/</code> layer for deeper context won't be able to</li>
+        </ul>
+        <p>Think of it as two layers: listed in the registry (good), plus files deployed on your site (better). You get the first for free by signing up. The second takes 5 minutes if you have file access.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Will this affect my Google rankings or existing SEO?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>No. These files are separate from your sitemap, robots.txt, and anything Google uses to rank pages. Adding them doesn't change your HTML, doesn't add redirects, and doesn't affect page load speed.</p>
+        <p>Google crawlers will encounter <code>/llms.txt</code> but won't treat it as a ranking signal — it's just a plain text file. Some SEO professionals add Schema.org structured data (which we also generate for you) as a bonus that can improve Google AI Overviews, but the core AILattice files are AI-layer only.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="faq-group">
+    <div class="group-title">Developers &amp; API</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Can I query the registry from my own agent or app?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Yes — the AILattice registry has a full REST API and a native MCP endpoint so AI agents can query it directly as a tool call. Sign up for an account and your API key is in your dashboard immediately. Free tier is 500 requests a day with no payment required.</p>
+        <p>For teams or agents running at higher volume, Supporter ($4.99/mo) gives 5,000 req/day and Builder ($19.99/mo) gives 50,000. Subscriptions activate your key instantly — no manual process. See the <a href="/api-access">Developers page</a> for full docs and code examples.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">What's MCP and why does it matter?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>MCP (Model Context Protocol) is an open standard that lets AI assistants like Claude connect to external tools and data sources natively — no custom code, no glue scripts. Once you point your AI at the AILattice MCP endpoint, it can search the registry, look up specific sites, and filter by topic or location as natural tool calls.</p>
+        <p>That means an agent helping someone find an accountant in Manchester can query AILattice directly and get back structured, accurate results from sites that have actually introduced themselves — rather than hallucinating or scraping stale HTML.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="faq-group">
+    <div class="group-title">Your listing</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Can I list more than one site?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Yes. Your dashboard lets you add and manage as many sites as you want under one account. Each site gets its own score, its own generated files, and its own registry listing.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Can I update my listing after I've submitted it?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Yes. From your dashboard you can regenerate your AI files at any time — if your site content has changed, just hit "Re-issue files" and we'll re-read your site and produce updated files. Download and re-deploy them and your registry entry updates automatically.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Can I remove my site from the registry?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Yes. Your dashboard has a Remove button on each listed site. It removes your entry from the registry immediately. Only you can do this — listings are tied to the account that created them.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Someone listed my site without my permission. What do I do?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p><a href="/reach-out">Contact us</a> with your site URL and we'll remove the listing and lock the domain to your verified account. We take unauthorized listings seriously and act on them quickly.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">How do I delete my account?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>From your <a href="/dashboard">dashboard</a>, scroll to the bottom and click "Delete my account." You'll be asked to confirm before anything happens. Deletion is immediate and permanent — your account, all your sessions, and all your registry listings are removed at once. There's no recovery after that point.</p>
+        <p>If you just want to remove a specific site but keep your account, use the Remove button on that site's card instead.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">What do you do with my email address?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Nothing except keep it private. Your email is never sold, never shared, and never used for marketing or newsletters. We don't have a mailing list and we're not building one.</p>
+        <p>If you ever receive an email from us directly, it's important — it means something on your account needs your attention. We don't send anything else.</p>
+        <div class="highlight">If you delete your account, your email address is removed from our records immediately along with everything else.</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="cta-band" style="padding:0 24px 80px">
+  <div style="background:var(--heading);border-radius:16px;padding:48px 36px;text-align:center">
+    <h2>Ready to introduce yourself?</h2>
+    <p>Takes 30 seconds to sign up. We generate your files, you get listed.</p>
+    <a href="/signup" class="btn-cta">Get started — free →</a>
+  </div>
+</div>
+
+<script>
+function toggle(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+fetch('/api/auth/me').then(r=>r.ok?r.json():null).then(d=>{
+  if(!d)return;
+  const si=document.getElementById('navSignIn');
+  const su=document.getElementById('navSignUp');
+  if(si)si.style.display='none';
+  if(su){su.textContent='Dashboard';su.href='/dashboard';}
+}).catch(()=>{});
+</script>
+</body>
+</html>

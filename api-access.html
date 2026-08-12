@@ -1,0 +1,276 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TX81TZ2GQ6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TX81TZ2GQ6');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>API Access — AILattice</title>
+<meta name="description" content="Query the AILattice registry from your agents and tools. Free API key on signup. Donate to unlock higher limits.">
+<link rel="canonical" href="https://ailattice.io/api-access">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green: #16a34a; --heading: #0f172a; --text: #334155; --text-dim: #64748b;
+    --bg: #ffffff; --surface: #f8fafc; --border: #e2e8f0; --border-hi: #cbd5e1;
+    --code-bg: #0f172a; --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --mono: 'SFMono-Regular', Consolas, 'Cascadia Code', monospace;
+  }
+  body { font-family: var(--sans); color: var(--text); background: var(--bg); }
+  a { color: var(--green); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 12px 40px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(255,255,255,0.97); backdrop-filter: blur(8px); z-index: 100; }
+  .logo { font-size: 17px; font-weight: 800; color: var(--heading); text-decoration: none; letter-spacing: -0.5px; }
+  .logo em { font-style: normal; color: var(--green); }
+  .nav-links { display: flex; align-items: center; gap: 24px; }
+  .nav-links a { color: var(--text-dim); font-size: 14px; text-decoration: none; transition: color .15s; }
+  .nav-links a:hover { color: var(--heading); }
+
+  .hero { max-width: 760px; margin: 64px auto 48px; padding: 0 24px; }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); margin-bottom: 14px; }
+  h1 { font-size: clamp(30px, 5vw, 46px); font-weight: 800; color: var(--heading); letter-spacing: -1px; line-height: 1.15; margin-bottom: 16px; }
+  .hero-sub { font-size: 17px; color: var(--text-dim); line-height: 1.6; max-width: 560px; }
+
+  .shell { max-width: 760px; margin: 0 auto 100px; padding: 0 24px; }
+
+  h2 { font-size: 20px; font-weight: 700; color: var(--heading); margin: 48px 0 16px; letter-spacing: -0.3px; }
+  h3 { font-size: 15px; font-weight: 700; color: var(--heading); margin: 24px 0 8px; }
+  p { font-size: 15px; line-height: 1.75; color: var(--text); margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* Tiers */
+  .tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 24px 0; }
+  .tier-card { border: 1px solid var(--border); border-radius: 12px; padding: 22px 20px; }
+  .tier-card.featured { border-color: rgba(22,163,74,0.5); background: rgba(22,163,74,0.03); }
+  .tier-name { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-dim); margin-bottom: 6px; }
+  .tier-limit { font-size: 26px; font-weight: 800; color: var(--heading); letter-spacing: -0.5px; line-height: 1; margin-bottom: 4px; }
+  .tier-unit { font-size: 12px; color: var(--text-dim); margin-bottom: 14px; }
+  .tier-price { font-size: 14px; color: var(--text); margin-bottom: 12px; line-height: 1.5; }
+  .tier-note { font-size: 12px; color: var(--text-dim); line-height: 1.5; }
+  .sub-btn { display: inline-block; margin-top: 14px; width: 100%; padding: 10px 18px; background: var(--green); color: #fff; border: none; border-radius: 7px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: var(--sans); transition: opacity 0.15s; text-align: center; }
+  .sub-btn:hover { opacity: 0.88; }
+  .sub-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .sub-btn.current { background: var(--surface); border: 1px solid var(--border); color: var(--text-dim); cursor: default; }
+  .tier-card.active-tier { border-color: var(--green); background: rgba(22,163,74,0.04); }
+
+  /* Code blocks */
+  .code-block { background: var(--code-bg); border-radius: 10px; padding: 20px 22px; margin: 16px 0; overflow-x: auto; }
+  .code-block pre { font-family: var(--mono); font-size: 13px; line-height: 1.7; color: #e2e8f0; white-space: pre; }
+  .code-block .cm { color: #64748b; }
+  .code-block .kw { color: #7dd3fc; }
+  .code-block .st { color: #86efac; }
+  .code-block .num { color: #fbbf24; }
+
+  /* Endpoint list */
+  .endpoint { border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin: 12px 0; }
+  .endpoint-row { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 6px; }
+  .method { font-size: 11px; font-weight: 700; font-family: var(--mono); background: rgba(22,163,74,0.1); color: var(--green); padding: 2px 8px; border-radius: 4px; }
+  .ep-path { font-size: 14px; font-family: var(--mono); font-weight: 600; color: var(--heading); }
+  .ep-desc { font-size: 14px; color: var(--text-dim); }
+  .params { margin-top: 10px; font-size: 13px; }
+  .param { display: flex; gap: 10px; padding: 5px 0; border-top: 1px solid var(--border); }
+  .param-name { font-family: var(--mono); color: var(--heading); font-weight: 600; min-width: 100px; }
+  .param-desc { color: var(--text-dim); line-height: 1.5; }
+
+  .mcp-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.25); border-radius: 6px; padding: 4px 10px; font-size: 12px; font-weight: 700; color: #6366f1; margin-bottom: 16px; }
+
+  .honest-note { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; font-size: 14px; color: var(--text-dim); line-height: 1.7; margin: 24px 0; }
+  .honest-note strong { color: var(--heading); }
+
+  code { font-family: var(--mono); font-size: 13px; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo"><em>AI</em> Lattice&trade;</a>
+  <div class="nav-links">
+    <a href="/how-it-works">How it works</a>
+    <a href="/registry">Registry</a>
+    <a href="/manifesto">Why</a>
+    <a href="/api-access" style="color:var(--green)">Developers</a>
+    <a href="/developers">Developers</a>
+    <a href="/login" id="navSignIn">Sign in</a>
+    <a href="/signup" id="navSignUp" style="background:var(--green);color:#fff;padding:7px 18px;border-radius:7px;font-weight:700">Sign up free</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="eyebrow">Developer API + MCP</div>
+  <h1>Query the registry from your agents</h1>
+  <p class="hero-sub">Let your AI agents find AI-ready websites directly — REST API and native MCP support. Free, no payment required.</p>
+</div>
+
+<div class="shell">
+
+  <div class="honest-note">
+    <strong>Free and open.</strong> AILattice has no investors, no ads, no paid listings. The API is free because the registry should be accessible to everyone building with AI.
+  </div>
+
+  <p style="font-size:15px;color:var(--text-dim);line-height:1.7;margin:20px 0 24px">Sign up for a free account and your API key is generated automatically — 500 requests per day, no payment, no waiting.</p>
+  <a href="/signup" style="display:inline-block;background:var(--green);color:#fff;font-weight:700;font-size:15px;padding:13px 32px;border-radius:8px;text-decoration:none">Get started free →</a>
+
+  <h2>Authentication</h2>
+  <p>Pass your API key as a Bearer token in the Authorization header, or as a <code>key</code> query parameter:</p>
+  <div class="code-block"><pre><span class="cm"># Header (recommended)</span>
+Authorization: Bearer ail_your_key_here
+
+<span class="cm"># Query parameter</span>
+GET /api/v1/registry<span class="st">?key=ail_your_key_here</span></pre></div>
+
+  <h2>REST endpoints</h2>
+
+  <div class="endpoint">
+    <div class="endpoint-row">
+      <span class="method">GET</span>
+      <span class="ep-path">/api/v1/registry</span>
+    </div>
+    <div class="ep-desc">List all sites in the registry. Paginated, filterable by topic and location.</div>
+    <div class="params">
+      <div class="param"><span class="param-name">topic</span><span class="param-desc">Filter by tag or category keyword (e.g. <code>plumber</code>, <code>ecommerce</code>)</span></div>
+      <div class="param"><span class="param-name">location</span><span class="param-desc">Filter by city, region, or country (e.g. <code>Sydney</code>, <code>Australia</code>)</span></div>
+      <div class="param"><span class="param-name">page</span><span class="param-desc">Page number, default 1</span></div>
+      <div class="param"><span class="param-name">limit</span><span class="param-desc">Results per page, max 100, default 50</span></div>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-row">
+      <span class="method">GET</span>
+      <span class="ep-path">/api/v1/search?q=</span>
+    </div>
+    <div class="ep-desc">Natural language search across the registry — names, descriptions, tags, and locations. Returns up to 20 ranked results.</div>
+    <div class="params">
+      <div class="param"><span class="param-name">q</span><span class="param-desc">Search query, e.g. <code>motorcycle parts Sydney</code></span></div>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="endpoint-row">
+      <span class="method">GET</span>
+      <span class="ep-path">/api/v1/site/:domain</span>
+    </div>
+    <div class="ep-desc">Look up a specific site by domain name.</div>
+    <div class="params">
+      <div class="param"><span class="param-name">:domain</span><span class="param-desc">Domain name, e.g. <code>example.com</code> (no https://)</span></div>
+    </div>
+  </div>
+
+  <div class="code-block"><pre><span class="cm"># Search example</span>
+curl -H <span class="st">"Authorization: Bearer ail_your_key_here"</span> \
+  <span class="st">"https://ailattice.io/api/v1/search?q=dentist+melbourne"</span>
+
+<span class="cm"># Response</span>
+{
+  <span class="st">"ok"</span>: <span class="kw">true</span>,
+  <span class="st">"q"</span>: <span class="st">"dentist melbourne"</span>,
+  <span class="st">"results"</span>: [
+    {
+      <span class="st">"domain"</span>: <span class="st">"https://exampledental.com.au"</span>,
+      <span class="st">"name"</span>: <span class="st">"Example Dental Melbourne"</span>,
+      <span class="st">"description"</span>: <span class="st">"Family dentistry in Fitzroy, Melbourne since 1998."</span>,
+      <span class="st">"score"</span>: <span class="num">87</span>,
+      <span class="st">"tags"</span>: [<span class="st">"dentist"</span>, <span class="st">"dental"</span>, <span class="st">"melbourne"</span>, <span class="st">"family dentistry"</span>],
+      <span class="st">"location"</span>: <span class="st">"Fitzroy, VIC, Australia"</span>
+    }
+  ],
+  <span class="st">"used_today"</span>: <span class="num">1</span>,
+  <span class="st">"daily_limit"</span>: <span class="num">500</span>
+}</pre></div>
+
+  <h2>MCP — native AI agent integration</h2>
+  <div class="mcp-badge">⬡ Model Context Protocol</div>
+  <p>AILattice exposes an MCP-compatible endpoint so AI assistants (Claude, Cursor, and any MCP-aware agent) can query the registry as a native tool — no custom code needed.</p>
+
+  <h3>Endpoint</h3>
+  <div class="code-block"><pre>POST https://ailattice.io/api/mcp
+Authorization: Bearer ail_your_key_here
+Content-Type: application/json</pre></div>
+
+  <h3>Available tools</h3>
+  <div class="endpoint">
+    <div class="endpoint-row"><span class="ep-path">search_registry</span></div>
+    <div class="ep-desc">Search by keyword, topic, or location. Returns up to 10 ranked results.</div>
+  </div>
+  <div class="endpoint">
+    <div class="endpoint-row"><span class="ep-path">get_site</span></div>
+    <div class="ep-desc">Look up a specific domain in the registry.</div>
+  </div>
+  <div class="endpoint">
+    <div class="endpoint-row"><span class="ep-path">list_registry</span></div>
+    <div class="ep-desc">List the registry, filtered by topic and/or location.</div>
+  </div>
+
+  <h3>Claude Desktop config</h3>
+  <div class="code-block"><pre><span class="cm">// claude_desktop_config.json</span>
+{
+  <span class="st">"mcpServers"</span>: {
+    <span class="st">"ailattice"</span>: {
+      <span class="st">"command"</span>: <span class="st">"npx"</span>,
+      <span class="st">"args"</span>: [<span class="st">"-y"</span>, <span class="st">"mcp-remote"</span>],
+      <span class="st">"env"</span>: {
+        <span class="st">"MCP_SERVER_URL"</span>: <span class="st">"https://ailattice.io/api/mcp"</span>,
+        <span class="st">"MCP_API_KEY"</span>: <span class="st">"ail_your_key_here"</span>
+      }
+    }
+  }
+}</pre></div>
+
+  <h3>Direct JSON-RPC call example</h3>
+  <div class="code-block"><pre>curl -X POST https://ailattice.io/api/mcp \
+  -H <span class="st">"Authorization: Bearer ail_your_key_here"</span> \
+  -H <span class="st">"Content-Type: application/json"</span> \
+  -d <span class="st">'{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "tools/call",
+    "params": {
+      "name": "search_registry",
+      "arguments": { "q": "accountant london" }
+    }
+  }'</span></pre></div>
+
+  <h3>Python / OpenAI-style agent</h3>
+  <div class="code-block"><pre><span class="kw">import</span> requests
+
+<span class="kw">def</span> search_ailattice(query, api_key):
+    r = requests.post(
+        <span class="st">"https://ailattice.io/api/mcp"</span>,
+        headers={<span class="st">"Authorization"</span>: f<span class="st">"Bearer {api_key}"</span>},
+        json={
+            <span class="st">"jsonrpc"</span>: <span class="st">"2.0"</span>, <span class="st">"id"</span>: <span class="num">1</span>,
+            <span class="st">"method"</span>: <span class="st">"tools/call"</span>,
+            <span class="st">"params"</span>: {<span class="st">"name"</span>: <span class="st">"search_registry"</span>, <span class="st">"arguments"</span>: {<span class="st">"q"</span>: query}}
+        }
+    )
+    <span class="kw">return</span> r.json()[<span class="st">"result"</span>][<span class="st">"content"</span>][<span class="num">0</span>][<span class="st">"text"</span>]</pre></div>
+
+  <div style="margin-top:56px;padding-top:32px;border-top:1px solid var(--border);text-align:center">
+    <div style="font-size:20px;font-weight:700;color:var(--heading);margin-bottom:8px">Get your API key</div>
+    <p style="color:var(--text-dim);margin-bottom:20px">Free account — key is in your dashboard immediately.</p>
+    <a href="/signup" style="display:inline-block;background:var(--green);color:#fff;font-weight:700;font-size:15px;padding:13px 32px;border-radius:8px;text-decoration:none">Sign up free →</a>
+    <span style="display:inline-block;margin:0 16px;color:var(--text-dim);font-size:14px">or</span>
+    <a href="/dashboard" style="display:inline-block;border:1px solid var(--border);color:var(--heading);font-weight:600;font-size:15px;padding:13px 32px;border-radius:8px;text-decoration:none">Go to dashboard →</a>
+  </div>
+
+</div>
+
+<script>
+fetch('/api/auth/me').then(r=>r.ok?r.json():null).then(d=>{
+  if(!d)return;
+  const si=document.getElementById('navSignIn');
+  const su=document.getElementById('navSignUp');
+  if(si)si.style.display='none';
+  if(su){su.textContent='Dashboard';su.href='/dashboard';}
+}).catch(()=>{});
+</script>
+</body>
+</html>
