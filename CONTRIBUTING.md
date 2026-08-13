@@ -15,7 +15,7 @@ The Introduction Layer specification (`drafts/specification.md`) is governed by 
 W3C Introduction Layer Community Group. It is licensed CC BY 4.0.
 
 **To propose a change to the specification:**
-1. Join the W3C Introduction Layer Community Group: https://www.w3.org/community/groups/proposed/#intro-layer
+1. Join the W3C Introduction Layer Community Group: https://www.w3.org/community/intro-layer/
 2. Open a GitHub Issue describing the proposed change and your reasoning
 3. The community group reviews and discusses
 4. Accepted changes are incorporated into the next draft version
