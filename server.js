@@ -270,7 +270,27 @@ last-updated: ${today}
 ## All pages
 ${sitemapLinks}${footer}`;
 
-  return { name: siteName, description: siteDesc, address: siteAddr, location: '', tags: tags || [], llms_txt, ai_index, ai_sitemap };
+  const intro_txt =
+`# intro.txt — Introduction Layer declaration
+# Spec: https://ailattice.io/paper
+
+name:           ${siteName}
+canonical_url:  ${url}
+category:       ${tags && tags.length ? tags.slice(0, 2).join(' / ') : 'Website'}
+mission:        ${siteDesc}
+
+constraints:
+  - Will never [add your first constraint here]
+  - Will never [add your second constraint here]
+
+what_this_is_not:
+  - Not [add what this is not]
+
+contact:        ${siteAddr || '[your contact email]'}
+constitution:   ${url}/constitution
+`;
+
+  return { name: siteName, description: siteDesc, address: siteAddr, location: '', tags: tags || [], llms_txt, ai_index, ai_sitemap, intro_txt };
 }
 
 // ── ZIP builder (STORE, no compression) ──────────────────────────────────────
@@ -467,7 +487,14 @@ async function validateSite(rawUrl) {
   if (htmlOk) score += 5;
   checks.push({ id: 'html_link', label: 'HTML <link rel="alternate"> discovery tag', ok: htmlOk, points: htmlOk ? 5 : 0, max: 5 });
 
-  // 9 — Schema.org JSON-LD (informational — Google AI Overviews)
+  // 9 — /intro.txt exists (10 pts)
+  const intro = await probe('/intro.txt');
+  const introOk = intro.status === 200 && intro.body.includes('name:') && intro.body.includes('constraints:');
+  if (introOk) score += 10;
+  checks.push({ id: 'intro_txt', label: '/intro.txt found (Introduction Layer)', ok: introOk, points: introOk ? 10 : 0, max: 10,
+    detail: introOk ? 'Identity declaration found' : 'Missing — declare your identity to AI agents. See ailattice.io/paper' });
+
+  // 10 — Schema.org JSON-LD (informational — Google AI Overviews)
   const schemaOk = html.status === 200 && /type=["']application\/ld\+json["']/.test(html.body);
   checks.push({ id: 'schema_org', label: 'Schema.org structured data (Google AI)', ok: schemaOk, points: 0, max: 0,
     detail: schemaOk ? 'Found — helps Google AI Overviews cite your site' : 'Missing — add the generated JSON-LD snippet to your <head> to improve Google AI Overviews visibility' });
@@ -1610,7 +1637,7 @@ http.createServer(async (req, res) => {
         const crawl = await crawlSite(url);
         const gen   = generateAIFiles(crawl, { name, description, tags, address });
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ ok: true, url: crawl.url, name: gen.name, description: gen.description, llms_txt: gen.llms_txt, ai_index: gen.ai_index, ai_sitemap: gen.ai_sitemap }));
+        res.end(JSON.stringify({ ok: true, url: crawl.url, name: gen.name, description: gen.description, llms_txt: gen.llms_txt, ai_index: gen.ai_index, ai_sitemap: gen.ai_sitemap, intro_txt: gen.intro_txt }));
       } catch(e) {
         res.writeHead(400, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: e.message }));
@@ -1630,6 +1657,7 @@ http.createServer(async (req, res) => {
       const fakeCrawl = { url: entry.site_url, title: entry.site_name || '', metaDesc: entry.description || '', homeText: '', extraPages: [], schemaAddress: entry.address || '' };
       const gen  = generateAIFiles(fakeCrawl, { name: entry.site_name, description: entry.description, tags: entry.tags, address: entry.address });
       const zip  = buildZip([
+        { name: 'intro.txt',     data: gen.intro_txt  },
         { name: 'llms.txt',      data: gen.llms_txt   },
         { name: 'ai/index.md',   data: gen.ai_index   },
         { name: 'ai/sitemap.md', data: gen.ai_sitemap },
