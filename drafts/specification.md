@@ -216,6 +216,74 @@ The following separations are REQUIRED and MUST NOT be collapsed:
 
 **Intent / inference separation:** A conforming consuming system MUST distinguish between inherited introductions and inferred models. It MUST NOT treat an inferred model as equivalent to an inherited constitution. This derives from Design Principle P.1.
 
+### 5.4 The Domain Extension Architecture
+
+The three-layer model (Section 5.1) describes how information flows between entities and consuming systems. This section describes how the introduction layer is designed to support domain specialisation above it, without compromising its universality below.
+
+#### 5.4.1 The constitutional layer as a universal floor
+
+The introduction layer specifies the minimum sufficient constitutional parameters that any entity in any domain must declare. This minimalism is structural, not incidental. A standard that requires healthcare-specific fields cannot be adopted by logistics systems. A standard that requires financial regulatory fields cannot be adopted by consumer applications. A standard that requires any domain-specific field cannot be universal.
+
+The introduction layer therefore defines the smallest constitutional set that materially changes how a consuming system reasons about any entity — and stops there by design. Above that floor, domain systems introduce their own requirements. A healthcare AI adds clinical governance constraints. A financial compliance system adds regulatory parameters. An autonomous recovery system adds operational integrity protocols. These additions are not exceptions to the constitutional layer. They are the designed space above it.
+
+Design Principle P.8 already implies this: the constitution is the highest-relevance minimum sufficient set. It follows that everything beyond the minimum sufficient set belongs above the constitutional layer, not within it.
+
+#### 5.4.2 The open/closed boundary
+
+The architectural consequence is a clean boundary between what this specification governs and what domain implementers own:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  Domain Extension Layer                                     │
+│  Proprietary · Evolving · Domain-specific                   │
+│                                                             │
+│  Clinical governance fields · Regulatory parameters ·       │
+│  Operational recovery protocols · Industry constraints ·    │
+│  Any domain-specific governance the implementer requires    │
+│                                                             │
+│  MUST NOT weaken constitutional constraints below.          │
+│  MAY add constraints beyond the constitutional minimum.     │
+│  Otherwise unconstrained by this specification.             │
+│                                                             │
+├─────────────────────────────────────────────────────────────┤  ← This specification
+│  Constitutional Layer — The Introduction Layer              │
+│  Open standard · Stable · Universal                         │
+│                                                             │
+│  Identity · Mission · Core belief · Operating principles ·  │
+│  Constraints · Disambiguation · Evaluation criteria         │
+│                                                             │
+│  Fully specified by this document.                          │
+└─────────────────────────────────────────────────────────────┘
+```
+
+Everything below the boundary is this specification. Everything above it is implementation freedom — and the designed location of proprietary domain value.
+
+This boundary is where the standard becomes an ecosystem. Two systems built by different organisations on the same constitutional foundation can exchange constitutional frames without prior negotiation. Their domain extensions may be entirely incompatible. Their constitutional frames are not. The standard enables interoperability at the foundation precisely because it does not prescribe what sits above it.
+
+#### 5.4.3 Constitutional continuity during operational evolution
+
+A frequently asked architectural question is: how is constitutional continuity preserved when the operational systems above it evolve continuously?
+
+The answer is structural separation, not runtime enforcement.
+
+The constitutional layer does not evolve on operational timescales. It changes only when an entity's fundamental governing intent changes — which is rare by design (see Section 6.4, Stability requirement). Domain layers evolve continuously. Operational state changes on every interaction. Neither evolution propagates downward into the constitutional layer.
+
+A consuming system that inherits a constitution at the cognitive entrypoint (Section 9) receives a stable frame regardless of how much the domain layer above it has changed since the last session. The constitutional layer is not a constraint on operational evolution. It is the anchor that makes operational evolution safe — the fixed point that allows everything above it to move without losing orientation.
+
+```
+Constitutional layer:   ─────────────────────────────── (stable; changes rarely)
+                                         ↑ anchors
+Domain layer:           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ (evolves on business timescales)
+                                         ↑ anchors
+Operational state:      ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ (changes every session)
+```
+
+The implication for system design: an Evaluator (Section 8) checking constitutional conformance does not need to know the state of the domain layer or the operational state. It checks one thing: does this output respect the constitutional frame? The constitutional layer is always available, always current, and always authoritative — because it is the layer designed not to change.
+
+#### 5.4.4 Conformance note
+
+This specification does not govern domain extension layers. Domain-specific field requirements, domain-specific governance mechanisms, and domain-specific operational state management are explicitly outside the scope of this specification (Section 13.2). A conforming implementation MUST satisfy the constitutional layer requirements of this specification regardless of what domain extensions are layered above it. A domain extension MUST NOT weaken or override constitutional constraints. It MAY add constraints beyond the constitutional minimum.
+
 ---
 
 ## 6. The Constitution
@@ -576,7 +644,7 @@ This specification explicitly does not cover:
 - Specific registry implementation design
 - Authentication and authorisation mechanisms for constitution endpoints
 - Application-layer systems built on top of a conforming implementation
-- Domain-specific constitution field requirements beyond the required minimum
+- Domain-specific constitution field requirements beyond the required minimum (see Section 5.4 for the architectural rationale)
 - Pricing, licensing, or commercial terms for implementations
 
 ### 13.3 Implementation freedom

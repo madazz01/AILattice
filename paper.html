@@ -201,6 +201,15 @@
     margin-top: 32px;
   }
 
+  h4 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--heading);
+    margin-bottom: 10px;
+    margin-top: 26px;
+  }
+
   p { margin-bottom: 18px; }
   p:last-child { margin-bottom: 0; }
   strong { font-weight: 700; }
@@ -563,6 +572,46 @@ Evaluator ──► verdict (proceed / flag / reject)</pre>
     <p><strong>Generation / governance separation:</strong> The system that generates a constitution <span class="rfc">must not</span> be the same system that certifies it. Independent evaluation (P.2) is a hard requirement, not a preference.</p>
     <p><strong>Entity / consuming system separation:</strong> The entity controls its constitution. The consuming system does not modify, override, or reinterpret the constitution prior to inheritance. A consuming system <span class="rfc">may</span> decline to act on a low-coverage constitution; it <span class="rfc">must not</span> alter its content.</p>
     <p><strong>Intent / inference separation:</strong> A conforming consuming system <span class="rfc">must</span> distinguish between inherited introductions and inferred models. It <span class="rfc">must not</span> treat an inferred model as equivalent to an inherited constitution.</p>
+
+    <h3>5.4 The Domain Extension Architecture</h3>
+
+    <h4>5.4.1 The constitutional layer as universal floor</h4>
+    <p>The minimalism requirement of P.8 — that the constitution carries only information that materially changes how a consuming system reasons — is not merely a content guideline. It is a structural consequence of the architecture's purpose: to define a universal floor that survives the full diversity of entities and consuming systems that will build on top of it.</p>
+    <p>A constitution that incorporates domain-specific fields is a constitution that requires consuming systems to understand those domains before inheriting it. That requirement is the translation cost problem (Section 1) re-introduced at the architectural level. The constitutional layer avoids this by remaining at the level of governing intent — purpose, constraints, principles — which is universal across all entity types.</p>
+    <p>Everything domain-specific sits above this floor, not inside it.</p>
+
+    <h4>5.4.2 The open/closed boundary</h4>
+    <p>The Introduction Layer specification defines a boundary between two layers with different governance properties:</p>
+    <pre>┌─────────────────────────────────────────────────┐
+│            Domain Extension Layer               │
+│  Proprietary · evolving · entity-specific       │
+│  (field formats, scoring, integration logic)    │
+├─────────────────────────────────────────────────┤
+│          Constitutional Layer (this spec)       │
+│  Open · stable · universal                      │
+│  (identity, mission, principles, constraints)   │
+└─────────────────────────────────────────────────┘</pre>
+    <p>The constitutional layer is open: it is governed by this specification, free to implement, and stable across implementations. The domain extension layer is where proprietary systems — sector registries, vertical intelligence engines, compliance frameworks — add the fields their use case requires. These extensions sit above the constitutional layer. They do not modify it.</p>
+    <p>This boundary is the mechanism by which the standard remains a universal floor while remaining commercially viable for the parties that invest in building on top of it.</p>
+
+    <h4>5.4.3 Constitutional continuity during operational evolution</h4>
+    <p>A common objection to any constitutional standard is that real operational systems evolve — pricing changes, personnel change, offerings change — and a static constitutional declaration cannot track this evolution without becoming a maintenance burden or a source of stale data.</p>
+    <p>The architecture resolves this through layer separation, not through constitutional updates:</p>
+    <pre>Layer 3 — Intent (constitutional, this spec, stable)
+  ↑ does not change when Layer 2 changes
+Layer 2 — Context (RAG, sessions, query-scoped, evolving)
+  ↑ does not change when Layer 1 changes
+Layer 1 — Content (web pages, APIs, sensors, continuously updated)</pre>
+    <p>Operational evolution is a Layer 1 and Layer 2 concern. The constitution changes only when an entity's governing intent changes — not when its operational state changes. Constitutional continuity is preserved by structural separation of layers, not by runtime enforcement. An entity whose pricing changes does not need to update its constitution. An entity whose core belief changes does.</p>
+
+    <h4>5.4.4 Conformance note</h4>
+    <p>Domain extension systems built on a conforming constitutional layer:</p>
+    <ul>
+      <li><span class="rfc">must not</span> weaken any constitutional field — constraints declared in the constitution remain binding at all layers above it</li>
+      <li><span class="rfc">must not</span> substitute domain extension fields for required constitutional fields — the constitutional minimum (Section 6.2) is not optional for any conforming implementation</li>
+      <li><span class="rfc">may</span> add additional field requirements, scoring mechanisms, verification procedures, or certification tiers above the constitutional minimum</li>
+      <li><span class="rfc">must</span> disclose which layer governs each field — a consuming system <span class="rfc">must</span> be able to determine whether a constraint is constitutional (this specification) or domain-extension (proprietary)</li>
+    </ul>
   </section>
 
   <!-- 6 -->
@@ -774,7 +823,7 @@ Evaluator ──► verdict (proceed / flag / reject)</pre>
     <p>This specification covers: the architectural layer definition and its required components; the constitution format and required fields; Evidence Coverage definitions, formal properties, and threshold guidance; Evaluator interface and outcome definitions; cognitive entrypoint timing requirements; forward integration requirements; discovery conventions; canonical representation; authoring format equivalence; and the ownership principle.</p>
 
     <h3>13.2 Out of scope</h3>
-    <p>This specification explicitly does not cover: how constitutions are generated; what language model or reasoning engine is used by any component; specific registry implementation design; authentication and authorisation mechanisms; application-layer systems built on top of a conforming implementation; domain-specific constitution field requirements beyond the required minimum; or pricing, licensing, or commercial terms for implementations.</p>
+    <p>This specification explicitly does not cover: how constitutions are generated; what language model or reasoning engine is used by any component; specific registry implementation design; authentication and authorisation mechanisms; application-layer systems and domain extension layers built on top of a conforming implementation (see Section 5.4 for the open/closed boundary); domain-specific constitution field requirements beyond the required minimum defined in Section 6.2; or pricing, licensing, or commercial terms for implementations.</p>
 
     <h3>13.3 Implementation freedom</h3>
     <p>Within the constraints of this specification, implementers have full freedom in technology stack, generation mechanism, registry architecture, user interface, pricing model, and deployment topology. The specification defines what a conforming implementation guarantees. It does not define how those guarantees are achieved.</p>
