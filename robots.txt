@@ -1,5 +1,11 @@
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /dashboard
+Disallow: /submit
+Host: https://ailattice.io
 
 # AI crawlers — you are explicitly welcome here.
 # This site exists for AI. The /ai/ layer is built for you.
@@ -48,4 +54,5 @@ User-agent: Omgilibot
 Allow: /
 
 # AI entry point
+Sitemap: https://ailattice.io/sitemap.xml
 Sitemap: https://ailattice.io/ai/sitemap.md
